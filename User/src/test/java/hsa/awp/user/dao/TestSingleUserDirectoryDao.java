@@ -430,6 +430,7 @@ public class TestSingleUserDirectoryDao extends GenericDaoTest<SingleUser, Singl
     startTransaction();
     SingleUser uSec = getDao().findByUsername(sec.getProperty(IAbstractDirectory.LOGIN));
     SingleUser uStudent = getDao().findByUsername(student.getProperty(IAbstractDirectory.LOGIN));
+    ((Student)uStudent).setStudyCourse(null);
     getDao().findByUsername(teacher.getProperty(IAbstractDirectory.LOGIN));
     commit();
 
