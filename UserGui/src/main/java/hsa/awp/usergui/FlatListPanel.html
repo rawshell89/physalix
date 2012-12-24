@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+        xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Insert title here</title>
+    <wicket:head>
+        <link rel="Stylesheet" type="text/css" href="resources/hsa.awp.usergui.HomePage/FlatlistPanel.css"/>
+    </wicket:head>
+</head>
+<body>
+
+<wicket:panel>
+
+
+    <div id="flatlistBox">
+
+        <div wicket:id="flatlist.container">
+            <span wicket:id="flatlist.userInfo"> Kampangenname: Phase: Phasenname vom xx.xx.xx. hh:mm bis xx.xx.xx hh:mm</span>
+
+            <div class="refresh">
+                <a wicket:id="flatlist.refresh">aktualisieren</a>
+                <span wicket:id="flatlist.date"/>
+            </div>
+
+            <ul class="firstLevel">
+                <li wicket:id="categorylist"><span
+                        class="categorylistName" wicket:id="categoryname"></span>
+                    <ul class="secondLevel">
+                        <li>
+                            <table>
+                                <tbody>
+                                <tr class="flatlist_line" wicket:id="eventlist">
+                                    <td><a wicket:id="submited"><img wicket:id="icon"
+                                                                     src="images/join.png" alt="join"/></a></td>
+                                    <td><span class="flatlist_eventNumber" wicket:id="eventNumber"></span></td>
+                                    <td><span class="flatlist_subjectlist" wicket:id="subjectname"></span></td>
+                                    <td><span class="flatlist_subjectlist" wicket:id="eventdescription"></span></td>
+                                    <td><span class="flatlist_subjectlist" wicket:id="eventplaces"></span></td>
+                                    <td><a wicket:id="infoLink"
+                                           class="tooltip"> <img src="images/info.png" alt="info"
+                                                                 border="0"/> <span>Details</span> </a></td>
+                                    <td>
+                                        <div wicket:id="detailWindow"></div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="legend">
+        <h3>Legende</h3>
+        <ul>
+            <li>
+                <span class="key"><img src="images/green.png"/></span>
+                <span>Plätze sind verfügbar</span>
+            </li>
+
+            <li>
+                <span class="key"><img src="images/yellow.png"/></span>
+                <span>Weniger als </span><span wicket:id="flatlist.capacity"/><span>% der Plätze sind verfügbar</span>
+            </li>
+
+            <li>
+                <span class="key"><img src="images/red.png"/></span>
+                <span>Alle Plätze sind belegt</span>
+            </li>
+
+            <li>
+                <span class="key"><img class="key" src="images/info.png"/></span>
+                <span>weitere Informationen</span>
+            </li>
+
+            <li>
+                <span class="key">(2/5)</span>
+                <span>2 Plätze von 5 sind belegt</span>
+            </li>
+        </ul>
+        <h3>Hilfe</h3>
+        <h4>Direkteinbuchung</h4>
+
+        <div>
+            <p>W&auml;hrend dieser Phase K&ouml;nnen Sie freie Pl&auml;tze direkt buchen.</p>
+
+            <p>Um einen Platz zu buchen: Klicken Sie auf das Symbol vorne am entsprechenden Eintrag.</p>
+
+            <p>Sie k&ouml;nnen Ihre Buchungen auch jederzeit &uuml;ber die Auswahl "Buchungen vewalten" einsehen und
+                auch wieder l&ouml;schen. </p>
+        </div>
+    </div>
+</wicket:panel>
+
+</body>
+</html>

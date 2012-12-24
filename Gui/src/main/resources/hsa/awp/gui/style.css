@@ -1,0 +1,97 @@
+/*
+ * Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+ *               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+ *               Alexander Rampp, Kai Weidner
+ *
+ * This file is part of the Physalix Enrollment System
+ *
+ * Foobar is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+body {
+    text-align: center;
+}
+
+form {
+    width: 400px;
+    border: 2px #c3c3c3 solid;
+    padding: 10px;
+
+    margin: 0 auto;
+    margin-top: 80px;
+}
+
+form div.container {
+    margin-top: 40px;
+    margin-left: 20px;
+}
+
+form label {
+    display: inline-block;
+    width: 200px;
+
+}
+
+form div.header h1 {
+    font-size: 21px;
+    margin-left: 100px;
+}
+
+form div.header img {
+    float: left;
+}
+
+form div.container div {
+    margin: 3px;
+}
+
+<!--
+Feedback Panel
+
+-->
+
+ul.feedbackPanel li {
+    list-style: none;
+
+    border-left-width: 2px;
+    border-right-width: 2px;
+}
+
+ul.feedbackPanel li:first-child {
+    border-top-width: 2px;
+}
+
+ul.feedbackPanel li:last-child {
+    border-bottom-width: 2px;
+}
+
+ul.feedbackPanel li {
+    list-style: none;
+    font-size: 12px;
+}
+
+ul.feedbackPanel li.feedbackPanelERROR {
+    color: #fa0000;
+}
+
+ul.feedbackPanel li.feedbackPanelFATAL {
+    border-color: #fa0000;
+    color: #border-color: #fa0000;
+}
+
+ul.feedbackPanel li.feedbackPanelINFO {
+    color: #084dfb;
+}
+
+

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="common.template.service" class="hsa.awp.common.services.TemplateService">
+        <property name="velocityEngine" ref="velocityEngine"></property>
+        <property name="templateJarDao" ref="common.template.dao.jar"></property>
+        <property name="templateFileSystemDao" ref="common.template.dao.filesystem"></property>
+    </bean>
+
+    <bean name="common.template.dao.filesystem" class="hsa.awp.common.dao.template.TemplateFileSystemDao">
+        <property name="templatePath" value="$temp{template.path}"/>
+        <property name="resource" value="$temp{velocity.engine.config}"/>
+    </bean>
+
+    <bean name="common.template.dao.jar" class="hsa.awp.common.dao.template.TemplateJarDao">
+        <property name="defaultTemplatePath" value="/templates/"/>
+    </bean>
+
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="configLocation" value="$temp{velocity.engine.config}"/>
+    </bean>
+
+    <bean name="common.template.properties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="false"></property>
+        <property name="placeholderPrefix" value="$temp{"></property>
+        <property name="ignoreResourceNotFound" value="true"></property>
+        <property name="locations">
+            <list>
+                <value>classpath:config/template.default.properties</value>
+                <value>classpath:physalix/template.properties</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

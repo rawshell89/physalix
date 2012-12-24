@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+
+
+    <persistence-unit name="InMemory">
+
+        <!-- Event component -->
+        <class>hsa.awp.event.model.Category</class>
+        <class>hsa.awp.event.model.Event</class>
+        <class>hsa.awp.event.model.Exam</class>
+        <class>hsa.awp.event.model.Subject</class>
+        <class>hsa.awp.event.model.Term</class>
+        <class>hsa.awp.event.model.Timetable</class>
+        <class>hsa.awp.event.model.Occurrence</class>
+
+        <!-- Campaign component -->
+        <class>hsa.awp.campaign.model.Campaign</class>
+        <class>hsa.awp.campaign.model.ConfirmedRegistration</class>
+        <class>hsa.awp.campaign.model.DrawProcedure</class>
+        <class>hsa.awp.campaign.model.FifoProcedure</class>
+        <class>hsa.awp.campaign.model.PriorityList</class>
+        <class>hsa.awp.campaign.model.PriorityListItem</class>
+        <class>hsa.awp.campaign.model.Procedure</class>
+        <class>hsa.awp.campaign.model.Ticket</class>
+        <class>hsa.awp.campaign.model.PriorityListItem</class>
+
+        <!-- User component -->
+        <class>hsa.awp.user.model.User</class>
+        <class>hsa.awp.user.model.Group</class>
+        <class>hsa.awp.user.model.SingleUser</class>
+        <class>hsa.awp.user.model.Student</class>
+        <class>hsa.awp.user.model.StudyCourse</class>
+        <class>hsa.awp.user.model.Mandator</class>
+        <class>hsa.awp.user.model.RoleMapping</class>
+
+        <!-- Rule component -->
+        <class>hsa.awp.rule.model.Rule</class>
+        <class>hsa.awp.rule.model.TermRule</class>
+        <class>hsa.awp.rule.model.StudyCourseAndTermRule</class>
+        <class>hsa.awp.rule.model.StudyCourseRule</class>
+        <class>hsa.awp.rule.model.RuleSet</class>
+        <class>hsa.awp.rule.model.RegistrationRuleSet</class>
+
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:testdb"/>
+            <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+            <property name="hibernate.connection.provider.class"
+                      value="org.hibernate.connection.DriverManagerConnectionProvider"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+        </properties>
+
+    </persistence-unit>
+
+
+    <persistence-unit name="RealDatabase">
+
+        <!-- Event component -->
+        <class>hsa.awp.event.model.Category</class>
+        <class>hsa.awp.event.model.Event</class>
+        <class>hsa.awp.event.model.Exam</class>
+        <class>hsa.awp.event.model.Subject</class>
+        <class>hsa.awp.event.model.Term</class>
+        <class>hsa.awp.event.model.Timetable</class>
+        <class>hsa.awp.event.model.Occurrence</class>
+
+        <!-- Campaign component -->
+        <class>hsa.awp.campaign.model.Campaign</class>
+        <class>hsa.awp.campaign.model.ConfirmedRegistration</class>
+        <class>hsa.awp.campaign.model.DrawProcedure</class>
+        <class>hsa.awp.campaign.model.FifoProcedure</class>
+        <class>hsa.awp.campaign.model.PriorityList</class>
+        <class>hsa.awp.campaign.model.PriorityListItem</class>
+        <class>hsa.awp.campaign.model.Procedure</class>
+        <class>hsa.awp.campaign.model.Ticket</class>
+        <class>hsa.awp.campaign.model.PriorityListItem</class>
+
+        <!-- User component -->
+        <class>hsa.awp.user.model.User</class>
+        <class>hsa.awp.user.model.Group</class>
+        <class>hsa.awp.user.model.SingleUser</class>
+        <class>hsa.awp.user.model.Student</class>
+        <class>hsa.awp.user.model.StudyCourse</class>
+        <class>hsa.awp.user.model.Mandator</class>
+        <class>hsa.awp.user.model.RoleMapping</class>
+
+        <!-- Rule component -->
+        <class>hsa.awp.rule.model.Rule</class>
+        <class>hsa.awp.rule.model.TermRule</class>
+        <class>hsa.awp.rule.model.StudyCourseAndTermRule</class>
+        <class>hsa.awp.rule.model.StudyCourseRule</class>
+        <class>hsa.awp.rule.model.RuleSet</class>
+        <class>hsa.awp.rule.model.RegistrationRuleSet</class>
+
+    </persistence-unit>
+
+</persistence>

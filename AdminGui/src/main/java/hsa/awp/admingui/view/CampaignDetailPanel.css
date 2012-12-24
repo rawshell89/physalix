@@ -1,0 +1,74 @@
+/*
+ * Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+ *               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+ *               Alexander Rampp, Kai Weidner
+ *
+ * This file is part of the Physalix Enrollment System
+ *
+ * Foobar is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+div#campaignDetailPanel ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+div#campaignDetailPanel h3 {
+    background-color: #fff21c;
+    padding: 4px;
+    margin: 6px 0px 0px 0px;
+}
+
+div#campaignDetailPanel h4 {
+
+    margin: 0px;
+}
+
+div#campaignDetailPanel ul.subjectList {
+    margin-left: 20px;
+    border-left: 2px #ffbe41 solid;
+    padding-left: 10px;
+}
+
+div#campaignDetailPanel ul.subjectList li.subject {
+    padding-top: 10px;
+}
+
+div#campaignDetailPanel ul.eventList {
+    margin-left: 20px;
+}
+
+div#campaignDetailPanel div.detail {
+    margin-bottom: 20px;
+}
+
+div#campaignDetailPanel div.detail span {
+    display: inline-block;
+}
+
+div#campaignDetailPanel div.detail span.key {
+    width: 200px;
+}
+
+div#campaignDetailPanel div.detail span.progress {
+    width: 200px;
+    border: 1px #ffbe41 solid;
+    height: 10px;
+}
+
+div#campaignDetailPanel div.detail span.progress span {
+    height: 10px;
+    background-color: #ffbe41;
+}

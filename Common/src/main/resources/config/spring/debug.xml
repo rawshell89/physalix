@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <bean id="common.logging.debugInterceptor" class="hsa.awp.common.logging.DebugInterceptor">
+        <property name="logException" value="true"></property>
+        <property name="logInTargetContext" value="true"></property>
+        <property name="logParamters" value="true"></property>
+        <property name="logReturnValue" value="true"></property>
+    </bean>
+
+    <bean id="test" class="org.springframework.aop.interceptor.DebugInterceptor">
+        <property name="useDynamicLogger" value="true"></property>
+    </bean>
+
+    <aop:config>
+        <!-- 
+        <aop:pointcut id="common.logging.facadePointcut" expression="execution (* hsa.awp.*.I*.* (..))" />
+         -->
+        <aop:pointcut id="common.logging.facadePointcut" expression="execution (* hsa.awp.*.facade.I*Facade.* (..))"/>
+        <aop:pointcut id="common.logging.daoPointcut" expression="execution (* hsa.awp.*.dao.I*Dao.* (..))"/>
+        <aop:pointcut id="common.logging.scirePointcut" expression="execution (* hsa.awp.scire.*.I*.* (..))"/>
+
+        <aop:advisor advice-ref="common.logging.debugInterceptor" pointcut-ref="common.logging.facadePointcut"/>
+
+        <aop:advisor advice-ref="common.logging.debugInterceptor" pointcut-ref="common.logging.daoPointcut"/>
+        <aop:advisor advice-ref="common.logging.debugInterceptor" pointcut-ref="common.logging.scirePointcut"/>
+        <!--  -->
+    </aop:config>
+
+</beans>

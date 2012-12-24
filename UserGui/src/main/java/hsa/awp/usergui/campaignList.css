@@ -1,0 +1,66 @@
+/*
+ * Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+ *               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+ *               Alexander Rampp, Kai Weidner
+ *
+ * This file is part of the Physalix Enrollment System
+ *
+ * Foobar is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+ul.activeCampaignsList {
+    width: 250px;
+}
+
+ul.activeCampaignsList li {
+    list-style: none;
+    margin-top: 10px;
+    padding: 4px;
+    border: 1px #c3c3c3 solid;
+}
+
+ul.activeCampaignsList li a {
+    color: #000000;
+    text-decoration: none;
+}
+
+ul.activeCampaignsList li a div span.line {
+    display: block;
+}
+
+ul.activeCampaignsList li a div span.name {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+ul.activeCampaignsList li a div span.line span.key {
+    width: 80px;
+    display: inline-block;
+}
+
+ul.activeCampaignsList li a div span.line span.value {
+    margin-left: 10px;
+}
+
+ul.activeCampaignsList li a div span.progress {
+    width: 100%;
+    border: 1px #ededed solid;
+    background-color: #ededed;
+}
+
+ul.activeCampaignsList li a div span.progress span {
+    background-color: #148f00;
+    height: 15px;
+    display: block;
+}

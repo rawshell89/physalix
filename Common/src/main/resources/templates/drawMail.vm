@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+</head>
+<body>
+<p>Sehr geehrte(r) $name,</p>
+
+<p></p>
+
+<p>bei der Anmeldung "$campaign"</p>
+
+<p>haben Sie in der Phase "$procedure"</p>
+
+<p>f&uuml;r folgende Veranstaltungen einen Platz erhalten:</p>
+
+<p></p>
+
+<p>**************************************************</p>
+<ul>$eventlist</ul>
+<p>**************************************************</p>
+
+<p></p>
+
+<p>F&uuml;r die Phase "$procedure" haben Sie folgende</p>
+
+<p>Eintragungen bzw. Wunschlisten abgegeben:</p>
+
+<p></p>
+
+<p>$priolists</p>
+
+<p></p>
+</body>
+</html>
+

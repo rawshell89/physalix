@@ -1,0 +1,52 @@
+/*
+ * Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+ *               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+ *               Alexander Rampp, Kai Weidner
+ *
+ * This file is part of the Physalix Enrollment System
+ *
+ * Foobar is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+ul.campaigns {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul.campaigns li.campaignElement {
+    list-style: none;
+    float: left;
+    border: 1px #d5d5d5 solid;
+    padding: 3px;
+}
+
+ul.campaigns li h3 {
+    border-bottom: 1px #fbfbfb dotted;
+    text-align: center;
+
+    padding: 0px;
+    margin: 0px 0px 3px 0px;
+}
+
+ul.campaigns ul {
+    margin: 0px;
+    padding: 0px;
+    width: 160px;
+}
+
+ul.campaigns ul li {
+    margin: 0px 5px 0px 5px;
+    list-style: none;
+}
+

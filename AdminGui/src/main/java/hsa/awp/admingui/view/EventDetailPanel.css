@@ -1,0 +1,52 @@
+/*
+ * Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+ *               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+ *               Alexander Rampp, Kai Weidner
+ *
+ * This file is part of the Physalix Enrollment System
+ *
+ * Foobar is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+span.eventDetailNavigation div.tab-panel table {
+    border-spacing: 0px;
+}
+
+span.eventDetailNavigation div.tab-panel table thead tr {
+    background-color: #ffe400;
+    font-weight: bold;
+}
+
+span.eventDetailNavigation div.tab-panel table tbody tr:hover {
+    background-color: #e1e1e1;
+}
+
+span.eventDetailNavigation div.tab-panel table tr td {
+    font-size: 14px;
+    padding: 0px 3px 0px 3px;
+}
+
+form.createRegistration div.send {
+    margin: 20px 0px 0px 0px;
+}
+
+form.createRegistration div.send input {
+    float: left;
+}
+
+div.keyvalue span.key {
+    display: inline-block;
+    width: 200px;
+}
+

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Insert title here</title>
+</head>
+
+
+<body>
+<wicket:panel>
+    <style>
+        div#wrapper {
+            width: auto;
+            margin: 0;
+            clear: both;
+        }
+
+        div#selector {
+            float: left;
+            width: 170px;
+            margin: 20px 0px 0px 3px;
+            border: 2px #d6d6d6 solid;
+        }
+
+        div#selector ul {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        div#selector h1 {
+            font-weight: bold;
+            text-align: center;
+            font-size: 12px;
+            background-color: #d3d3d3;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        div#selector ul li a {
+            text-decoration: none;
+            display: block;
+            color: #000000;
+            padding: 2px 3px 2px 3px;
+        }
+
+        div#selector ul li a:hover {
+            background-color: #d6d6d6;
+            color: #ff5e00;
+        }
+
+        div#item {
+            border: 1px #d6d6d6 solid;
+        }
+
+        div#buttons {
+            margin-top: 40px;
+            text-align: center;
+            width: 45px;
+            float: left;
+        }
+
+        span#upDown {
+            float: right;
+            text-align: right;
+            font-size: 8px;
+        }
+    </style>
+    <div wicket:id="listSelector.container">
+        <div id="selector">
+            <h1>Verf&uuml;gbare Objekte</h1>
+
+            <div>
+                <ul>
+                    <li wicket:id="listSelector.selectableObjects"><a
+                            wicket:id="listSelector.selectableObjectLink" href="#"><span
+                            wicket:id="listSelector.selectableObjectName"></span></a></li>
+                </ul>
+            </div>
+        </div>
+        <!--
+        <div id="buttons"><input wicket:id="listSelector.right"
+            type="button" value=" &lt;-- " /><br>
+        <input wicket:id="listSelector.left" type="button" value=" --&gt; " />
+        </div>
+        -->
+        <div id="selector">
+            <h1>Ausgew&auml;hlte Objekte</h1>
+
+            <div>
+                <ul>
+                    <li wicket:id="listSelector.selectedObjects">
+                        <div>
+                            <a wicket:id="listSelector.selectedObjectLink" href="#">
+                                <span wicket:id="listSelector.selectedObjectName"></span>
+                            </a>
+                            <a wicket:id="listSelector.selectedObjectUp" href="#">
+                                <span id="upDown">up</span>
+                            </a>
+                            <a wicket:id="listSelector.selectedObjectDown" href="#">
+                                <span id="upDown">down</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</wicket:panel>
+</body>
+</html>

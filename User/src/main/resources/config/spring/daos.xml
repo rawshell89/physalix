@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util">
+
+
+    <bean name="user.dao.group" class="hsa.awp.user.dao.GroupDao" parent="common.dao.abstractDao"/>
+    <bean name="user.dao.user" class="hsa.awp.user.dao.UserDao" parent="common.dao.abstractDao"/>
+    <bean name="user.dao.studyCourse" class="hsa.awp.user.dao.StudyCourseDao" parent="common.dao.abstractDao"/>
+    <bean name="user.dao.mandator" class="hsa.awp.user.dao.MandatorDao" parent="common.dao.abstractDao"/>
+    <bean name="user.dao.roleMapping" class="hsa.awp.user.dao.RoleMappingDao" parent="common.dao.abstractDao"/>
+
+    <!-- SingleUser DB Dao
+	<bean name="user.dao.singleUser" class="hsa.awp.user.dao.SingleUserDbDao" parent="common.dao.abstractDao" />
+    -->
+
+    <!-- SingleUser LDAP Dao -->
+    <bean name="user.dao.singleUser" class="hsa.awp.user.dao.SingleUserDirectoryDao" parent="common.dao.abstractDao">
+        <property name="directory" ref="common.naming.directory"/>
+        <property name="studyCourseDao" ref="user.dao.studyCourse"/>
+        <property name="mandatorDao" ref="user.dao.mandator"/>
+        <property name="roleMappingDao" ref="user.dao.roleMapping"/>
+    </bean>
+
+</beans>

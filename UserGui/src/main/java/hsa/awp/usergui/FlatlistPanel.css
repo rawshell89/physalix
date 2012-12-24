@@ -1,0 +1,92 @@
+/*
+ * Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+ *               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+ *               Alexander Rampp, Kai Weidner
+ *
+ * This file is part of the Physalix Enrollment System
+ *
+ * Foobar is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#flatlistBox {
+}
+
+#flatlistBox ul.firstLevel {
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-top: 15px;
+    list-style-type: none;
+}
+
+#flatlistBox ul.firstLevel li span.categorylistName {
+    border-bottom-color: black;
+    border-top-color: black;
+    border-bottom-style: inset;
+    border-top-style: inset;
+    font-weight: bold;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    color: #f75100;
+    font-size: 14px;
+    text-align: left;
+    font-family: "Lucida Grande", Verdana, Arial;
+
+    min-width: 150px;
+    padding: 2px;
+
+    display: inline-block;
+}
+
+#flatlistBox ul.secondLevel {
+    padding-left: 15px;
+    list-style-type: none;
+}
+
+#flatlistBox ul.secondLevel table {
+    border-spacing: 0px;
+}
+
+#flatlistBox div.refresh {
+    float: right;
+    border: 1px #000000 dotted;
+    padding: 5px;
+    text-align: center;
+}
+
+#flatlistBox div.refresh a {
+    display: block;
+}
+
+.flatlist_subjectlist {
+    font-size: 12px;
+    text-align: left;
+    font-family: "Lucida Grande", Verdana, Arial;
+    padding: 3px;
+}
+
+.flatlist_eventNumber {
+    font-size: 12px;
+    text-align: right;
+    font-family: "Lucida Grande", Verdana, Arial;
+    padding-right: 2px;
+}
+
+tr.flatlist_line:hover {
+    background-color: #D9ECFA;
+}

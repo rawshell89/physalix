@@ -1,0 +1,116 @@
+/*
+ * Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+ *               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+ *               Alexander Rampp, Kai Weidner
+ *
+ * This file is part of the Physalix Enrollment System
+ *
+ * Foobar is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package hsa.awp.event.dao;
+
+import hsa.awp.common.dao.AbstractMandatorableDao;
+import hsa.awp.common.exception.NoMatchingElementException;
+import hsa.awp.event.model.Event;
+
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+import java.util.List;
+
+/**
+ * Data Access Object for CRUD methods of Event.
+ *
+ * @author klassm
+ */
+public class EventDao extends AbstractMandatorableDao<Event, Long> implements IEventDao {
+  /**
+   * Constructor for creating an EventDao.
+   */
+  public EventDao() {
+
+    super(Event.class);
+  }
+
+  @Override
+  public Event findEventByEventId(Integer eventId) {
+
+    try {
+      Query query = getEntityManager().createQuery("select o from Event o where o.eventId=:eventId");
+      query.setParameter("eventId", eventId);
+      return (Event) query.getSingleResult();
+    } catch (NoResultException e) {
+      throw new NoMatchingElementException("no matching element", e);
+    }
+  }
+
+  @Override
+  public Event findEventByEventIdAndMandator(Integer eventId, Long mandatorId) {
+    try {
+      Query query = getEntityManager().createQuery("select o from Event o where o.eventId=:eventId and o.mandatorId = :mandatorId");
+      query.setParameter("eventId", eventId);
+      query.setParameter("mandatorId", mandatorId);
+      return (Event) query.getSingleResult();
+    } catch (NoResultException e) {
+      throw new NoMatchingElementException("no matching element", e);
+    }
+  }
+
+  @Override
+  public List<Event> findEventsByTeacher(Long userId) {
+    try {
+      Query query = getEntityManager().createQuery("select o from Event o join o.teachers t where t = :teacher");
+      query.setParameter("teacher", userId);
+      return query.getResultList();
+    } catch (NoResultException e) {
+      throw new NoMatchingElementException("no matching element", e);
+    }
+  }
+
+  @Override
+  public List<Event> findEventsByTerm(String term) {
+
+    try {
+      Query query = getEntityManager().createQuery("select o from Event o where o.term.termDesc=:term");
+      query.setParameter("term", term);
+      return query.getResultList();
+    } catch (NoResultException e) {
+      throw new NoMatchingElementException("no matching element", e);
+    }
+  }
+
+  @Override
+  public List<Event> findEventsByTermAndMandator(String term, Long mandatorId) {
+    try {
+      Query query = getEntityManager().createQuery("select o from Event o where o.term.termDesc=:term and o.mandatorId = :mandatorId");
+      query.setParameter("term", term);
+      query.setParameter("mandatorId", mandatorId);
+      return query.getResultList();
+    } catch (NoResultException e) {
+      throw new NoMatchingElementException("no matching element", e);
+    }
+  }
+
+  @Override
+  public List<Event> findEventsByTermId(Long id) {
+
+    try {
+      Query query = getEntityManager().createQuery("select o from Event o where o.term.id=:id");
+      query.setParameter("id", id);
+      return query.getResultList();
+    } catch (NoResultException e) {
+      throw new NoMatchingElementException("no matching element", e);
+    }
+  }
+}

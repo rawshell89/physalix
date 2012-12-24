@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       xmlns:util="http://www.springframework.org/schema/util">
+
+
+    <bean name="common.naming.properties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="placeholderPrefix" value="$common.naming{"></property>
+        <property name="ignoreUnresolvablePlaceholders" value="false"></property>
+        <property name="ignoreResourceNotFound" value="true"></property>
+        <property name="locations">
+            <list>
+                <value>classpath:config/naming.default.properties</value>
+                <value>classpath:physalix/naming.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <util:properties id="fieldMapping"
+                     location="classpath:config/fieldMapping.default.properties,classpath:physalix/fieldMapping.properties"/>
+
+    <bean name="common.naming.directory" class="hsa.awp.common.naming.Directory" factory-method="getInstance">
+        <property name="directoryAdapter" ref="common.naming.ldapdirectoryAdapter"/>
+        <property name="fieldMapping" ref="fieldMapping"/>
+    </bean>
+
+    <bean name="common.naming.ldapdirectoryAdapter" class="hsa.awp.common.naming.LdapDirectoryAdapter">
+        <property name="userDnPatterns">
+            <bean factory-method="delimitedListToStringArray" class="org.springframework.util.StringUtils">
+                <constructor-arg value="$common.naming{naming.userDnPattern}"/>
+                <constructor-arg value=";"/>
+            </bean>
+        </property>
+        <property name="defaultAttrIds" value="$common.naming{naming.fields}"/>
+        <property name="providerURL" value="$common.naming{naming.providerURL}"></property>
+        <property name="securityAuthentication" value="$common.naming{naming.securityAuthentication}"></property>
+        <property name="securityCredentials" value="$common.naming{naming.securityCredentials}"></property>
+        <property name="securityPrincipal" value="$common.naming{naming.securityPrincipal}"></property>
+        <property name="securityProtocol" value="$common.naming{naming.securityProtocol}"></property>
+    </bean>
+</beans>

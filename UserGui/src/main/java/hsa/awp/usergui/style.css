@@ -1,0 +1,236 @@
+/*
+ * Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+ *               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+ *               Alexander Rampp, Kai Weidner
+ *
+ * This file is part of the Physalix Enrollment System
+ *
+ * Foobar is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+body {
+    font-size: 12px;
+}
+
+a {
+    color: #3b6cce;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #cc0033;
+}
+
+div#body {
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 960px;
+}
+
+div#header div.caption {
+    height: 53px;
+    margin-left: 170px;
+    text-align: left;
+    border-bottom: 1px #000000 solid;
+    font-family: Helvetica;
+}
+
+div#header div.image {
+    float: left;
+    width: 150px;
+    height: 53px;
+    text-align: right;
+    border-bottom: 1px #000000 solid;
+    padding: 0px;
+    margin: 0px;
+}
+
+div#header div.image img {
+    float: right;
+}
+
+div#header h1 {
+    margin: 5px 0px 0px 0px;
+    padding: 0px;
+    font-size: 16px;
+}
+
+div#header h1 span.seperator {
+    color: #ff5e00;
+    display: inline-block;
+    padding: 0px 5px 0px 5px;
+}
+
+div#header h2 {
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+div#header img {
+    float: left;
+    margin-top: 5px;
+}
+
+div#navigation {
+    float: left;
+    width: 150px;
+    padding: 0px;
+    border-bottom: 1px #000000 solid;
+}
+
+div#navigation div.navbox {
+    margin: 5px 0px 20px 0px;
+    text-align: left;
+}
+
+div#navigation div.navbox ul {
+    margin-top: 0px;
+    padding: 0px;
+}
+
+div#navigation div.navbox ul li {
+    border-top: 1px #474747 solid;
+}
+
+div#navigation div.navbox ul li:last-child {
+    border-bottom: 1px #474747 solid;
+}
+
+div#navigation div.navbox form.login input {
+    width: 160px;
+}
+
+div#nav ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+div#nav ul li a {
+    text-decoration: none;
+    display: block;
+    color: #000000;
+    padding: 2px 3px 2px 3px;
+}
+
+div#nav ul li a:hover {
+    color: #cc0133;
+}
+
+div#navigation div.login input {
+    width: 150px;
+}
+
+div#navigation div.login span.loginName {
+    font-weight: bold;
+}
+
+div#navigation div.login a {
+    display: block;
+}
+
+div#content h2 {
+    font-weight: bold;
+    color: #ff5e00;
+    border-bottom: 1px #000000 dotted;
+    font-size: 14px;
+}
+
+div.confirmedRegistrationPanel ul {
+    list-style: none;
+    padding: 0px;
+}
+
+div.confirmedRegistrationPanel ul ul {
+    padding-left: 20px;
+}
+
+div#content form label {
+    float: left;
+    width: 150px;
+}
+
+div#footer {
+    margin: 5px 0px 0px 170px;
+    clear: both;
+    text-align: center;
+    font-size: 10px;
+}
+
+div#content {
+    margin-left: 170px;
+    margin-right: 0px;
+    border-bottom: 1px #000000 solid;
+    min-height: 200px;
+}
+
+.disabled {
+    color: silver;
+}
+
+/** tooltip*/
+a.tooltip {
+    text-decoration: none;
+    color: #000000;
+    display: inline-block;
+}
+
+a.tooltip span {
+    display: none;
+    position: absolute;
+    padding: 1px;
+    max-width: 100px;
+    border: 1px #084dfb solid;
+    background-color: #ffffff;
+}
+
+a.tooltip:hover span {
+    display: inline-block;
+}
+
+div.legend {
+    clear: both;
+    border-top: 1px #ff5e00 dotted;
+    margin-top: 15px;
+    padding: 5px;
+    overflow: hidden;
+    display: table;
+}
+
+div.legend h3 {
+    margin: 0px;
+    padding: 0px;
+    color: #000000;
+}
+
+div.legend ul {
+    padding: 0px;
+    margin: 0px 0px 0px 10px;
+}
+
+div.legend ul li {
+    list-style: none;
+}
+
+div.legend ul li.last-item {
+    margin-bottom: 5px;
+    list-style: none;
+}
+
+div.legend ul li span.key {
+    display: inline-block;
+    width: 50px;
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="AConsole" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- Pattern to output the caller's file name and line number -->
+            <param name="ConversionPattern" value="[%d] %5p [%t] (%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="AFile" class="org.apache.log4j.FileAppender">
+        <param name="file" value="logs/Event.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d] %5p [%t] %c - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="hsa" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="AFile"/>
+    </logger>
+
+    <logger name="org.springframework" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="AFile"/>
+    </logger>
+
+    <root>
+        <priority value="ERROR"/>
+        <appender-ref ref="AConsole"/>
+        <appender-ref ref="AFile"/>
+    </root>
+</log4j:configuration>

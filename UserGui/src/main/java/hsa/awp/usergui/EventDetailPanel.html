@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Insert title here</title>
+
+    <wicket:head>
+        <link rel="Stylesheet" type="text/css" href="resources/hsa.awp.usergui.EventDetailPanel/EventDetailPanel.css"/>
+    </wicket:head>
+</head>
+<body>
+
+<wicket:panel>
+
+    <div class="eventDetailPanel">
+        <div wicket:id="event.general">
+            <h3 wicket:id="event.general.caption"/>
+            <table class="eventGeneral">
+                <tr>
+                    <td class="key">Veranstaltungsnummer</td>
+                    <td wicket:id="event.general.eventId"/>
+                </tr>
+
+                <tr>
+                    <td class="key">Fach</td>
+                    <td wicket:id="event.general.subjectName"/>
+                </tr>
+
+                <tr>
+                    <td class="key">maximale Teilnehmer</td>
+                    <td wicket:id="event.general.maxParticipants"/>
+                </tr>
+
+                <tr>
+                    <td class="key">Lehrende</td>
+                    <td wicket:id="event.general.teachers"/>
+                </tr>
+
+                <tr>
+                    <td class="key">Veranstaltungsinfo</td>
+                    <td wicket:id="event.general.eventDescription"/>
+                </tr>
+
+                <tr>
+                    <td class="key">Beschreibung</td>
+                    <td wicket:id="event.general.subjectDescription"/>
+                </tr>
+
+                <tr>
+                    <td class="key">Details</td>
+                    <td><a wicket:id="event.general.link" target="_blank"><span wicket:id="event.general.linkDesc"/></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div wicket:id="event.timetable">
+            <h3 wicket:id="event.timetable.caption"/>
+            <ul>
+                <li wicket:id="event.timetable.list">
+                    <span wicket:id="event.timetable.list.occurrence"/>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</wicket:panel>
+
+</body>
+</html>

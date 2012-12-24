@@ -1,0 +1,174 @@
+/*
+ * Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+ *               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+ *               Alexander Rampp, Kai Weidner
+ *
+ * This file is part of the Physalix Enrollment System
+ *
+ * Foobar is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+form.prioListForm h3 {
+    font-weight: bold;
+    text-align: center;
+    font-size: 12px;
+    background-color: #808080;
+    margin: 0px;
+    padding: 5px;
+}
+
+form.prioListForm input.submit {
+    width: 191px;
+    font-weight: bold;
+}
+
+h3.title {
+    background-color: transparent;
+}
+
+div#selector {
+    float: left;
+    min-height: 200px;
+    width: 185px;
+    border: 1px #000000 solid;
+}
+
+div#selector h3 {
+    background-color: #ff5e00;
+}
+
+div#selector ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+div#selector ul li {
+    border-bottom: 1px #d0d0d0 solid;
+}
+
+div#selector ul li a {
+    text-decoration: none;
+    color: #000000;
+    padding: 4px 3px 4px 3px;
+    display: inline;
+}
+
+div#selector ul li a:hover {
+    background-color: transparent;
+    color: #000000;
+}
+
+div.priolist {
+    width: 185px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    border: 1px #000000 solid;
+}
+
+div.priolist div {
+
+}
+
+div.priolist ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+div.priolist ul li a {
+    text-decoration: none;
+    display: block;
+    color: #000000;
+    padding: 2px 3px 2px 3px;
+}
+
+div.priolist ul li a:hover {
+    background-color: #d6d6d6;
+    color: #ff5e00;
+}
+
+div#lists {
+    float: right;
+    margin-bottom: 20px;
+    border-left: 1px #ff5e00 dotted;
+    padding-left: 20px;
+    width: 200px;
+}
+
+div.item {
+    padding: 6px 0px 2px 0px;
+    text-align: center;
+}
+
+div.draggable {
+    padding: 6px 0px 2px 0px;
+    height: 40px;
+}
+
+div.draggable:hover {
+    background-color: #FFAB7A;
+    cursor: move;
+}
+
+div.dropTarget {
+    padding: 0px;
+    border-top: 1px grey dotted;
+    height: 48px;
+}
+
+div.prioListManagement {
+    border-top: 1px #ff5e00 dotted;
+    margin-top: 15px;
+}
+
+div.prioListManagement h3 {
+    background-color: #ffffff;
+}
+
+div#categories {
+    float: left;
+    margin-right: 105px;
+    min-height: 200px;
+    width: 185px;
+    border: 1px #000000 solid;
+}
+
+div#categories h3 {
+    background-color: #ff5e00;
+}
+
+div#categories ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+div#categories ul li a span {
+    color: #000000;
+    display: block;
+    float: left;
+    height: 20px;
+    padding: 3px 0 0;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: baseline;
+    width: 185px;
+}
+
+div#categories ul li a:hover span {
+    background-color: #FFAB7A;
+    color: #000000;
+}
+

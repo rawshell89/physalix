@@ -1,0 +1,68 @@
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html
+        xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <wicket:head>
+        <link rel="Stylesheet" type="text/css"
+              href="resources/hsa.awp.usergui.HomePage/PrioList.css"/>
+    </wicket:head>
+    <title>Insert title here</title>
+</head>
+<body>
+<wicket:panel>
+    <div wicket:id="RegistrationManagementPanel.box">
+        <span wicket:id="RegistrationManagementPanel.message"></span>
+
+        <h2 wicket:id="RegistrationManagementPanel.regTitle"></h2>
+
+        <div wicket:id="RegistrationManagementPanel.ConfirmedRegistrationsManagement"></div>
+    </div>
+
+    <div class="legend">
+        <div style="float: left; width:50%;">
+            <h3>Hilfe</h3>
+            <h4>Wie verwalte ich meine Buchungen?</h4>
+
+            <ul>
+                <li><p>Hier sehen Sie Ihre Buchungen.</p></li>
+                <li><p>Sie möchten eine Buchung stornieren? Klicken Sie beim entsprechenden Eintrag auf das Symbol "x". Der freie Platz ist dann für andere Interessenten wieder verfügbar!</p></li>
+                <li><p>Falls kein "x" angezeigt wird, ist diese Buchung verbindlich, da der Anmeldezeitraum beendet ist.</p></li>
+            </ul>
+        </div>
+        <div style="float: left; width:50%;">
+            <h3>Help</h3>
+            <h4>How can I make changes to my course enrollment?</h4>
+
+            <ul>
+                <li><p>Here you can view enrollment in all courses.</p></li>
+                <li><p>How do I cancel my course enrollment? Go to the corresponding course and click on the "x" symbol.  Course enrolment will be canceled and your place is now available for registration by another student.</p></li>
+                <li><p>If an "x" does not appear by the course you wish to cancel, the registration period has ended and your course enrollment is now binding.</p></li>
+            </ul>
+        </div>
+    </div>
+</wicket:panel>
+
+</body>
+</html>

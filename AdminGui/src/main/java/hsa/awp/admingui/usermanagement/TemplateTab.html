@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd"
+      xml:lang="en" lang="en">
+
+<head>
+    <title></title>
+</head>
+<body>
+<wicket:panel>
+    <span wicket:id="feedback"></span>
+
+    <form wicket:id="modalForm">
+        <div wicket:id="templateTest.detailWindow"/>
+    </form>
+
+    <form wicket:id="template.form" autocomplete="off">
+        <select wicket:id="templateTypes"/>
+        <textarea wicket:id="template.area" cols="120" rows="40"></textarea>
+        <input wicket:id="submitButton" type="submit"/>
+        <input wicket:id="resetButton" type="submit"/>
+        <input wicket:id="testButton" type="submit"/>
+    </form>
+    <br>
+
+    <div id="legend">
+        <h1>Hilfe</h1>
+        <span>Folgende Platzhalter stehen zur Verf&uuml;gung:</span>
+        <br>
+        <table border="1">
+            <tr>
+                <th>Platzhalter</th>
+                <th>Bedeutung</th>
+                <th>Beispiel</th>
+            </tr>
+            <tr>
+                <td>$name</td>
+                <td>Name des Benutzers</td>
+                <td>Max Mustermann</td>
+            </tr>
+            <tr>
+                <td>$procedure</td>
+                <td>Name der Prozedur, die die Benachrichtigung ausgel&ouml;st hat</td>
+                <td>1. Losdurchgang</td>
+            </tr>
+            <tr>
+                <td>$campaign</td>
+                <td>Name der Kampagne</td>
+                <td>AWP Anmeldung WS 11/12</td>
+            </tr>
+            <tr>
+                <td>$eventlist</td>
+                <td>Liste der Belegeten Veranstaltungen, die in dieser Prozedur belegt wurden. Nur verf&uuml;gbar, wenn
+                    Veranstaltungen belegt/zugelost wurden
+                </td>
+                <td>
+                    <ul>
+                        <li>123 Englisch</li>
+                        <li>160 Franz&ouml;sisch</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>$priolists</td>
+                <td>Liste der angelegten Wunschlisten, nur verf&uuml;gbar, wenn eine Losprozedur stattgefunden
+                    hat.
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <th>Wunschliste Kurs 1</th>
+                        </tr>
+                        <tr>
+                            <td>123 Englisch</td>
+                        </tr>
+                        <tr>
+                            <td>124 Englisch 2</td>
+                        </tr>
+                        <tr>
+                            <td>126 Englisch 3</td>
+                        </tr>
+                    </table>
+
+                    <table>
+                        <tr>
+                            <th>Wunschliste Kurs 2</th>
+                        </tr>
+                        <tr>
+                            <td>160 Franz&ouml;sisch</td>
+                        </tr>
+                        <tr>
+                            <td>162 Franz&ouml;sisch 2</td>
+                        </tr>
+                        <tr>
+                            <td>164 Franz&ouml;sisch 3</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</wicket:panel>
+
+</body>
+</html>

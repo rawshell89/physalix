@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd"
+      xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <wicket:head>
+        <link rel="Stylesheet" type="text/css"
+              href="resources/hsa.awp.admingui.view.CampaignListPanel/CampaignListPanel.css"/>
+    </wicket:head>
+    <title>Insert title here</title>
+</head>
+<body>
+
+<wicket:panel>
+
+    <h2>Kampagnen&uuml;bersicht</h2>
+
+    <div wicket:id="campaignList.feedback"></div>
+    <div wicket:id="campaignList.activeCampaigns" class="campaignListactiveCampaignsPanel"/>
+
+    <form wicket:id="campaignList.sortChoices" autocomplete="off">
+        <select wicket:id="campaignList.sortFields"/>
+        <select wicket:id="CampaignList.sortDirections"/>
+    </form>
+
+    <div wicket:id="campaignList.listContainer">
+        <ul class="campaignListlist">
+            <li wicket:id="campaignList">
+                <span class="state" wicket:id="campaignState"/>
+                <span class="name" wicket:id="campaignName"/>
+				<span class="desc">
+					<span wicket:id="startShow"/><span> bis </span><span wicket:id="endShow"/>
+					<a wicket:id="eventList" class="tooltip">
+                        <img src="images/info.png" alt="info" border="0"/>
+                        <span>Details</span>
+                    </a>
+					<a wicket:id="campaignLink" class="tooltip">
+                        <img src="images/edit.png" alt="edit" border="0"/>
+                        <span>Bearbeiten</span>
+                    </a>
+				</span>
+
+                <div class="icon" wicket:id="deleteLink"/>
+            </li>
+        </ul>
+		
+		<span wicket:id="campaignList.navigation">
+			<a wicket:id="pageLink" href="#">
+                <span wicket:id="pageNumber"></span>
+            </a>
+		</span>
+    </div>
+
+
+    <div style="clear:both"/>
+
+</wicket:panel>
+
+</body>
+</html>

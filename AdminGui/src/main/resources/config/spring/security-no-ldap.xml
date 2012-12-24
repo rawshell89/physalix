@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:security="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+    <security:http auto-config="true" use-expressions="true">
+        <form-login login-page="/login/LoginPage" authentication-failure-url="/login/LoginPage?login=failed"/>
+        <logout logout-url="/logout"/>
+        <intercept-url pattern="/login/*" access="permitAll"/>
+        <intercept-url pattern="/resources/hsa.awp.gui.BaseLoginPage/style.css" access="permitAll"/>
+        <intercept-url pattern="/images/*" access="permitAll"/>
+        <intercept-url pattern="/**" access="hasRole('ROLE_SYSADMIN')
+                                             or hasRole('ROLE_APPADMIN')
+                                             or hasRole('ROLE_SECRETARY')
+                                             or hasRole('ROLE_TEACHER')"/>
+    </security:http>
+
+    <security:global-method-security secured-annotations="enabled"/>
+
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="sysadmin" password="sysadmin" authorities="ROLE_SYSADMIN"/>
+                <security:user name="appadmin" password="appadmin" authorities="ROLE_APPADMIN"/>
+                <security:user name="secretary" password="secretary" authorities="ROLE_SECRETARY"/>
+                <security:user name="anonymous" password="anonymous" authorities="ROLE_GUEST"/>
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+
+</beans:beans>

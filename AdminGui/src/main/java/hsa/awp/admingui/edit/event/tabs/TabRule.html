@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2010-2012 Matthias Klass, Johannes Leimer,
+  ~               Rico Lieback, Sebastian Gabriel, Lothar Gesslein,
+  ~               Alexander Rampp, Kai Weidner
+  ~
+  ~ This file is part of the Physalix Enrollment System
+  ~
+  ~ Foobar is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Foobar is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd"
+      xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Insert title here</title>
+    <wicket:head>
+        <link rel="Stylesheet" type="text/css" href="resources/hsa.awp.admingui.edit.event.tabs.TabRule/TabRule.css"/>
+    </wicket:head>
+</head>
+<body>
+<wicket:panel>
+
+    <div wicket:id="feedbackPanel"/>
+
+    <div>
+        <u><b>Um einer Veranstaltung eine Regel zuweisen zu können m&uuml;ssen folgende Bedingungen erf&uuml;llt
+            sein:</b></u><br/>
+        <ul>
+            <li>Die gew&uuml;nschte Regel muss erstellt sein ( =&gt; <a href="#" wicket:id="event.rule.ruleLink">"Regeln"</a>)
+            </li>
+            <li>Die Veranstaltung muss einer Kampagne zugewiesen sein</li>
+        </ul>
+    </div>
+    <hr/>
+    <br/>
+
+    <form wicket:id="event.rule.selectForm" autocomplete="off">
+        <table border="0">
+            <tr>
+                <td align="right">Kampagne:</td>
+                <td><select wicket:id="event.rule.campaignSelect"/></td>
+            </tr>
+            <tr>
+                <td align="right">Regel:</td>
+                <td><select wicket:id="event.rule.ruleSelect"/></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right"><input wicket:id="event.rule.submit" type="submit"/></td>
+            </tr>
+        </table>
+    </form>
+
+    <div wicket:id="event.rule.viewContainer">
+        <ul class="campaigns">
+            <li wicket:id="event.rule.viewContainer.campaigns" class="campaignElement">
+                <h3 wicket:id="event.rule.viewContainer.campaigns.campaignName"></h3>
+
+                <ul>
+                    <li wicket:id="event.rule.viewContainer.campaigns.rules">
+                        <span wicket:id="event.rule.viewContainer.campaigns.rules.rulename"></span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div style="clear:both"/>
+
+
+</wicket:panel>
+
+
+</body>
+</html>
