@@ -1,9 +1,11 @@
 bin
 out
-.idea
 target
-*.log
-*.class
+
+.idea
 .classpath
 .project
 .settings
+
+*.log
+logs
