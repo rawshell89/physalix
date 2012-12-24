@@ -106,6 +106,10 @@ public class RoleMappingDaoTest extends GenericDaoTest<RoleMapping, RoleMappingD
     List<RoleMapping> mappingList = generateAndPersistObjects(4);
 
     this.startTransaction();
+    mandatorDao.removeAll();
+    this.commit();
+
+    this.startTransaction();
     Mandator mandator = mandatorDao.persist(Mandator.getInstance(Mandator.allMandator));
     SingleUser user = dao.persist(SingleUser.getInstance("test2"));
     mappingList.get(0).setSingleUser(user);
