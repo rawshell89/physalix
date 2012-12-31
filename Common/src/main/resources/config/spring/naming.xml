@@ -22,9 +22,7 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
-       xmlns:util="http://www.springframework.org/schema/util">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
     <bean name="common.naming.properties"
@@ -40,8 +38,15 @@
         </property>
     </bean>
 
-    <util:properties id="fieldMapping"
-                     location="classpath:config/fieldMapping.default.properties,classpath:physalix/fieldMapping.properties"/>
+    <bean id="fieldMapping" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="ignoreResourceNotFound" value="true"></property>
+        <property name="locations">
+            <list>
+                <value>classpath:config/fieldMapping.default.properties</value>
+                <value>classpath:physalix/fieldMapping.properties</value>
+            </list>
+        </property>
+    </bean>
 
     <bean name="common.naming.directory" class="hsa.awp.common.naming.Directory" factory-method="getInstance">
         <property name="directoryAdapter" ref="common.naming.ldapdirectoryAdapter"/>
