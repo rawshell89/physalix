@@ -761,8 +761,7 @@ public class AdminGuiController extends GuiController implements IAdminGuiContro
 
     String mailContent = writer.toString();
 
-    // TODO verify functionality of abstract sender address
-    IMail mail = mailFactory.getInstance(email, "Template Test", mailContent, "template-test@physalix");
+    IMail mail = mailFactory.getInstance(email, "Template Test", mailContent, "template-test");
     mail.send();
 
   }

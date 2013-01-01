@@ -220,8 +220,6 @@ public class Mail implements IMail {
   public void send() {
 
     try {
-
-
       InternetAddress addressFrom = new InternetAddress(sender);
       InternetAddress addressTo = new InternetAddress(recipient);
 
@@ -243,9 +241,8 @@ public class Mail implements IMail {
       msg.setSubject(subject);
       msg.setContent(content);
 
-      if (log.isDebugEnabled()) {
-        log.debug("Sending mail [" + msg + "] to '" + recipient + "'");
-      }
+      log.debug("Sending mail [{}] to '{}'", msg, recipient);
+
       Transport.send(msg);
     } catch (MessagingException e) {
       throw new MailSendException("Sending the mail failed", e);

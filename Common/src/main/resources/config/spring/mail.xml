@@ -22,18 +22,12 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-			http://www.springframework.org/schema/beans/spring-beans.xsd
-			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:util="http://www.springframework.org/schema/util">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean name="common.mail.properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="placeholderPrefix" value="$mail{"></property>
-        <property name="ignoreUnresolvablePlaceholders" value="true"></property>
-        <property name="ignoreResourceNotFound" value="true"></property>
+        <property name="placeholderPrefix" value="$mail{"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="ignoreResourceNotFound" value="true"/>
         <property name="locations">
             <list>
                 <value>classpath:/config/mail.default.properties</value>
@@ -43,17 +37,18 @@
     </bean>
 
     <bean name="common.mail.source" class="hsa.awp.common.mail.MailSource">
-        <property name="protocol" value="$mail{mail.protocol:smtp}"></property>
-        <property name="host" value="$mail{mail.host:localhost}"></property>
-        <property name="port" value="$mail{mail.port:25}"></property>
-        <property name="auth" value="$mail{mail.auth:false}"></property>
-        <property name="user" value="$mail{mail.user}"></property>
-        <property name="password" value="$mail{mail.password}"></property>
-        <property name="socketFactory" value="$mail{mail.socketFactory}"></property>
+        <property name="protocol" value="$mail{mail.protocol}"/>
+        <property name="host" value="$mail{mail.host}"/>
+        <property name="port" value="$mail{mail.port}"/>
+        <property name="auth" value="$mail{mail.auth}"/>
+        <property name="user" value="$mail{mail.user}"/>
+        <property name="password" value="$mail{mail.password}"/>
+        <property name="socketFactory" value="$mail{mail.socketFactory}"/>
     </bean>
 
     <bean name="common.mail.factory" class="hsa.awp.common.mail.MailFactory">
-        <property name="mailSource" ref="common.mail.source"></property>
+        <property name="mailSource" ref="common.mail.source"/>
+        <property name="senderDomain" value="$mail{mail.senderDomain}"/>
     </bean>
 
 </beans>

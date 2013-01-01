@@ -336,8 +336,7 @@ public class DrawProcedureLogic extends AbstractProcedureLogic<DrawProcedure> im
         String drawLogAsXml = xmlDrawLogUtil.transformMailContentsToXml(mailPerUser.values());
         String correspondentEMail = procedure.getCampaign().getCorrespondentEMail();
 
-        // TODO verify functionality of abstract sender address
-        IMail mail = mailFactory.getInstance(correspondentEMail, "Registration Log", drawLogAsXml, "registration-log@physalix");
+        IMail mail = mailFactory.getInstance(correspondentEMail, "Registration Log", drawLogAsXml, "registration-log");
         mail.addByteArrayAsFileAttachment("drawLog.xml", drawLogAsXml.getBytes());
         mail.send();
 

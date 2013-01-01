@@ -32,31 +32,25 @@ public class MailFactory implements IMailFactory {
    */
   private MailSource mailSource;
 
+  private String senderDomain;
+
   /**
    * Creates an instance of an {@link IMail} object and initializes the specified values.
    *
    * @param recipient the recipient of the mail
    * @param subject   the subject of the mail
    * @param message   the message of the mail
-   * @param sender    the mail address of the sender
+   * @param senderName    the mail address of the sender or a simple username of the senderDomain
    * @return a {@link IMail} instance
    */
-  public IMail getInstance(String recipient, String subject, String message, String sender) {
+  public IMail getInstance(String recipient, String subject, String message, String senderName) {
+
+    String sender = senderName.contains("@") ? senderName : senderName + "@" + senderDomain;
 
     Mail mail = new Mail(recipient, subject, message, sender);
     mail.setMailSource(mailSource);
 
     return mail;
-  }
-
-  /**
-   * Returns mailSource.
-   *
-   * @return the mailSource
-   */
-  public MailSource getMailSource() {
-
-    return mailSource;
   }
 
   /**
@@ -67,5 +61,9 @@ public class MailFactory implements IMailFactory {
   public void setMailSource(MailSource mailSource) {
 
     this.mailSource = mailSource;
+  }
+
+  public void setSenderDomain(String senderDomain) {
+    this.senderDomain = senderDomain;
   }
 }

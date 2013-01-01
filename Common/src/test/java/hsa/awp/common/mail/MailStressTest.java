@@ -47,7 +47,7 @@ public class MailStressTest {
 
   private String message = "this mail has no relevance!";
 
-  private String sender = "mailstress@physalix";
+  private String sender = "mailstress";
 
   private int sent = 0;
 

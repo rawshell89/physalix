@@ -66,7 +66,7 @@ public class MailSourceTest {
 
     String subject = "MailSource Test";
     String message = "Das ist eine TestMail";
-    String sender = "test@physalix";
+    String sender = "test";
 
     IMail mail = factory.getInstance(RECIPIENT, subject, message, sender);
     mail.send();
