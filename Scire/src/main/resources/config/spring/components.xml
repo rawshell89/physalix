@@ -32,6 +32,20 @@
         <property name="mailFactory" ref="common.mail.factory"/>
         <property name="campaignRuleChecker" ref="rule.facade"/>
         <property name="templateService" ref="common.template.service"/>
+        <property name="xmlDrawLogUtil" ref="scire.xmlDrawLogUtil"/>
+    </bean>
+
+    <bean name="scire.xmlDrawLogContext" class="javax.xml.bind.JAXBContext" factory-method="newInstance">
+        <constructor-arg>
+            <list>
+                <value>hsa.awp.scire.procedureLogic.util.XmlDrawLog</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean name="scire.xmlDrawLogUtil" class="hsa.awp.scire.procedureLogic.util.XmlDrawLogUtil">
+        <property name="context" ref="scire.xmlDrawLogContext"/>
+        <property name="eventFacade" ref="event.facade"/>
     </bean>
 
 </beans>

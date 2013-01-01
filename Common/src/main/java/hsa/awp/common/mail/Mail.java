@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -34,6 +35,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 import java.io.File;
 import java.util.Collection;
 import java.util.Date;
@@ -153,13 +155,22 @@ public class Mail implements IMail {
     if (!file.exists()) {
       throw new IllegalArgumentException("file not found");
     }
+
+    FileDataSource filesource = new FileDataSource(file);
+    addAttachment(file.getName(), filesource);
+  }
+
+  @Override
+  public void addByteArrayAsFileAttachment(String name, byte[] bytes) {
+    ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(bytes, "text/xml");
+    addAttachment(name, byteArrayDataSource);
+  }
+
+  private void addAttachment(String name, DataSource dataSource) {
     try {
       MimeBodyPart part = new MimeBodyPart();
-      FileDataSource filesource = new FileDataSource(file);
-
-      part.setDataHandler(new DataHandler(filesource));
-      part.setFileName(file.getName());
-
+      part.setDataHandler(new DataHandler(dataSource));
+      part.setFileName(name);
       attachments.add(part);
     } catch (MessagingException e) {
       e.printStackTrace();

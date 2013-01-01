@@ -43,6 +43,8 @@ public interface IMail {
    */
   void addAttachment(File file);
 
+  void addByteArrayAsFileAttachment(String name, byte[] bytes);
+
   /**
    * Getter for message.
    *

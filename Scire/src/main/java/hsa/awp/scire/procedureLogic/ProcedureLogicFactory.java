@@ -27,6 +27,7 @@ import hsa.awp.common.exception.ProgrammingErrorException;
 import hsa.awp.common.mail.IMailFactory;
 import hsa.awp.common.services.TemplateService;
 import hsa.awp.event.facade.IEventFacade;
+import hsa.awp.scire.procedureLogic.util.XmlDrawLogUtil;
 import hsa.awp.user.facade.IUserFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,6 +65,8 @@ public class ProcedureLogicFactory implements IProcedureLogicFactory {
 
   private TemplateService templateService;
 
+  private XmlDrawLogUtil xmlDrawLogUtil;
+
   @Override
   public IProcedureLogic<?> getInstance(Class<?> logicType) {
 
@@ -73,10 +76,8 @@ public class ProcedureLogicFactory implements IProcedureLogicFactory {
     try {
       logic = (AbstractProcedureLogic<?>) logicType.newInstance();
     } catch (InstantiationException e) {
-      e.printStackTrace();
       throw new ProgrammingErrorException(e);
     } catch (IllegalAccessException e) {
-      e.printStackTrace();
       throw new ProgrammingErrorException(e);
     }
 
@@ -87,6 +88,10 @@ public class ProcedureLogicFactory implements IProcedureLogicFactory {
     logic.setUserFacade(userFacade);
     logic.setCampaignRuleChecker(campaignRuleChecker);
     logic.setTemplateService(templateService);
+
+    if (logic instanceof DrawProcedureLogic) {
+      ((DrawProcedureLogic) logic).setXmlDrawLogUtil(xmlDrawLogUtil);
+    }
 
     return logic;
   }
@@ -143,5 +148,9 @@ public class ProcedureLogicFactory implements IProcedureLogicFactory {
 
   public void setTemplateService(TemplateService templateService) {
     this.templateService = templateService;
+  }
+
+  public void setXmlDrawLogUtil(XmlDrawLogUtil xmlDrawLogUtil) {
+    this.xmlDrawLogUtil = xmlDrawLogUtil;
   }
 }

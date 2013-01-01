@@ -34,6 +34,8 @@ public class EventBuilder extends EntityBuilder<Event> {
 
   private Set<Exam> exams = new HashSet<Exam>();
 
+  private String detailInformation = "details";
+
   private int maxParticipants = 10;
 
   private SubjectBuilder subjectBuilder;

@@ -31,6 +31,7 @@ import hsa.awp.event.model.Event;
 import hsa.awp.scire.exception.DuplicatePriorityListElementException;
 import hsa.awp.scire.procedureLogic.util.MailContent;
 import hsa.awp.scire.procedureLogic.util.PriorityListItemPrioritySorter;
+import hsa.awp.scire.procedureLogic.util.XmlDrawLogUtil;
 import hsa.awp.user.model.Group;
 import hsa.awp.user.model.SingleUser;
 import hsa.awp.user.model.User;
@@ -67,6 +68,8 @@ public class DrawProcedureLogic extends AbstractProcedureLogic<DrawProcedure> im
    * Text that is sent in mails.
    */
   private String drawMailtextNoLuck;
+
+  private XmlDrawLogUtil xmlDrawLogUtil;
 
   /**
    * Default constructor.
@@ -325,22 +328,17 @@ public class DrawProcedureLogic extends AbstractProcedureLogic<DrawProcedure> im
           mailPerUser.put(list.getParticipant(), mailContent);
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Prozedur;Benutzer;Listen;Buchungen");
-
         for (MailContent mailContent : mailPerUser.values()) {
           sendMail(mailContent);
-
-          stringBuilder.append("</br>\n");
-          stringBuilder.append(generateLogString(mailContent));
         }
 
         logger.info("send registrationLog");
-
-        Campaign campaign = procedure.getCampaign();
+        String drawLogAsXml = xmlDrawLogUtil.transformMailContentsToXml(mailPerUser.values());
+        String correspondentEMail = procedure.getCampaign().getCorrespondentEMail();
 
         // TODO verify functionality of abstract sender address
-        IMail mail = mailFactory.getInstance(campaign.getCorrespondentEMail(), "Registration Log", stringBuilder.toString(), "registration-log@physalix");
+        IMail mail = mailFactory.getInstance(correspondentEMail, "Registration Log", drawLogAsXml, "registration-log@physalix");
+        mail.addByteArrayAsFileAttachment("drawLog.xml", drawLogAsXml.getBytes());
         mail.send();
 
         logger.info("remove associated priority lists");
@@ -349,34 +347,6 @@ public class DrawProcedureLogic extends AbstractProcedureLogic<DrawProcedure> im
     };
 
     task.run();
-  }
-
-  public String generateLogString(MailContent content) {
-    StringBuilder stringBuilder = new StringBuilder();
-    stringBuilder.append(content.getDrawProcedure().getName());
-    stringBuilder.append(";");
-    stringBuilder.append(content.getUser().getName() + "(" + content.getUser().getUsername() + ")");
-    int listIndex = 1;
-    stringBuilder.append(";");
-    for (PriorityList priorityList : content.getPrioLists()) {
-      stringBuilder.append("Liste " + listIndex++);
-      stringBuilder.append(" (");
-      for (PriorityListItem item : getSortedPriorityListItemsOfPriorityList(priorityList)) {
-        Event event = eventFacade.getEventById(item.getEvent());
-        stringBuilder.append(formatIdSubjectNameAndDetailInformation(event));
-        stringBuilder.append(",");
-      }
-      stringBuilder.append("),");
-    }
-    stringBuilder.append(";");
-    for (ConfirmedRegistration registration : content.getRegistrations()) {
-      Event event = eventFacade.getEventById(registration.getEventId());
-      stringBuilder.append(formatIdSubjectNameAndDetailInformation(event));
-      stringBuilder.append(",");
-    }
-    stringBuilder.append(";");
-
-    return stringBuilder.toString();
   }
 
   protected void sendMail(MailContent content) {
@@ -486,5 +456,9 @@ public class DrawProcedureLogic extends AbstractProcedureLogic<DrawProcedure> im
   void setRandom(Random random) {
 
     this.rand = random;
+  }
+
+  public void setXmlDrawLogUtil(XmlDrawLogUtil xmlDrawLogUtil) {
+    this.xmlDrawLogUtil = xmlDrawLogUtil;
   }
 }

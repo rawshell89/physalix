@@ -31,13 +31,13 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
+        TestExamDao.class,
     TestCategoryDao.class,
+        TestOccurenceDao.class,
+        TestSubjectDao.class,
     TestEventDao.class,
-    TestExamDao.class,
-    TestSubjectDao.class,
     TestTermDao.class,
     TestTimeTableDao.class,
-    TestOccurenceDao.class
 })
 public class TestAll {
 }
