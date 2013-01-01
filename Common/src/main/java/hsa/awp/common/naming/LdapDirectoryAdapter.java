@@ -156,6 +156,7 @@ public class LdapDirectoryAdapter implements IDirectoryAdapter {
 
     cleanContext();
 
+    NamingException exception = null;
     for (String pattern : userDnPatterns) {
       try {
         String searchPattern = pattern.replaceFirst("\\{0\\}", name);
@@ -165,12 +166,11 @@ public class LdapDirectoryAdapter implements IDirectoryAdapter {
         dirty = true;
         return getAttributes(name, attrIds);
       } catch (NamingException e) {
-        logger.error("caught an error", e);
-        continue;
+        exception = e;
       }
     }
 
-    throw new NamingException("no attributes found for '" + name + "'");
+    throw exception;
   }
 
   @Override
