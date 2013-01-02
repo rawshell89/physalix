@@ -87,6 +87,13 @@ public abstract class GenericDaoTest<T extends IGenericDomainModel<K>, D extends
   }
 
   /**
+   * Rollbacks the current transaction.
+   */
+  protected void rollback() {
+    entityManager.getTransaction().rollback();
+  }
+
+  /**
    * Initializes the given data access object with the held {@link EntityManager}.
    *
    * @param <E> type of the dao

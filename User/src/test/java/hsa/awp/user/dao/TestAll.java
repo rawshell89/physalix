@@ -30,12 +30,12 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-        RoleMappingDaoTest.class,
-        TestSingleUserDirectoryDao.class,
-        StudyCourseDaoTest.class,
-        GroupDaoTest.class,
         TestSingleUserDBDao.class,
-        MandatorDaoTest.class
+        GroupDaoTest.class,
+        TestSingleUserDirectoryDao.class,
+        MandatorDaoTest.class,
+        StudyCourseDaoTest.class,
+        RoleMappingDaoTest.class
 })
 public class TestAll {
 }

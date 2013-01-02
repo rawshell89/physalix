@@ -190,9 +190,7 @@ public class TestSingleUserDirectoryDao extends GenericDaoTest<SingleUser, Singl
   @Test(expected = UnsupportedOperationException.class)
   @Override
   public void testCountAll() {
-
-    generateAndPersistObjects(2);
-    assertEquals(2, getDao().findAll().size());
+    getDao().countAll();
   }
 
   @Override
@@ -214,13 +212,7 @@ public class TestSingleUserDirectoryDao extends GenericDaoTest<SingleUser, Singl
   @Override
   @Test(expected = UnsupportedOperationException.class)
   public void testFindAll() {
-
-    List<SingleUser> elements = generateAndPersistObjects(2);
-    List<SingleUser> found = getDao().findAll();
-
-    assertEquals(2, found.size());
-    assertTrue(found.contains(elements.get(0)));
-    assertTrue(found.contains(elements.get(1)));
+    getDao().findAll();
   }
 
   /**
@@ -388,7 +380,7 @@ public class TestSingleUserDirectoryDao extends GenericDaoTest<SingleUser, Singl
     setupMock(login, DummyData.getSecretary());
     SingleUser result = getDao().findByUsername(login);
     checkProperties(result, DummyData.getSecretary());
-    commit();
+    rollback();
   }
 
   /**
@@ -432,14 +424,12 @@ public class TestSingleUserDirectoryDao extends GenericDaoTest<SingleUser, Singl
     SingleUser uStudent = getDao().findByUsername(student.getProperty(IAbstractDirectory.LOGIN));
     ((Student)uStudent).setStudyCourse(null);
     getDao().findByUsername(teacher.getProperty(IAbstractDirectory.LOGIN));
-    commit();
 
-    startTransaction();
     uSec.getLectures().add(1L);
     uStudent.getLectures().add(1L);
-    commit();
 
     assertEquals(2, getDao().getAllTeachers().size());
+    rollback();
   }
 
   @Test(expected = UnsupportedOperationException.class)
@@ -511,12 +501,7 @@ public class TestSingleUserDirectoryDao extends GenericDaoTest<SingleUser, Singl
   @Override
   @Test(expected = UnsupportedOperationException.class)
   public void testRemove() {
-
-    List<SingleUser> objects = generateAndPersistObjects(2);
-    startTransaction();
-    getDao().remove(objects.get(0));
-    assertEquals(1, getDao().findAll().size());
-    commit();
+    getDao().remove(null);
   }
 
   /**
