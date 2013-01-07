@@ -78,7 +78,7 @@ public class XmlDrawLogUtilTest {
     assertThat(xml, containsString("test@physalix"));
     assertThat(xml, containsString("123456"));
     assertThat(xml, containsString("test-user"));
-    assertThat(xml, containsString("<phxlog>"));
+    assertThat(xml, containsString("<drawLog>"));
   }
 
   private List<ConfirmedRegistration> createConfirmedRegistrationsFromEvent(int amount, Event event) {
