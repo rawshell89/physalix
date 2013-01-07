@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement(name = "phxlog")
+@XmlRootElement(name = "drawLog")
 @XmlSeeAlso( {
         XmlDrawLog.LogEntry.class,
         XmlDrawLog.PrioList.class,
@@ -13,7 +13,7 @@ import java.util.List;
 })
 public class XmlDrawLog {
 
-  @XmlElement(name = "logentry")
+  @XmlElement(name = "logEntry")
   public List<LogEntry> logEntries = new ArrayList<LogEntry>();
 
 
@@ -27,9 +27,9 @@ public class XmlDrawLog {
     @XmlElement(name = "mail")      public String mail;
     @XmlElement(name = "matnr")     public Integer matnr;
 
-    @XmlElementWrapper(name = "lists")
-    @XmlElement(name = "list")
-    public List<PrioList> lists = new ArrayList<PrioList>();
+    @XmlElementWrapper(name = "priorityLists")
+    @XmlElement(name = "priorityList")
+    public List<PrioList> priorityLists = new ArrayList<PrioList>();
 
     @XmlElementWrapper(name = "tickets")
     @XmlElement(name = "ticket")
@@ -38,8 +38,9 @@ public class XmlDrawLog {
 
   @XmlType
   public static class Ticket {
-    @XmlElement(name = "eventid") public Integer eventid;
-    @XmlElement(name = "course")  public String course;
+    @XmlElement(name = "id")      public Long id;
+    @XmlElement(name = "eventId") public Integer eventId;
+    @XmlElement(name = "subject") public String subject;
     @XmlElement(name = "text")    public String text;
   }
 
@@ -48,16 +49,17 @@ public class XmlDrawLog {
 
     @XmlElement(name = "nr") public Integer nr;
 
-    @XmlElementWrapper(name = "listentries")
-    @XmlElement(name = "listentry")
-    public List<PrioListEntry> listentries = new ArrayList<PrioListEntry>();
+    @XmlElementWrapper(name = "priorityListEntries")
+    @XmlElement(name = "priorityListEntry")
+    public List<PrioListEntry> priorityListEntries = new ArrayList<PrioListEntry>();
   }
 
   @XmlType
   public static class PrioListEntry {
-    @XmlElement(name = "prio")    public Integer prio;
-    @XmlElement(name = "eventid") public Integer eventid;
-    @XmlElement(name = "course")  public String course;
-    @XmlElement(name = "text")    public String text;
+    @XmlElement(name = "id")       public Long id;
+    @XmlElement(name = "priority") public Integer priority;
+    @XmlElement(name = "eventId")  public Integer eventId;
+    @XmlElement(name = "subject")  public String subject;
+    @XmlElement(name = "text")     public String text;
   }
 }

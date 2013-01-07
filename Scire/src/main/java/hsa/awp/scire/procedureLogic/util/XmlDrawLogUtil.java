@@ -74,21 +74,23 @@ public class XmlDrawLogUtil {
         XmlDrawLog.PrioListEntry prioListEntry = new XmlDrawLog.PrioListEntry();
 
         Event event = eventFacade.getEventById(item.getEvent());
-        prioListEntry.prio = item.getPriority();
-        prioListEntry.eventid = event.getEventId();
-        prioListEntry.course = event.getSubject().getName();
+        prioListEntry.priority = item.getPriority();
+        prioListEntry.id = event.getId();
+        prioListEntry.eventId = event.getEventId();
+        prioListEntry.subject = event.getSubject().getName();
         prioListEntry.text = event.getDetailInformation();
-        prioList.listentries.add(prioListEntry);
+        prioList.priorityListEntries.add(prioListEntry);
       }
-      entry.lists.add(prioList);
+      entry.priorityLists.add(prioList);
     }
 
     for (ConfirmedRegistration registration : content.getRegistrations()) {
       XmlDrawLog.Ticket ticket = new XmlDrawLog.Ticket();
 
       Event event = eventFacade.getEventById(registration.getEventId());
-      ticket.eventid = event.getEventId();
-      ticket.course = event.getSubject().getName();
+      ticket.id = event.getId();
+      ticket.eventId = event.getEventId();
+      ticket.subject = event.getSubject().getName();
       ticket.text = event.getDetailInformation();
       entry.tickets.add(ticket);
     }
