@@ -208,10 +208,10 @@ public class EventListPrintingPanel extends Panel {
   }
 
   private List<Event> getSelectableEvents() {
-    if (AccessUtil.isTeacher()) {
-      return controller.getEventsByTeacher(SecurityContextHolder.getContext().getAuthentication().getName());
+    if (AccessUtil.hasAdministrativeAccess()) {
+      return controller.getEventsByMandator(getSession());
     }
-    return controller.getEventsByMandator(getSession());
+    return controller.getEventsByTeacher(SecurityContextHolder.getContext().getAuthentication().getName());
   }
 
 }

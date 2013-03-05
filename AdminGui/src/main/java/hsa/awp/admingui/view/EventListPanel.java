@@ -79,18 +79,24 @@ public class EventListPanel extends Panel {
   private IModel<Term> termModel = new Model<Term>();
 
   public List<Event> getSelectableEvents() {
-    if (AccessUtil.isTeacher()) {
+    if (AccessUtil.hasAdministrativeAccess()) {
+      if (isTermSelected()) {
+        return controller.getEventsByTermAndMandator(termModel.getObject().getTermDesc(), getSession());
+      } else {
+        return controller.getEventsByMandator(getSession());
+      }
+    } else {
       String userName = SecurityContextHolder.getContext().getAuthentication().getName();
       selectedEvents = controller.getEventsByTeacher(userName);
-      if (termModel.getObject() != null) {
+      if (isTermSelected()) {
         return filterForTerm();
       }
       return selectedEvents;
-    } else if (termModel.getObject() != null) {
-      return controller.getEventsByTermAndMandator(termModel.getObject().getTermDesc(), getSession());
     }
+  }
 
-    return controller.getEventsByMandator(getSession());
+  private boolean isTermSelected() {
+    return termModel.getObject() != null;
   }
 
   private List<Event> filterForTerm() {

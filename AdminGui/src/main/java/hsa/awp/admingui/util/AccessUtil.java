@@ -29,6 +29,8 @@ import org.apache.wicket.authorization.strategies.role.metadata.MetaDataRoleAuth
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Collection;
+
 public class AccessUtil {
 
   public static void allowRender(Component component, String right) {
@@ -47,12 +49,25 @@ public class AccessUtil {
 
   public static boolean isTeacher() {
 
-    for (GrantedAuthority authority : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+    for (GrantedAuthority authority : getAuthorities()) {
       if (authority.getAuthority().equals(Role.TEACHER.toString())) {
         return true;
       }
     }
 
     return false;
+  }
+
+  public static boolean hasAdministrativeAccess() {
+    for (GrantedAuthority authority : getAuthorities()) {
+      if (Role.isAdministrativeAuthority(authority.getAuthority())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static Collection<GrantedAuthority> getAuthorities() {
+    return SecurityContextHolder.getContext().getAuthentication().getAuthorities();
   }
 }

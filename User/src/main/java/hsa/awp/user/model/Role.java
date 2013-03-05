@@ -79,4 +79,10 @@ public enum Role implements Serializable {
   private String getStringRepresentation() {
     return stringRepresentation;
   }
+
+  public static boolean isAdministrativeAuthority(String authority) {
+    return APPADMIN.toString().equals(authority)
+            || SYSADMIN.toString().equals(authority)
+            || SECRETARY.toString().equals(authority);
+  }
 }
