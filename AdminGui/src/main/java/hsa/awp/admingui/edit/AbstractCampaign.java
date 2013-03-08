@@ -480,11 +480,6 @@ public abstract class AbstractCampaign extends Panel {
     private static final long serialVersionUID = -601669556663027272L;
 
     /**
-     * {@link Comparator} determining the order of elements.
-     */
-    private transient Comparator<Event> comparator = EventSorter.alphabeticalEventName();
-
-    /**
      * Constructor for {@link EventListSelectorPanel}.
      *
      * @param id       wicket id.
@@ -498,7 +493,7 @@ public abstract class AbstractCampaign extends Panel {
 
     @Override
     protected Comparator<Event> getComparator() {
-      return comparator;
+      return EventSorter.alphabeticalEventName();
     }
 
     @Override
