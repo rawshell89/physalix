@@ -159,11 +159,7 @@ public class FlatListPanel extends Panel {
 
             int maxParticipants = event.getMaxParticipants();
 
-            // replaced due to performance lack.
-            // If collection in event is not up-to-date revert this line
-            //
-            // long participantCount = controller.countConfirmedRegistrationsByEventId(event.getId());
-            long participantCount = event.getConfirmedRegistrations().size();
+            long participantCount = controller.countConfirmedRegistrationsByEventId(event.getId());
 
             if (participantCount > maxParticipants) {
               participantCount = maxParticipants;
@@ -215,9 +211,8 @@ public class FlatListPanel extends Panel {
             item.add(link);
 
             final ModalWindow detailWindow = new ModalWindow("detailWindow");
-            detailWindow.setContent(new EventDetailPanel(detailWindow.getContentId(), event));
             detailWindow.setTitle(new Model<String>("Veranstaltungsdetails"));
-            detailWindow.setInitialWidth(350);
+            detailWindow.setInitialWidth(450);
 
             item.add(detailWindow);
 
@@ -229,7 +224,7 @@ public class FlatListPanel extends Panel {
 
               @Override
               public void onClick(AjaxRequestTarget target) {
-
+                detailWindow.setContent(new EventDetailPanel(detailWindow.getContentId(), event));
                 detailWindow.show(target);
               }
             });
