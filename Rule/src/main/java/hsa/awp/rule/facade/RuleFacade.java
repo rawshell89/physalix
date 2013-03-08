@@ -184,13 +184,13 @@ public class RuleFacade implements IRuleFacade, ICampaignRuleChecker {
   }
 
   @Override
-  @Transactional
+  @Transactional(readOnly = true)
   public List<RegistrationRuleSet> findByCampaign(Long campaign) {
     return registrationRuleSetDao.findByCampaign(campaign);
   }
 
   @Override
-  @Transactional
+  @Transactional(readOnly = true)
   public List<Rule> findRuleByMandator(Long mandator) {
     return ruleDao.findByMandator(mandator);
   }

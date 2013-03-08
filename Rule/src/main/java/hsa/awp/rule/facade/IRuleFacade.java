@@ -55,6 +55,5 @@ public interface IRuleFacade {
 
   Rule findRuleByNameAndMandator(String value, Long mandatorId);
 
-  @Transactional
   List<RegistrationRuleSet> findByCampaign(Long campaign);
 }

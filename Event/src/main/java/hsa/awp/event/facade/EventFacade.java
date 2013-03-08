@@ -78,14 +78,14 @@ public class EventFacade implements IEventFacade {
 
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   @Override
   public List<Category> getAllCategories() {
 
     return categoryDao.findAll();
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   @Override
   public List<Event> getAllEvents() {
 
@@ -93,63 +93,63 @@ public class EventFacade implements IEventFacade {
     return evList;
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   @Override
   public List<Subject> getAllSubjects() {
 
     return subjectDao.findAll();
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   @Override
   public Category getCategoryById(Long id) {
 
     return categoryDao.findById(id);
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   @Override
   public Category getCategoryByName(String name) {
 
     return categoryDao.findByName(name);
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   @Override
   public Category getCategoryByNameAndMandator(String modelObject, Long activeMandator) {
 
     return categoryDao.findByNameAndMandator(modelObject, activeMandator);
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   @Override
   public Event getEventByEventId(Integer eventId) {
 
     return eventDao.findEventByEventId(eventId);
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   @Override
   public Event getEventById(Long eventId) {
 
     return eventDao.findById(eventId);
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   @Override
   public Exam getExamById(Long examId) {
 
     return examDao.findById(examId);
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   @Override
   public Subject getSubjectById(Long id) {
 
     return subjectDao.findById(id);
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
   @Override
   public Timetable getTimetableById(Long id) {
 
