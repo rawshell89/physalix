@@ -33,14 +33,6 @@ import java.util.List;
 import java.util.Set;
 
 public interface IUserGuiController extends IGuiController {
-  /**
-   * Checks if a User is already registered with the event.
-   *
-   * @param user  User to look for.
-   * @param event event to look for.
-   * @return true if the user is registered.
-   */
-  boolean checkSingleUserRegistrationForEvent(SingleUser user, Event event);
 
   List<Event> convertToEventList(List<Long> ids);
 
@@ -126,6 +118,8 @@ public interface IUserGuiController extends IGuiController {
    * @return true if he is allowed.
    */
   boolean isRegistrationAllowed(SingleUser user, Campaign campaign, Event event);
+
+  List<Event> getEventsWhereRegistrationIsAllowed(Campaign campaign, SingleUser singleUser);
 
   void registerWithFifoProcedure(FifoProcedure procedure, Event event, String participant, String initiator, boolean examOnly);
 

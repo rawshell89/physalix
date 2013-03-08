@@ -27,6 +27,7 @@ import hsa.awp.campaign.model.Campaign;
 import hsa.awp.campaign.model.Procedure;
 import hsa.awp.event.model.Event;
 import hsa.awp.event.model.Term;
+import hsa.awp.event.util.EventSorter;
 import hsa.awp.user.model.StudyCourse;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
@@ -481,7 +482,7 @@ public abstract class AbstractCampaign extends Panel {
     /**
      * {@link Comparator} determining the order of elements.
      */
-    private transient Comparator<Event> comparator;
+    private transient Comparator<Event> comparator = EventSorter.alphabeticalEventName();
 
     /**
      * Constructor for {@link EventListSelectorPanel}.
@@ -497,22 +498,6 @@ public abstract class AbstractCampaign extends Panel {
 
     @Override
     protected Comparator<Event> getComparator() {
-
-      if (comparator == null) {
-        comparator = new Comparator<Event>() {
-          @Override
-          public int compare(Event o1, Event o2) {
-
-            String subjectName1 = o1.getSubject().getName();
-            String subjectName2 = o2.getSubject().getName();
-
-            if (!(subjectName1.equals(subjectName2))) {
-              return subjectName1.compareTo(subjectName2);
-            }
-            return ((Integer) o1.getEventId()).compareTo(o2.getEventId());
-          }
-        };
-      }
       return comparator;
     }
 

@@ -26,6 +26,7 @@ import hsa.awp.campaign.model.FifoProcedure;
 import hsa.awp.campaign.model.Procedure;
 import hsa.awp.event.model.Category;
 import hsa.awp.event.model.Event;
+import hsa.awp.event.util.EventSorter;
 import hsa.awp.gui.util.LoadableDetachedModel;
 import hsa.awp.user.model.SingleUser;
 import hsa.awp.usergui.controller.IUserGuiController;
@@ -71,6 +72,8 @@ public class FlatListPanel extends Panel {
    */
   private List<Event> events;
 
+  private Set<Category> categories;
+
   /**
    * percent of remaining slots in event to show yellow icon.
    */
@@ -99,6 +102,14 @@ public class FlatListPanel extends Panel {
 
     singleUser = controller.getUserById(SecurityContextHolder.getContext().getAuthentication().getName());
 
+    // find events where user is allowed
+    events = controller.getEventsWhereRegistrationIsAllowed(campaign, singleUser);
+
+    // find categories with events where user is allowed
+    categories = getCategoriesOfEvents(events);
+
+    // find events of category where user is allowed
+
     final LoadableDetachedModel<List<Category>> categoriesModel = new LoadableDetachedModel<List<Category>>() {
       /**
        * unique serialization id.
@@ -107,25 +118,9 @@ public class FlatListPanel extends Panel {
 
       @Override
       protected List<Category> load() {
-
-        List<Category> categories = new LinkedList<Category>();
-        for (Category cat : controller.getAllCategories()) {
-          if (getEventList(cat).size() > 0) {
-            categories.add(cat);
-          }
-        }
-
-        Collections.sort(categories, new Comparator<Category>() {
-          @Override
-          public int compare(Category o1, Category o2) {
-
-            int val = o1.getName().compareTo(o2.getName());
-
-            return val;
-          }
-        });
-
-        return categories;
+        List<Category> categoryList = new ArrayList<Category>(categories);
+        Collections.sort(categoryList, EventSorter.alphabeticalCategoryName());
+        return categoryList;
       }
     };
 
@@ -147,10 +142,10 @@ public class FlatListPanel extends Panel {
       @Override
       protected void populateItem(ListItem<Category> item) {
 
-        events = getEventList(item.getModelObject());
+        List<Event> eventsOfCategory = getEventsOfCategory(item.getModelObject(), events);
 
         item.add(new Label("categoryname", item.getModelObject().getName()));
-        item.add(new ListView<Event>("eventlist", events) {
+        item.add(new ListView<Event>("eventlist", eventsOfCategory) {
           /**
            * Generated serialization id.
            */
@@ -163,7 +158,12 @@ public class FlatListPanel extends Panel {
             final Event event = item.getModelObject();
 
             int maxParticipants = event.getMaxParticipants();
-            long participantCount = controller.countConfirmedRegistrationsByEventId(event.getId());
+
+            // replaced due to performance lack.
+            // If collection in event is not up-to-date revert this line
+            //
+            // long participantCount = controller.countConfirmedRegistrationsByEventId(event.getId());
+            long participantCount = event.getConfirmedRegistrations().size();
 
             if (participantCount > maxParticipants) {
               participantCount = maxParticipants;
@@ -195,7 +195,7 @@ public class FlatListPanel extends Panel {
             Image icon = new Image("icon");
             icon.add(new AttributeModifier("src", true, new Model<String>()));
 
-            if (controller.checkSingleUserRegistrationForEvent(singleUser, event)) {
+            if (controller.hasParticipantConfirmedRegistrationInEvent(singleUser, event)) {
               link.setVisible(false);
               item.add(new AttributeAppender("class", new Model<String>("disabled"), " "));
             }
@@ -285,35 +285,22 @@ public class FlatListPanel extends Panel {
     }));
   }
 
-  /**
-   * Generates a List<Event> with all Events, which belong to the given Category cat.
-   *
-   * @param cat Category whose events should be represented in a list.
-   * @return List of Events
-   */
-  private List<Event> getEventList(Category cat) {
-
-    List<Event> ret = new LinkedList<Event>();
-
-    for (Event event : controller.getEventsByCampaign(campaign)) {
-      if (event.getSubject().getCategory().equals(cat) && controller.isRegistrationAllowed(singleUser, campaign, event)) {
-        ret.add(event);
+  private List<Event> getEventsOfCategory(Category category, List<Event> events) {
+    List<Event> filtered = new ArrayList<Event>();
+    for (Event event : events) {
+      if (category.equals(event.getSubject().getCategory())) {
+        filtered.add(event);
       }
     }
+    return filtered;
+  }
 
-    Collections.sort(ret, new Comparator<Event>() {
-      @Override
-      public int compare(Event o1, Event o2) {
-
-        int val = o1.getSubject().getName().compareTo(o2.getSubject().getName());
-        if (val == 0) {
-          return ((Integer) o1.getEventId()).compareTo(o2.getEventId());
-        }
-        return val;
-      }
-    });
-
-    return ret;
+  private Set<Category> getCategoriesOfEvents(List<Event> events) {
+    Set<Category> categories = new HashSet<Category>();
+    for (Event event : events) {
+       categories.add(event.getSubject().getCategory());
+    }
+    return categories;
   }
 
   /**

@@ -24,6 +24,8 @@ package hsa.awp.rule.dao;
 import hsa.awp.common.dao.AbstractMandatorableDao;
 import hsa.awp.rule.model.RegistrationRuleSet;
 import hsa.awp.rule.model.RuleSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -35,6 +37,9 @@ import java.util.List;
  * @author johannes
  */
 public class RegistrationRuleSetDao extends AbstractMandatorableDao<RegistrationRuleSet, Long> implements IRegistrationRuleSetDao {
+
+  private static Logger log = LoggerFactory.getLogger(RegistrationRuleSetDao.class);
+
   /**
    * Default constructor.
    */
@@ -53,13 +58,33 @@ public class RegistrationRuleSetDao extends AbstractMandatorableDao<Registration
     }
 
     Query query = getEntityManager().createQuery(
-        "select o from " + RegistrationRuleSet.class.getSimpleName() + " o where o.campaign=:campaign and o.event=:event");
+            "select o from " + RegistrationRuleSet.class.getSimpleName() + " o where o.campaign=:campaign and o.event=:event");
     query.setParameter("campaign", campaign);
     query.setParameter("event", event);
 
     try {
       return (RegistrationRuleSet) query.getSingleResult();
     } catch (NoResultException e) {
+      log.warn("no result", e);
+      return null;
+    }
+  }
+
+  @Override
+  public List<RegistrationRuleSet> findByCampaign(Long campaign) {
+
+    if (campaign == null) {
+      throw new IllegalArgumentException("no campaign given");
+    }
+
+    Query query = getEntityManager().createQuery(
+            "select o from " + RegistrationRuleSet.class.getSimpleName() + " o where o.campaign=:campaign");
+    query.setParameter("campaign", campaign);
+
+    try {
+      return query.getResultList();
+    } catch (NoResultException e) {
+      log.warn("no result", e);
       return null;
     }
   }
@@ -82,6 +107,7 @@ public class RegistrationRuleSetDao extends AbstractMandatorableDao<Registration
     try {
       return (RegistrationRuleSet) query.getSingleResult();
     } catch (NoResultException e) {
+      log.warn("no result", e);
       return null;
     }
   }

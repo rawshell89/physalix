@@ -46,4 +46,6 @@ public interface IRegistrationRuleSetDao extends IAbstractMandatorableDao<Regist
   List<RegistrationRuleSet> findByEventId(Long id);
 
   List<RegistrationRuleSet> findByEventIdAndMandatorId(Long id, Long mandatorId);
+
+  List<RegistrationRuleSet> findByCampaign(Long campaign);
 }

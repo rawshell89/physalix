@@ -25,6 +25,7 @@ import antlr.debug.Event;
 import hsa.awp.campaign.model.*;
 import hsa.awp.common.exception.NoMatchingElementException;
 import hsa.awp.user.model.SingleUser;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.List;
@@ -101,6 +102,8 @@ public interface ICampaignFacade {
    * @return List of {@link ConfirmedRegistration}s.
    */
   List<ConfirmedRegistration> findConfirmedRegistrationsByParticipantId(Long participantId);
+
+  boolean hasParticipantConfirmedRegistrationInEvent(Long participantId, Long eventId);
 
   List<ConfirmedRegistration> findConfirmedRegistrationsByParticipantIdAndProcedure(Long participantId, Procedure procedure);
 

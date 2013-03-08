@@ -148,6 +148,12 @@ public final class CampaignFacade implements ICampaignFacade {
 
   @Transactional
   @Override
+  public boolean hasParticipantConfirmedRegistrationInEvent(Long participantId, Long eventId) {
+    return confirmedRegistrationDao.hasParticipantConfirmedRegistrationInEvent(participantId, eventId);
+  }
+
+  @Transactional
+  @Override
   public List<PriorityListItem> findPriorityListItemsByEventId(Long eventId) {
 
     return priorityListItemDao.findItemsByEventId(eventId);

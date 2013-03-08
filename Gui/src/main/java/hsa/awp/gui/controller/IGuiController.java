@@ -30,6 +30,7 @@ import hsa.awp.event.model.Category;
 import hsa.awp.event.model.Event;
 import hsa.awp.event.model.Subject;
 import hsa.awp.user.model.SingleUser;
+import hsa.awp.user.model.User;
 
 import java.util.List;
 import java.util.Set;
@@ -131,4 +132,6 @@ public interface IGuiController {
    * @return List of {@link hsa.awp.campaign.model.ConfirmedRegistration}s.
    */
   List<ConfirmedRegistration> findConfirmedRegistrationsByParticipantId(Long participantId);
+
+  boolean hasParticipantConfirmedRegistrationInEvent(User participant, Event event);
 }

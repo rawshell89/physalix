@@ -32,15 +32,14 @@ import hsa.awp.event.model.Event;
 import hsa.awp.event.model.Subject;
 import hsa.awp.rule.facade.IRuleFacade;
 import hsa.awp.rule.facade.RuleFacade;
+import hsa.awp.rule.model.RegistrationRuleSet;
 import hsa.awp.user.facade.IUserFacade;
 import hsa.awp.user.model.SingleUser;
 import hsa.awp.user.model.Student;
+import hsa.awp.user.model.User;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class GuiController implements IGuiController {
   /**
@@ -281,5 +280,10 @@ public class GuiController implements IGuiController {
   public List<ConfirmedRegistration> findConfirmedRegistrationsByParticipantId(Long participantId) {
 
     return camFacade.findConfirmedRegistrationsByParticipantId(participantId);
+  }
+
+  @Override
+  public boolean hasParticipantConfirmedRegistrationInEvent(User participant, Event event) {
+    return camFacade.hasParticipantConfirmedRegistrationInEvent(participant.getId(), event.getId());
   }
 }

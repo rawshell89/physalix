@@ -134,6 +134,19 @@ public class ConfirmedRegistrationDao extends AbstractMandatorableDao<ConfirmedR
   }
 
   @Override
+  @SuppressWarnings("unchecked")
+  public boolean hasParticipantConfirmedRegistrationInEvent(Long participantId, Long eventId) {
+
+    Query query = getEntityManager().createQuery(
+            "select count(o) from " + ConfirmedRegistration.class.getSimpleName() + " o where o.participant=:participant and o.eventId=:event");
+    query.setParameter("participant", participantId);
+    query.setParameter("event", eventId);
+
+    Long count = (Long) query.getSingleResult();
+    return count > 0;
+  }
+
+  @Override
   public List<ConfirmedRegistration> findItemsByParticipantIdAndMandator(Long participantId, Long mandatorId) {
 
     Query query = getEntityManager().createQuery(

@@ -90,6 +90,8 @@ public interface IConfirmedRegistrationDao extends IAbstractMandatorableDao<Conf
    */
   List<ConfirmedRegistration> findItemsByParticipantId(Long participantId);
 
+  boolean hasParticipantConfirmedRegistrationInEvent(Long participantId, Long eventId);
+
   List<ConfirmedRegistration> findItemsByParticipantIdAndMandator(Long participantId, Long mandatorId);
 
   List<ConfirmedRegistration> findItemsByParticipantIdAndProcedure(Long participantId, Procedure procedure);

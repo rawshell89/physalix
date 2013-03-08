@@ -27,6 +27,7 @@ import hsa.awp.common.exception.DataAccessException;
 import hsa.awp.event.model.Category;
 import hsa.awp.event.model.Event;
 import hsa.awp.gui.controller.GuiController;
+import hsa.awp.rule.model.RegistrationRuleSet;
 import hsa.awp.scire.controller.IScireController;
 import hsa.awp.scire.procedureLogic.DrawProcedureLogic;
 import hsa.awp.scire.procedureLogic.IFifoProcedureLogic;
@@ -187,19 +188,34 @@ public class UserGuiController extends GuiController implements IUserGuiControll
   }
 
   @Override
-  public boolean checkSingleUserRegistrationForEvent(SingleUser user, Event event) {
+  public List<Event> getEventsWhereRegistrationIsAllowed(Campaign campaign, SingleUser singleUser) {
 
-    boolean found = false;
+    /**
+     * 1. getEventsByCampaign()
+     * 2. findRulesByCampaign()
+     * 3. if rule exists for eventid -> check it
+     * 4. if false -> remove it
+     */
 
-    List<ConfirmedRegistration> registrations = findConfirmedRegistrationsByParticipantId(user.getId());
+    List<Event> events = getEventsByCampaign(campaign);
+    List<RegistrationRuleSet> rulesOfCampaign = ruleFacade.findByCampaign(campaign.getId());
 
-    for (ConfirmedRegistration confirmedRegistration : registrations) {
-      if (confirmedRegistration.getEventId().equals(event.getId())) {
-        found = true;
-        break;
+    Set<Long> eventIdsWithAttachedRules = new HashSet<Long>();
+    for (RegistrationRuleSet ruleSet : rulesOfCampaign) {
+      eventIdsWithAttachedRules.add(ruleSet.getEvent());
+    }
+
+    Iterator<Event> iterator = events.iterator();
+    while (iterator.hasNext()) {
+      Event event = iterator.next();
+      if (eventIdsWithAttachedRules.contains(event.getId())) {
+        if (!isRegistrationAllowed(singleUser, campaign, event)) {
+          iterator.remove();
+        }
       }
     }
-    return found;
+
+    return events;
   }
 
   @Override

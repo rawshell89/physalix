@@ -23,6 +23,7 @@ package hsa.awp.rule.facade;
 
 import hsa.awp.rule.model.RegistrationRuleSet;
 import hsa.awp.rule.model.Rule;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -53,4 +54,7 @@ public interface IRuleFacade {
   List<Rule> findRuleByMandator(Long mandator);
 
   Rule findRuleByNameAndMandator(String value, Long mandatorId);
+
+  @Transactional
+  List<RegistrationRuleSet> findByCampaign(Long campaign);
 }
