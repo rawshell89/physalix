@@ -26,7 +26,9 @@ public class EventSorter {
 
         int subjectNamePosition = subjectName1.compareTo(subjectName2);
         if (subjectNamePosition == 0) {
-          return Integer.compare(event1.getEventId(), event2.getEventId());
+
+          Integer eventId1 = event1.getEventId();
+          return eventId1.compareTo(event2.getEventId());
         }
         return subjectNamePosition;
       }
