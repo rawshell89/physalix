@@ -160,9 +160,9 @@ public abstract class AbstractDao<T extends IGenericDomainModel<K>, K> implement
       throw new DataAccessException(item.getClass() + " is not an entity.", e);
     } catch (PersistenceException e) {
       if (e.getCause() instanceof PropertyValueException) {
-        throw new PropertyViolatedException((PropertyValueException) e.getCause());
+        throw new PropertyViolatedException(e);
       } else if (e.getCause() instanceof ConstraintViolationException) {
-        throw new PropertyViolatedException((ConstraintViolationException) e.getCause());
+        throw new PropertyViolatedException(e);
       } else if (e.getCause() instanceof IdentifierGenerationException) {
         throw new PropertyViolatedException("Probably id (primary key, cause) not set. Id was: " + item.getId(), e);
       } else {
