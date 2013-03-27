@@ -31,10 +31,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * This abstract class is the api to look up users in the system.
@@ -211,11 +210,54 @@ public class SingleUserDirectoryDao extends AbstractDao<SingleUser, Long> implem
       singleUser.setUuid(uuid);
       logger.debug("persisting user with uuid {}", uuid);
 
+      String username = userProps.getProperty(IAbstractDirectory.LOGIN);
+      renameOldUserIfUsernameIsDuplicated(username);
+
       super.persist(singleUser);
     }
 
 
     return singleUser;
+  }
+
+  private void renameOldUserIfUsernameIsDuplicated(String username) {
+    SingleUser duplicateUsernameUser = findByUsernameInDatabase(username);
+    if (duplicateUsernameUser != null) {
+      Long uuid = duplicateUsernameUser.getUuid();
+
+      if (userDoesNotExistInDirectory(uuid)) {
+        String date = new SimpleDateFormat("yyyy-MM-dd.HH:mm:ss").format(Calendar.getInstance().getTime());
+        String renamedUsername = username + ".old-" + date;
+        duplicateUsernameUser.setUsername(renamedUsername);
+        logger.info("renamed user [{}] to [{}] because of reassigned username", username, renamedUsername);
+        super.merge(duplicateUsernameUser);
+      }
+    }
+  }
+
+  private boolean userDoesNotExistInDirectory(Long uuid) {
+    return ! userExistsInDirectory(uuid);
+  }
+
+  private boolean userExistsInDirectory(Long uuid) {
+    try {
+      directory.getUserProperties(uuid);
+      return true;
+    } catch (NoMatchingElementException e) {
+      return false;
+    }
+  }
+
+  public SingleUser findByUsernameInDatabase(String username) {
+    try {
+      Query query = getEntityManager().createQuery(
+              "select o from " + SingleUser.class.getSimpleName() + " o where o.username = :username");
+      query.setParameter("username", username);
+
+      return (SingleUser) query.getSingleResult();
+    } catch (NoResultException e) {
+      return null;
+    }
   }
 
   /**
