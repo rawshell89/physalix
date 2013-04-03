@@ -131,7 +131,8 @@ public class FlatListPanel extends Panel {
 
     add(flatListContainer);
 
-    add(new Label("flatlist.capacity", new Model<Integer>((int) (capacityPercent * 100))));
+    add(new Label("flatlist.capacityDE", new Model<Integer>((int) (capacityPercent * 100))));
+    add(new Label("flatlist.capacityEN", new Model<Integer>((int) (capacityPercent * 100))));
 
     flatListContainer.add(new ListView<Category>("categorylist", categoriesModel) {
       /**

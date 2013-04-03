@@ -77,43 +77,43 @@
     </div>
 
     <div class="legend">
-        <h3>Legende</h3>
-        <ul>
-            <li>
-                <span class="key"><img src="images/green.png"/></span>
-                <span>Plätze sind verfügbar</span>
-            </li>
+        <div style="float: left; width: 50%;">
+            <h3>Legende</h3>
+            <ul>
+                <li><span class="key"><img src="images/green.png"/></span><span>Plätze sind verfügbar</span></li>
+                <li><span class="key"><img src="images/yellow.png"/></span><span>Weniger als </span><span wicket:id="flatlist.capacityDE"/><span>% der Plätze sind verfügbar</span></li>
+                <li><span class="key"><img src="images/red.png"/></span><span>Alle Plätze sind belegt</span></li>
+                <li><span class="key"><img class="key" src="images/info.png"/></span><span>weitere Informationen</span></li>
+                <li><span class="key">(2/5)</span> <span>2 Plätze von 5 sind belegt</span></li>
+            </ul>
+            <h3>Hilfe</h3>
+            <h4>Direkteinbuchung</h4>
+            <div>
+                <p>W&auml;hrend dieser Phase K&ouml;nnen Sie freie Pl&auml;tze direkt buchen.</p>
+                <p>Um einen Platz zu buchen: Klicken Sie auf das Symbol vorne am entsprechenden Eintrag.</p>
+                <p>Sie k&ouml;nnen Ihre Buchungen auch jederzeit &uuml;ber die Auswahl "Buchungen vewalten" einsehen und
+                    auch wieder l&ouml;schen. </p>
+            </div>
+        </div>
+        <div style="float: left; width: 50%;">
+            <h3>Legend</h3>
+            <ul>
+                <li><span class="key"><img src="images/green.png"/></span><span>Places available</span></li>
+                <li><span class="key"><img src="images/yellow.png"/></span><span>Less than </span><span wicket:id="flatlist.capacityEN"/><span>% of the places available</span></li>
+                <li><span class="key"><img src="images/red.png"/></span><span>No places available</span></li>
+                <li><span class="key"><img class="key" src="images/info.png"/></span><span>Further information</span></li>
+                <li><span class="key">(2/5)</span> <span>2 of the 5 available places are taken</span></li>
+            </ul>
 
-            <li>
-                <span class="key"><img src="images/yellow.png"/></span>
-                <span>Weniger als </span><span wicket:id="flatlist.capacity"/><span>% der Plätze sind verfügbar</span>
-            </li>
-
-            <li>
-                <span class="key"><img src="images/red.png"/></span>
-                <span>Alle Plätze sind belegt</span>
-            </li>
-
-            <li>
-                <span class="key"><img class="key" src="images/info.png"/></span>
-                <span>weitere Informationen</span>
-            </li>
-
-            <li>
-                <span class="key">(2/5)</span>
-                <span>2 Plätze von 5 sind belegt</span>
-            </li>
-        </ul>
-        <h3>Hilfe</h3>
-        <h4>Direkteinbuchung</h4>
-
-        <div>
-            <p>W&auml;hrend dieser Phase K&ouml;nnen Sie freie Pl&auml;tze direkt buchen.</p>
-
-            <p>Um einen Platz zu buchen: Klicken Sie auf das Symbol vorne am entsprechenden Eintrag.</p>
-
-            <p>Sie k&ouml;nnen Ihre Buchungen auch jederzeit &uuml;ber die Auswahl "Buchungen vewalten" einsehen und
-                auch wieder l&ouml;schen. </p>
+            <h3>Help</h3>
+            <h4>Direct registration</h4>
+            <div>
+                <p>During this period you are able to register directly for available places.</p>
+                <p>Click the symbol at the beginning of the corresponding line to register for the course you would
+                    like to attend.</p>
+                <p>To view or make changes to enrollment in a specific course,
+                    click on the button "Buchungen verwalten."</p>
+            </div>
         </div>
     </div>
 </wicket:panel>
