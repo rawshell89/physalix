@@ -321,7 +321,8 @@ public class LdapDirectoryAdapter implements IDirectoryAdapter {
 
   private Set<String> getAllStudyCourses(String searchDn) {
     String concreteStudyCourseFieldName = Directory.getInstance().getLowLevelFieldName(IAbstractDirectory.STUDYCOURSE);
-    NamingEnumeration<SearchResult> results = queryDirectory("(" + concreteStudyCourseFieldName + "=*)", searchDn);
+    String baseDn = searchDn.substring(searchDn.indexOf(",") + 1);
+    NamingEnumeration<SearchResult> results = queryDirectory("(" + concreteStudyCourseFieldName + "=*)", baseDn);
     Set<String> studyCourses = new HashSet<String>();
     try {
       while (results.hasMore()) {

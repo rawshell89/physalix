@@ -127,6 +127,12 @@ public class DirectoryTest {
     }
   }
 
+  @Test
+  public void testGetLowLevelFieldName() {
+    String fieldName = directory.getLowLevelFieldName(Directory.STUDYCOURSE);
+    assertEquals(mapping.getProperty(Directory.STUDYCOURSE).toLowerCase(), fieldName);
+  }
+
   /**
    * Properties that must be set.
    *

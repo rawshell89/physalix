@@ -189,7 +189,13 @@ public final class Directory implements IAbstractDirectory {
 
   @Override
   public String getLowLevelFieldName(String abstractFieldName) {
-    return (String) fieldMapping.get(abstractFieldName.toUpperCase());
+    abstractFieldName = abstractFieldName.toUpperCase();
+    for (Entry<Object, Object> mappingEntry : fieldMapping.entrySet()) {
+      if (mappingEntry.getValue().equals(abstractFieldName)) {
+        return (String) mappingEntry.getKey();
+      }
+    }
+    return null;
   }
 
   @Override
