@@ -25,6 +25,7 @@ How-to get it run
   * ```template.properties``` - update ```template.path``` to the absolute path of your template folder
   * ```velocity.properties``` - update ```file.resource.loader.path``` to the absolute path of your template folder
 * Build and start physalix:
+
 ```
 $> cd awp
 $> mvn install -Dskip.test
