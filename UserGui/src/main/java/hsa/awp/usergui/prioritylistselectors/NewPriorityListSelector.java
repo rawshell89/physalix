@@ -100,10 +100,12 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 									.findEventsBySubjectId(id);
 							if (eventList != null) {
 								eventCache.put(id, eventList);
-								eventsContainer.addAllEvents(eventList);
+								List<Event> filteredList = filterEventListForSourcebox(eventCache.get(id));
+								eventsContainer.addAllEvents(filteredList);
 							}
 						} else {
-							eventsContainer.addAllEvents(eventCache.get(id));
+							List<Event> filteredList = filterEventListForSourcebox(eventCache.get(id));
+							eventsContainer.addAllEvents(filteredList);
 						}
 					}
 
