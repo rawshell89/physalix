@@ -27,6 +27,7 @@ import hsa.awp.event.model.Event;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+
 import java.util.List;
 
 /**
@@ -113,4 +114,16 @@ public class EventDao extends AbstractMandatorableDao<Event, Long> implements IE
       throw new NoMatchingElementException("no matching element", e);
     }
   }
+
+@SuppressWarnings("unchecked")
+@Override
+public List<Event> findEventsBySubjectId(long subjectId) {
+	try{
+		Query select = getEntityManager().createQuery("select e from Event e where subject.id=:id");
+		select.setParameter("id", subjectId);
+		return select.getResultList();
+	}catch(Exception e){
+		return null;
+	}
+}
 }

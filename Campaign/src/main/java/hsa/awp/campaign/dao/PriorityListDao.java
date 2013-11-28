@@ -50,8 +50,11 @@ public class PriorityListDao extends AbstractMandatorableDao<PriorityList, Long>
         "select o from " + PriorityList.class.getSimpleName() + " o where o.participant=:pId and o.procedure=:procedure");
     query.setParameter("pId", userId);
     query.setParameter("procedure", procedure);
-
-    return query.getResultList();
+    try{
+    	return query.getResultList();
+    }catch(Exception e){
+    	return null;
+    } 
   }
 
   @Override

@@ -66,6 +66,8 @@ public interface IGuiController {
    * @return all existing {@link Category}s
    */
   public abstract List<Category> getAllCategories();
+  
+  public abstract List<Subject> findAllSubjectsByCategoryId(long id);
 
   /**
    * Returns all {@link Event}s which exist.
@@ -90,6 +92,8 @@ public interface IGuiController {
   public abstract Category getCategoryByName(String name);
 
   List<ConfirmedRegistration> getConfirmedRegistrationsByIds(Set<Long> ids);
+  
+  public List<Event> findEventsBySubjectId(long subjectId);
 
   Event getEventById(Long id);
 

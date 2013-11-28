@@ -25,10 +25,11 @@ import hsa.awp.campaign.model.Campaign;
 import hsa.awp.campaign.model.PriorityList;
 import hsa.awp.campaign.model.PriorityListItem;
 import hsa.awp.event.model.Event;
-import hsa.awp.usergui.PriorityListSelector;
 import hsa.awp.usergui.controller.IUserGuiController;
+import hsa.awp.usergui.prioritylistselectors.PriorityListSelector;
 import hsa.awp.usergui.util.DropAndSortableBox;
 import hsa.awp.usergui.util.JavascriptEventConfirmation;
+
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;

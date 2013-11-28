@@ -104,7 +104,7 @@ div#lists {
     margin-bottom: 20px;
     border-left: 1px #ff5e00 dotted;
     padding-left: 20px;
-    width: 200px;
+    width: 180px;
 }
 
 div.item {
@@ -139,7 +139,7 @@ div.prioListManagement h3 {
 
 div#categories {
     float: left;
-    margin-right: 105px;
+    margin-right: 10px;
     min-height: 200px;
     width: 185px;
     border: 1px #000000 solid;
@@ -168,6 +168,41 @@ div#categories ul li a span {
 }
 
 div#categories ul li a:hover span {
+    background-color: #FFAB7A;
+    color: #000000;
+}
+
+div#subjects {
+    float: left;
+    margin-right: 10px;
+    min-height: 200px;
+    width: 185px;
+    border: 1px #000000 solid;
+}
+
+div#subjects h3 {
+    background-color: #ff5e00;
+}
+
+div#subjects ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+div#subjects ul li a span {
+    color: #000000;
+    display: block;
+    float: left;
+    height: 20px;
+    padding: 3px 0 0;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: baseline;
+    width: 185px;
+}
+
+div#subjects ul li a:hover span {
     background-color: #FFAB7A;
     color: #000000;
 }

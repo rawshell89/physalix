@@ -51,4 +51,6 @@ public interface IEventDao extends IAbstractMandatorableDao<Event, Long> {
   List<Event> findEventsByTermAndMandator(String term, Long mandatorId);
 
   List<Event> findEventsByTermId(Long id);
+
+  List<Event> findEventsBySubjectId(long subjectId);
 }

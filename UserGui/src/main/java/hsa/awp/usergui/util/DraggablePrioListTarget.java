@@ -21,7 +21,9 @@
 
 package hsa.awp.usergui.util;
 
-import hsa.awp.usergui.PriorityListSelector;
+
+import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
@@ -198,7 +200,7 @@ public class DraggablePrioListTarget extends Panel {
 
         DraggablePrioListTarget.this.box.itemDropped(element, DraggablePrioListTarget.this, target);
 
-        PriorityListSelector pls = findParent(PriorityListSelector.class);
+        AbstractPriorityListSelector pls = findParent(AbstractPriorityListSelector.class);
         if (pls != null) {
           pls.updateLists(target);
         }

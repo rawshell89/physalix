@@ -22,7 +22,8 @@
 package hsa.awp.usergui.util;
 
 import hsa.awp.event.model.Event;
-import hsa.awp.usergui.PriorityListSelector;
+import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.AttributeAppender;
@@ -149,7 +150,7 @@ public class DragAndDropableBox extends Panel {
             }
           }
 
-          PriorityListSelector prioListSel = findParent(PriorityListSelector.class);
+          AbstractPriorityListSelector prioListSel = findParent(AbstractPriorityListSelector.class);
           prioListSel.updateLists(target);
         } catch (ClassCastException e) {
           // TODO Exceptionhandling
@@ -216,7 +217,7 @@ public class DragAndDropableBox extends Panel {
       }
     }
 
-    PriorityListSelector prioListSel = findParent(PriorityListSelector.class);
+    AbstractPriorityListSelector prioListSel = findParent(AbstractPriorityListSelector.class);
     prioListSel.updateLists(target);
   }
 
