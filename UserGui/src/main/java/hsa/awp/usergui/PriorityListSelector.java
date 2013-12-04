@@ -34,7 +34,8 @@ import hsa.awp.usergui.controller.IUserGuiController;
 import hsa.awp.usergui.registrationmanagement.DrawRegistrationManagementPanel;
 import hsa.awp.usergui.util.DragAndDropableBox;
 import hsa.awp.usergui.util.DragableElement;
-import hsa.awp.usergui.util.DropAndSortableBox;
+import hsa.awp.usergui.util.DragAndDrop.DropAndSortableBox;
+
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;

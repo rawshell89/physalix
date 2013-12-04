@@ -23,6 +23,11 @@ package hsa.awp.usergui.util;
 
 import hsa.awp.event.model.Event;
 import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
+import hsa.awp.usergui.util.DragAndDrop.AbstractDragAndDrop;
+
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -32,10 +37,6 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.wicketstuff.scriptaculous.dragdrop.DraggableTarget;
-
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Box which contains {@link DragableElement}.
@@ -54,6 +55,8 @@ public class DragAndDropableBox extends Panel {
    * List of DragableElement which are currently in this box.
    */
   private List<DragableElement> elements;
+  
+  private long componentId = -1;
 
 
   /**
@@ -116,7 +119,7 @@ public class DragAndDropableBox extends Panel {
       } else {
         elements = new LinkedList<DragableElement>();
         for (Event event : events) {
-          elements.add(new DragableElement(DRAG_AND_DROPABLE_BOX_ITEM, event));
+          elements.add(new DragableElement(DRAG_AND_DROPABLE_BOX_ITEM, event, true));
         }
       }
     } else {
@@ -135,22 +138,21 @@ public class DragAndDropableBox extends Panel {
         DragableElement element = null;
         try {
           element = (DragableElement) comp.findParent(DragableElement.class);
+          AbstractPriorityListSelector prioListSel = findParent(AbstractPriorityListSelector.class);
           if (!listContainsElement(elements, element) && elements.size() < DragAndDropableBox.this.maxEntries) {
-            elements.add(element);
-
-            DragAndDropableBox ddb = comp.findParent(DragAndDropableBox.class);
-
-            if (ddb != null) {
-              ddb.removeElementFromList(element, target);
-            }
-            DropAndSortableBox dsb = element.findParent(DropAndSortableBox.class);
+            DragAndDropableBox ddb = prioListSel.getSourceBox();
+            if(ddb.getComponentId() == prioListSel.getDropBoxElementId(element))
+            	elements.add(element);
+            
+//            if (ddb != null) {
+//              ddb.removeElementFromList(element, target);
+//            }
+            AbstractDragAndDrop dsb = element.findParent(AbstractDragAndDrop.class);
 
             if (dsb != null) {
               dsb.removeItem(element, target);
             }
           }
-
-          AbstractPriorityListSelector prioListSel = findParent(AbstractPriorityListSelector.class);
           prioListSel.updateLists(target);
         } catch (ClassCastException e) {
           // TODO Exceptionhandling
@@ -260,4 +262,13 @@ public class DragAndDropableBox extends Panel {
       elements.clear();
     }
   }
+
+  public long getComponentId() {
+	return componentId;
+  }
+
+  public void setComponentId(long componentId) {
+	this.componentId = componentId;
+  }
+
 }

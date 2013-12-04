@@ -10,7 +10,7 @@ import hsa.awp.user.model.SingleUser;
 import hsa.awp.usergui.controller.IUserGuiController;
 import hsa.awp.usergui.util.DragAndDropableBox;
 import hsa.awp.usergui.util.DragableElement;
-import hsa.awp.usergui.util.DropAndSortableBox;
+import hsa.awp.usergui.util.DragAndDrop.DragAndSortableBoxWRules;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -46,7 +46,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 			"Diese Listen sind noch nicht gespeichert!");
 	private static final long serialVersionUID = 1L;
 	private IModel<List<Category>> categoryListModel;
-	private List<DropAndSortableBox> dropBoxList;
+	private List<DragAndSortableBoxWRules> dropBoxList;
 	private SingleUser singleUser;
 	@SpringBean(name = "usergui.controller")
 	private IUserGuiController controller;
@@ -90,11 +90,12 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						eventsContainer.removeAllElements();
-						addEventsToContainer(sub.getName(), sub.getId());
+						eventsContainer.setComponentId(sub.getId());
+						addEventsToContainer(sub.getId());
 						target.addComponent(eventsContainer);
 					}
 
-					private void addEventsToContainer(String name, long id) {
+					private void addEventsToContainer(long id) {
 						if (eventCache.get(id) == null) {
 							List<Event> eventList = controller
 									.findEventsBySubjectId(id);
@@ -203,7 +204,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 			}
 
 		};
-		dropBoxList = new ArrayList<DropAndSortableBox>(drawProcedureModel
+		dropBoxList = new ArrayList<DragAndSortableBoxWRules>(drawProcedureModel
 				.getObject().getMaximumPriorityLists());
 		IModel<Integer> prioListIterations = new LoadableDetachableModel<Integer>() {
 			/**
@@ -235,7 +236,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 			protected void populateItem(LoopItem item) {
 
 				DrawProcedure drawProcedure = drawProcedureModel.getObject();
-				DropAndSortableBox list = new DropAndSortableBox(
+				DragAndSortableBoxWRules list = new DragAndSortableBoxWRules(
 						"prioListSelector.prioList",
 						drawProcedure.getMaximumPriorityListItems());
 				list.setOutputMarkupId(true);
@@ -270,7 +271,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 		 * check if event is in an uncommited priolist
 		 */
 		if (dropBoxList != null && dropBoxList.size() > 0) {
-			for (DropAndSortableBox box : dropBoxList) {
+			for (DragAndSortableBoxWRules box : dropBoxList) {
 				eventBlackList.addAll(box.getEventList());
 			}
 		}
@@ -280,7 +281,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 
 	public void moveElementsBackToSource() {
 
-		for (DropAndSortableBox dropBox : dropBoxList) {
+		for (DragAndSortableBoxWRules dropBox : dropBoxList) {
 			for (Event event : dropBox.getEventList()) {
 				eventsContainer.addElement(new DragableElement(
 						DragAndDropableBox.DRAG_AND_DROPABLE_BOX_ITEM, event));
@@ -332,6 +333,10 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 	/**
 	 * generated UID.
 	 */
+	
+	public long getDropBoxElementId(DragableElement element){
+		return element.getEvent().getSubject().getId();
+	};
 
 	private class SubjectModel extends LoadableDetachableModel<List<Subject>> {
 
@@ -363,6 +368,15 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 			this.id = id;
 		}
 
+	}
+
+	@Override
+	public DragAndDropableBox getSourceBox() {
+		return eventsContainer;
+	}
+	
+	public List<DragAndSortableBoxWRules> getLists(){
+		return dropBoxList;
 	}
 
 }

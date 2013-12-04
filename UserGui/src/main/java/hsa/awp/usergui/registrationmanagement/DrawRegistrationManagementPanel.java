@@ -27,8 +27,8 @@ import hsa.awp.campaign.model.PriorityListItem;
 import hsa.awp.event.model.Event;
 import hsa.awp.usergui.controller.IUserGuiController;
 import hsa.awp.usergui.prioritylistselectors.PriorityListSelector;
-import hsa.awp.usergui.util.DropAndSortableBox;
 import hsa.awp.usergui.util.JavascriptEventConfirmation;
+import hsa.awp.usergui.util.DragAndDrop.DropAndSortableBox;
 
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;

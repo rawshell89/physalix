@@ -35,7 +35,7 @@ import hsa.awp.usergui.controller.IUserGuiController;
 import hsa.awp.usergui.registrationmanagement.DrawRegistrationManagementPanel;
 import hsa.awp.usergui.util.DragAndDropableBox;
 import hsa.awp.usergui.util.DragableElement;
-import hsa.awp.usergui.util.DropAndSortableBox;
+import hsa.awp.usergui.util.DragAndDrop.DropAndSortableBox;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -223,7 +223,7 @@ public class PriorityListSelector extends AbstractPriorityListSelector {
       @Override
       protected void populateItem(LoopItem item) {
 
-        Category category = categoryListModel.getObject().get(item.getIteration());
+        final Category category = categoryListModel.getObject().get(item.getIteration());
         AjaxLink<Category> link = new AjaxLink<Category>("prioListSelector.categoriesLink", new Model<Category>(category)) {
           /**
            * generated uid.
@@ -234,6 +234,7 @@ public class PriorityListSelector extends AbstractPriorityListSelector {
           public void onClick(AjaxRequestTarget target) {
 
             sourceBox.removeAllElements();
+            sourceBox.setComponentId(category.getId());
             this.addEventsToSourcebox();
             target.addComponent(sourceBox);
           }
@@ -391,6 +392,11 @@ public class PriorityListSelector extends AbstractPriorityListSelector {
     box.add(form);
     add(box);
   }
+  
+	public long getDropBoxElementId(DragableElement element) {
+		long eventId = element.getEvent().getId();
+		return controller.findCategoryIdByEventId(eventId);
+	};
 
   public List<Event> filterEventListForSourcebox(List<Event> events) {
 
@@ -450,4 +456,9 @@ public class PriorityListSelector extends AbstractPriorityListSelector {
 
     target.addComponent(sourceBox);
   }
+
+@Override
+public DragAndDropableBox getSourceBox() {
+	return sourceBox;
+}
 }

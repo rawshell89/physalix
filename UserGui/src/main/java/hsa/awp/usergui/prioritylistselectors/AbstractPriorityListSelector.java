@@ -2,6 +2,7 @@ package hsa.awp.usergui.prioritylistselectors;
 
 import hsa.awp.campaign.model.PriorityList;
 import hsa.awp.event.model.Event;
+import hsa.awp.usergui.util.DragAndDropableBox;
 import hsa.awp.usergui.util.DragableElement;
 
 import java.util.List;
@@ -50,5 +51,9 @@ public abstract class AbstractPriorityListSelector extends Panel {
 	 *            ajaxrequesttarget
 	 */
 	public abstract void updateLists(AjaxRequestTarget target);
-
+	
+	public abstract long getDropBoxElementId(DragableElement element);
+	
+	public abstract DragAndDropableBox getSourceBox();
+	
 }

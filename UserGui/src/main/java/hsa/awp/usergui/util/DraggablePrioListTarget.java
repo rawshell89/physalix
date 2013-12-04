@@ -23,7 +23,7 @@ package hsa.awp.usergui.util;
 
 
 import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
-
+import hsa.awp.usergui.util.DragAndDrop.AbstractDragAndDrop;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
@@ -44,7 +44,7 @@ public class DraggablePrioListTarget extends Panel {
   /**
    * reference to partent box.
    */
-  private DropAndSortableBox box;
+  private AbstractDragAndDrop box;
 
   /**
    * draggableTarget which can recieve {@link DragableElement}.
@@ -70,7 +70,7 @@ public class DraggablePrioListTarget extends Panel {
    * @param box   reference to partent box.
    * @param index index of this slot in the priolist.
    */
-  public DraggablePrioListTarget(String id, DropAndSortableBox box, int index) {
+  public DraggablePrioListTarget(String id, AbstractDragAndDrop box, int index) {
 
     this(id, box, index, null);
   }
@@ -83,7 +83,7 @@ public class DraggablePrioListTarget extends Panel {
    * @param index   index of this slot in the priolist.
    * @param element element to display.
    */
-  public DraggablePrioListTarget(String id, DropAndSortableBox box, int index, DragableElement element) {
+  public DraggablePrioListTarget(String id, AbstractDragAndDrop box, int index, DragableElement element) {
 
     this(id, box, index, element, true);
   }
@@ -97,7 +97,7 @@ public class DraggablePrioListTarget extends Panel {
    * @param element  element to display.
    * @param isActive true if draggabiliy is given
    */
-  public DraggablePrioListTarget(String id, DropAndSortableBox box, int index, DragableElement element, boolean isActive) {
+  public DraggablePrioListTarget(String id, AbstractDragAndDrop box, int index, DragableElement element, boolean isActive) {
 
     super(id);
     this.box = box;
@@ -185,20 +185,23 @@ public class DraggablePrioListTarget extends Panel {
       DragableElement element = null;
       try {
         element = (DragableElement) component.findParent(DragableElement.class);
-
-        DropAndSortableBox dsb = element.findParent(DropAndSortableBox.class);
-
-        if (dsb != null) {
-          dsb.removeItem(element, target);
-        }
-
+        
         DragAndDropableBox ddb = element.findParent(DragAndDropableBox.class);
 
         if (ddb != null) {
           ddb.removeElementFromList(element, target);
         }
-
+        
         DraggablePrioListTarget.this.box.itemDropped(element, DraggablePrioListTarget.this, target);
+
+        AbstractDragAndDrop dsb = element.findParent(AbstractDragAndDrop.class);
+
+        if (dsb != null) {
+          dsb.removeItem(element, target);
+        }
+
+        
+
 
         AbstractPriorityListSelector pls = findParent(AbstractPriorityListSelector.class);
         if (pls != null) {
