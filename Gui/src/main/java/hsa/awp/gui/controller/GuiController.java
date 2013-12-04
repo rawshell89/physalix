@@ -249,6 +249,11 @@ public class GuiController implements IGuiController {
 	}
 	
 	@Override
+	public long findCategoryIdByEventId(long id){
+		return evtFacade.findCategoryIdByEventId(id);
+	}
+	
+	@Override
 	public List<Event> findEventsBySubjectId(long subjectId){
 		List<Event> list = null;
 		try {

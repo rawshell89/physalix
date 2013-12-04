@@ -292,4 +292,6 @@ public interface IEventFacade {
 
   List<Event> findEventsBySubjectId(long subjectId);
 
+  long findCategoryIdByEventId(long id);
+
 }

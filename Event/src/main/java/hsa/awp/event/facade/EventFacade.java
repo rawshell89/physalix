@@ -485,8 +485,14 @@ public class EventFacade implements IEventFacade {
   }
 
 @Override
-@Transactional
+@Transactional(readOnly = true)
 public List<Event> findEventsBySubjectId(long subjectId) {
 	return eventDao.findEventsBySubjectId(subjectId);
+}
+
+@Override
+@Transactional(readOnly = true)
+public long findCategoryIdByEventId(long id) {
+	return eventDao.findCategoryIdByEventId(id);
 }
 }

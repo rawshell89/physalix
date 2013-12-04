@@ -24,9 +24,13 @@ package hsa.awp.event.dao;
 import hsa.awp.common.dao.AbstractMandatorableDao;
 import hsa.awp.common.exception.NoMatchingElementException;
 import hsa.awp.event.model.Event;
+import hsa.awp.event.model.Subject;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import java.util.List;
 
@@ -124,6 +128,18 @@ public List<Event> findEventsBySubjectId(long subjectId) {
 		return select.getResultList();
 	}catch(Exception e){
 		return null;
+	}
+}
+
+@Override
+public long findCategoryIdByEventId(long eventId) {
+	try {
+		Query select = getEntityManager().createQuery("select s.category.id from Subject s where s.id IN (select e.subject.id from Event e where e.id=:eventId)");
+		select.setParameter("eventId", eventId);
+		return Long.parseLong(select.getSingleResult().toString());
+	}
+	catch (Exception e){
+		return -1;
 	}
 }
 }

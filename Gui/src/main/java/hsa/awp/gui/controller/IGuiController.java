@@ -138,4 +138,6 @@ public interface IGuiController {
   List<ConfirmedRegistration> findConfirmedRegistrationsByParticipantId(Long participantId);
 
   boolean hasParticipantConfirmedRegistrationInEvent(User participant, Event event);
+
+long findCategoryIdByEventId(long id);
 }
