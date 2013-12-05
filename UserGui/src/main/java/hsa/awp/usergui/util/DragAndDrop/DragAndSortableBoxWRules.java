@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
-public class DragAndSortableBoxWRules extends AbstractDragAndDrop{
+public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 
 	/**
 	 * 
@@ -20,19 +20,24 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop{
 	public DragAndSortableBoxWRules(String id, int maxItems) {
 		super(id, maxItems);
 	}
-	
-	public DragAndSortableBoxWRules(String id, List<Event> events, int maxItems, boolean isActive){
+
+	public DragAndSortableBoxWRules(String id, List<Event> events,
+			int maxItems, boolean isActive) {
 		super(id, events, maxItems, isActive);
 	}
 
 	@Override
-	public boolean isAddingAllowed(DragableElement element, AjaxRequestTarget target) {
+	public boolean isAddingAllowed(DragableElement element,
+			AjaxRequestTarget target) {
 		long elementSubjectId = element.getEvent().getSubject().getId();
-		if(subjectId == -1 || subjectId == elementSubjectId){
+		if (subjectId == -1 || subjectId == elementSubjectId) {
 			NewPriorityListSelector selector = findParent(NewPriorityListSelector.class);
-			if(selector != null){
+			if (selector != null) {
 				List<DragAndSortableBoxWRules> lists = selector.getLists();
-				if(checkListsForItem(lists, element, target)){
+				List<Long> alreadySettedLists = selector
+						.getSubjectIdsFromSavedLists();
+				if (checkListsForItem(alreadySettedLists, lists, element,
+						target)) {
 					subjectId = elementSubjectId;
 					return true;
 				}
@@ -53,7 +58,7 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop{
 	public void removeItem(DragableElement element, AjaxRequestTarget target) {
 
 		boolean deleted = false;
-		DragableElement [] elements = getElements();
+		DragableElement[] elements = getElements();
 		for (int i = 0; i < elements.length; i++) {
 			if (deleted) {
 				elements[i - 1] = elements[i]; /* move all following items up */
@@ -62,7 +67,7 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop{
 					&& elements[i].getEvent().equals(element.getEvent())) {
 				elements[i] = null; /* delete item */
 				deleted = true;
-				if(isLastItemRemoved(elements)){
+				if (isLastItemRemoved(elements)) {
 					subjectId = -1;
 				}
 			}
@@ -70,18 +75,24 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop{
 
 		updateAll(target); /* update component */
 	}
-	
-	private boolean isLastItemRemoved(DragableElement [] elements){
+
+	private boolean isLastItemRemoved(DragableElement[] elements) {
 		for (int i = 0; i < elements.length; i++) {
-			if(elements[i] != null)
+			if (elements[i] != null)
 				return false;
 		}
 		return true;
 	}
-	
-	private boolean checkListsForItem(List<DragAndSortableBoxWRules> drags, DragableElement element, AjaxRequestTarget target){
+
+	private boolean checkListsForItem(List<Long> savedLists,
+			List<DragAndSortableBoxWRules> drags, DragableElement element,
+			AjaxRequestTarget target) {
 		long subjectId = element.getEvent().getSubject().getId();
-		for(DragAndSortableBoxWRules drag : drags){
+		for (Long id : savedLists) {
+			if (subjectId == id)
+				return false;
+		}
+		for (DragAndSortableBoxWRules drag : drags) {
 			if (drag != this) {
 				if (drag.subjectId == subjectId) {
 					DragableElement[] elements = drag.getElements();
@@ -90,7 +101,7 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop{
 					for (int i = 0; i < elements.length; i++) {
 						if (elements[i] != null) {
 							moreThanOne++;
-							if(elements[i].getEvent() == element.getEvent())
+							if (elements[i].getEvent() == element.getEvent())
 								containsEvent = true;
 						}
 					}

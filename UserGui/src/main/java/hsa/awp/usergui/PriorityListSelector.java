@@ -195,7 +195,12 @@ public class PriorityListSelector extends Panel {
     };
 
     IModel<Integer> categoryIterations = new LoadableDetachableModel<Integer>() {
-      @Override
+      /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+	@Override
       protected Integer load() {
 
         return categoryListModel.getObject().size();

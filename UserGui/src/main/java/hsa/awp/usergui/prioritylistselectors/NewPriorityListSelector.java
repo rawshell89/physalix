@@ -2,32 +2,43 @@ package hsa.awp.usergui.prioritylistselectors;
 
 import hsa.awp.campaign.model.DrawProcedure;
 import hsa.awp.campaign.model.PriorityList;
+import hsa.awp.campaign.model.PriorityListItem;
 import hsa.awp.event.model.Category;
 import hsa.awp.event.model.Event;
 import hsa.awp.event.model.Subject;
 import hsa.awp.gui.util.LoadableDetachedModel;
 import hsa.awp.user.model.SingleUser;
+import hsa.awp.usergui.OnePanelPage;
 import hsa.awp.usergui.controller.IUserGuiController;
+import hsa.awp.usergui.registrationmanagement.DrawRegistrationManagementPanel;
 import hsa.awp.usergui.util.DragAndDropableBox;
 import hsa.awp.usergui.util.DragableElement;
+import hsa.awp.usergui.util.DragAndDrop.AbstractDragAndDrop;
 import hsa.awp.usergui.util.DragAndDrop.DragAndSortableBoxWRules;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.list.Loop;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -53,13 +64,23 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 	private IModel<DrawProcedure> drawProcedureModel;
 	private Form<String> form;
 	private SubjectModel subjectModel;
+	private static Button submitButton;
 	private ListView<Subject> subjectListView;
+	private FeedbackPanel feedbackPanel = new FeedbackPanel("prio.feedback");
 	private DragAndDropableBox eventsContainer;
 	private Map<Long, List<Subject>> subjectCache = new HashMap<Long, List<Subject>>();
 	private Map<Long, List<Event>> eventCache = new HashMap<Long, List<Event>>();
+	private MarkupContainer box;
+	private MarkupContainer updateContainer;
 
 	public NewPriorityListSelector(String id, final long procId) {
 		super(id);
+		this.setOutputMarkupId(true);
+		box = new WebMarkupContainer("prioListSelector.box");
+		updateContainer = new WebMarkupContainer("subject.updateContainer");
+		updateContainer.setOutputMarkupId(true);
+		box.setOutputMarkupId(true);
+		feedbackPanel.setOutputMarkupId(true);
 		subjectModel = new SubjectModel();
 		form = new Form<String>("prioListSelector.form");
 		form.setOutputMarkupId(true);
@@ -68,6 +89,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 		eventsContainer = new DragAndDropableBox(
 				"prioListSelector.selectableObjects");
 		eventsContainer.setOutputMarkupId(true);
+		
 		subjectListView = new ListView<Subject>("prioListSelector.subjects",
 				subjectModel) {
 
@@ -116,6 +138,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 				item.add(link);
 			}
 		};
+		updateContainer.add(subjectListView);
 		drawProcedureModel = new LoadableDetachedModel<DrawProcedure>() {
 			/**
 		       *
@@ -195,7 +218,9 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						subjectModel.setId(cat.getId());
-						target.addComponent(form);
+						target.addComponent(updateContainer);
+						eventsContainer.removeAllElements();
+						target.addComponent(eventsContainer);
 					}
 				};
 				link.add(new Label("prioListSelector.categoryName", cat
@@ -206,6 +231,46 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 		};
 		dropBoxList = new ArrayList<DragAndSortableBoxWRules>(drawProcedureModel
 				.getObject().getMaximumPriorityLists());
+		
+		
+		submitButton = new Button("prioListSelector.submit") {
+		      /**
+		       * generated UID.
+		       */
+		      private static final long serialVersionUID = -1440808750941977688L;
+
+		      @Override
+		      public void onSubmit() {
+
+		        Set<List<Event>> lists = new HashSet<List<Event>>();
+
+		        for (AbstractDragAndDrop box : dropBoxList) {
+		          if (box.getEventList().size() > 0) {
+		            lists.add(box.getEventList());
+		          }
+		        }
+
+		        if (lists.size() != 0) {
+		          drawProcedureModel.detach();
+		          try {
+		            DrawProcedure drawProcedure = drawProcedureModel.getObject();
+		            controller.createPrioList(SecurityContextHolder.getContext().getAuthentication().getName(),
+		                SecurityContextHolder.getContext().getAuthentication().getName(), lists, drawProcedure
+		                .getCampaign());
+		            setResponsePage(new OnePanelPage(new NewPriorityListSelector(OnePanelPage.getPanelIdOne(), drawProcedure.getId())));
+		          } catch (IllegalArgumentException e) {
+		            moveElementsBackToSource();
+		            feedbackPanel.error("Bitte Eingaben \u00dcberpr\u00fcfen.");
+		          } catch (IllegalStateException e) {
+		            feedbackPanel.error("Leider zu spät, die Verlosung hat schon stattgefunden.");
+		          }
+		        } else {
+		          feedbackPanel.error("Wunschlisten d\u00dcrfen nicht leer sein!");
+		        }
+		      }
+		    };
+		
+		
 		IModel<Integer> prioListIterations = new LoadableDetachableModel<Integer>() {
 			/**
 		             *
@@ -220,8 +285,15 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 				int i = drawProcedure.getMaximumPriorityLists();
 				int j = controller.findPriorityListsByUserAndProcedure(
 						singleUser.getId(), drawProcedure).size();
+				
+				i = i - j;
+				
+				submitButton.setVisible(i > 0);
+		        messageEmpty.setVisible(!(i > 0));
+		        messageTitle.setVisible((i > 0));
+		        messageSubtitle.setVisible((i > 0));
 
-				return i - j;
+				return i;
 			}
 		};
 
@@ -252,15 +324,50 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 		};
 
 		priolists.setOutputMarkupId(true);
+		
+		IModel<List<PriorityList>> prioListsModel = new LoadableDetachableModel<List<PriorityList>>() {
+		      /**
+		       * generated UID.
+		       */
+		      private static final long serialVersionUID = 8833064897441919997L;
 
+		      @Override
+		      protected List<PriorityList> load() {
+
+		        List<PriorityList> list = controller.findPriorityListsByUserAndProcedure(singleUser.getId(), drawProcedureModel
+		            .getObject());
+
+		        return list;
+		      }
+		};
+		
+		DrawRegistrationManagementPanel drawRegistrationManagementPanel = new DrawRegistrationManagementPanel(
+		        "prioListSelector.managementPanel", prioListsModel);
+
+		form.add(drawRegistrationManagementPanel);
 		form.add(priolists);
 		form.add(messageEmpty);
 		form.add(messageSubtitle);
 		form.add(messageTitle);
 		form.add(categoryList);
-		form.add(subjectListView);
+		form.add(updateContainer);
 		form.add(eventsContainer);
-		add(form);
+		form.add(submitButton);
+		//add(form);
+		
+		 DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+		 box.add(new Label("prioListSelector.heading", drawProcedureModel.getObject().getCampaign().getName()
+		        + ": Phase: "
+		        + drawProcedureModel.getObject().getName()
+		        + " vom "
+		        + df.format(drawProcedureModel.getObject().getStartDate().getTime())
+		        + " bis "
+		        + (drawProcedureModel.getObject() instanceof DrawProcedure ? df.format(drawProcedureModel.getObject().getDrawDate()
+		        .getTime()) : df.format((drawProcedureModel.getObject().getEndDate().getTime())))));
+
+		 box.add(feedbackPanel);
+		 box.add(form);
+		 add(box);
 
 	}
 
@@ -378,5 +485,17 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 	public List<DragAndSortableBoxWRules> getLists(){
 		return dropBoxList;
 	}
-
+	
+	public List<Long> getSubjectIdsFromSavedLists(){
+		List<PriorityList> prioLists = controller.findPriorityListsByUserAndProcedure(singleUser.getId(), drawProcedureModel.getObject());
+		List<Long> ids = new ArrayList<Long>();
+		for(PriorityList pl : prioLists){
+			Set<PriorityListItem> items = pl.getItems();
+			if(items.size() > 0){
+				long eventId = pl.getItem(1).getEvent();
+				ids.add(controller.getEventById(eventId).getSubject().getId());
+			}
+		}
+		return ids;
+	}
 }

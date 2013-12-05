@@ -26,9 +26,12 @@ import hsa.awp.campaign.model.PriorityList;
 import hsa.awp.campaign.model.PriorityListItem;
 import hsa.awp.event.model.Event;
 import hsa.awp.usergui.controller.IUserGuiController;
-import hsa.awp.usergui.prioritylistselectors.PriorityListSelector;
+import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
 import hsa.awp.usergui.util.JavascriptEventConfirmation;
 import hsa.awp.usergui.util.DragAndDrop.DropAndSortableBox;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -44,9 +47,6 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author basti
@@ -136,9 +136,9 @@ public class DrawRegistrationManagementPanel extends Panel {
             List<PriorityList> prioListList = priolistModel.getObject();
             controller.removePriolist(prioListList.get(item.getIteration()));
 
-            PriorityListSelector prioListSelector = findParent(PriorityListSelector.class);
+            AbstractPriorityListSelector prioListSelector = findParent(AbstractPriorityListSelector.class);
             if (prioListSelector != null) {
-              prioListSelector.update(target, prioListList.get(item.getIteration()));
+            	prioListSelector.update(target, prioListList.get(item.getIteration()));
             }
 
             prioListList.remove(item.getIteration());
