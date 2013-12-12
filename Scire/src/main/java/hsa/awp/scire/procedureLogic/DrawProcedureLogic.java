@@ -341,7 +341,7 @@ public class DrawProcedureLogic extends AbstractProcedureLogic<DrawProcedure> im
         mail.send();
 
         logger.info("remove associated priority lists");
-        campaignFacade.removePriorityListsAssociatedWithDrawProcedure(procedure);
+        //campaignFacade.removePriorityListsAssociatedWithDrawProcedure(procedure);
       }
     };
 

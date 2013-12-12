@@ -102,6 +102,8 @@ public abstract class AbstractCampaign extends Panel {
   private TextField<String> email;
 
   private TextArea detailText;
+  
+  private CheckBox cb_NewDesign;
 
   /**
    * Selector for {@link Procedure}s.
@@ -209,6 +211,9 @@ public abstract class AbstractCampaign extends Panel {
 
     detailText = new TextArea("detailText", new Model<String>());
     detailText.setModelObject(getCampaign().getDetailText());
+    
+    cb_NewDesign = new CheckBox("newDesign", new Model<Boolean>());
+    cb_NewDesign.setModelObject(getCampaign().getNewPrio() == 0 ? false : true);
 
     List<Term> termChoices = controller.getTermsByMandator(getSession());
 
@@ -245,6 +250,7 @@ public abstract class AbstractCampaign extends Panel {
     });
 
     form.add(endShow);
+    form.add(cb_NewDesign);
     form.add(startShow);
     form.add(name);
     form.add(email);
@@ -280,9 +286,11 @@ public abstract class AbstractCampaign extends Panel {
 
           Calendar calEndShow = Calendar.getInstance();
           calEndShow.setTime(endShow.getModelObject());
+          
+          int newDesignFlag = cb_NewDesign.getModelObject() == true ? 1 : 0;
 
           workResult(name.getModelObject(), email.getModelObject(), eventListSelector.getSelected(), procedureListSelector.getSelected(),
-              calStartShow, calEndShow, studyCourseListSelector.getSelected(), (String) detailText.getModelObject());
+              calStartShow, calEndShow, studyCourseListSelector.getSelected(), (String) detailText.getModelObject(), newDesignFlag);
           //TODO: Sprache
           feedbackPanel.info(getSuccessText());
           this.setVisible(false);
@@ -408,7 +416,7 @@ public abstract class AbstractCampaign extends Panel {
    * @param studyCourses
    */
   protected abstract void workResult(String name, String email, List<Event> events, List<Procedure> procedures, Calendar startShow,
-                                     Calendar endShow, List<StudyCourse> studyCourses, String detailText);
+                                     Calendar endShow, List<StudyCourse> studyCourses, String detailText, int flag);
 
   /**
    * Getter for the text that shall be viewed on success.

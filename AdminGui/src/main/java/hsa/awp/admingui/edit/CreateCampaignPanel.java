@@ -115,7 +115,7 @@ public class CreateCampaignPanel extends AbstractCampaign {
   }
 
   @Override
-  protected void workResult(String name, String email, List<Event> events, List<Procedure> procedures, Calendar startShow, Calendar endShow, List<StudyCourse> studyCourses, String detailText) {
+  protected void workResult(String name, String email, List<Event> events, List<Procedure> procedures, Calendar startShow, Calendar endShow, List<StudyCourse> studyCourses, String detailText, int flag) {
 
     Set<Long> eventIds = new HashSet<Long>();
     for (Event event : events) {
@@ -127,6 +127,6 @@ public class CreateCampaignPanel extends AbstractCampaign {
       studyCourseIds.add(studyCourse.getId());
     }
 
-    getController().createCampaign(name, email, endShow, startShow, new LinkedList<Long>(eventIds), procedures, getSession(), studyCourseIds, detailText);
+    getController().createCampaign(name, email, endShow, startShow, new LinkedList<Long>(eventIds), procedures, getSession(), studyCourseIds, detailText, flag);
   }
 }
