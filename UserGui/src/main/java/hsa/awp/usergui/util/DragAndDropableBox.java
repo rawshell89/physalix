@@ -159,7 +159,6 @@ public class DragAndDropableBox extends Panel {
           }
           prioListSel.updateLists(target);
         } catch (ClassCastException e) {
-          // TODO Exceptionhandling
           e.printStackTrace();
         } catch (NullPointerException e) {
           e.printStackTrace();
