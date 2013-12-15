@@ -74,8 +74,6 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 				if (isLastItemRemoved(elements)) {
 					subjectId = -1;
 					lastElement = true;
-//					DragAndDropableBox box = element.findParent(DragAndDropableBox.class);
-//					box.add(new SimpleAttributeModifier("style", "backround-color: #ffffff"));
 				}
 			}
 		}
