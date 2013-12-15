@@ -1,13 +1,15 @@
 package hsa.awp.usergui.util.DragAndDrop;
 
 import hsa.awp.event.model.Event;
-import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
 import hsa.awp.usergui.prioritylistselectors.NewPriorityListSelector;
+import hsa.awp.usergui.util.DragAndDropableBox;
 import hsa.awp.usergui.util.DragableElement;
+import hsa.awp.usergui.util.RandomColor;
 
 import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 
 public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 
@@ -16,14 +18,19 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 	 */
 	private static final long serialVersionUID = 1L;
 	private long subjectId = -1;
+	private String color;
 
 	public DragAndSortableBoxWRules(String id, int maxItems) {
 		super(id, maxItems);
+		color = RandomColor.getRandomHexColor("background-color");
+		add(new SimpleAttributeModifier("style", color));
 	}
 
 	public DragAndSortableBoxWRules(String id, List<Event> events,
 			int maxItems, boolean isActive) {
 		super(id, events, maxItems, isActive);
+		color = RandomColor.getRandomHexColor("background-color");
+		add(new SimpleAttributeModifier("style", color));
 	}
 
 	@Override
@@ -39,24 +46,21 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 				if (checkListsForItem(alreadySettedLists, lists, element,
 						target)) {
 					subjectId = elementSubjectId;
+					DragAndDropableBox box = element.findParent(DragAndDropableBox.class);
+					box.add(new SimpleAttributeModifier("style", color));
 					return true;
 				}
+				changeDialogContentAndShow(target, "Es ist nur eine Liste pro Fach erlaubt. Bitte überprüfen Sie ihre Eingaben!");
 				return false;
 			}
 		}
+		changeDialogContentAndShow(target, "Es ist nur ein Fach pro Liste erlaubt.");
 		return false;
 	}
 
 	@Override
-	public void doElseBranch(DragableElement element, AjaxRequestTarget target) {
-		AbstractPriorityListSelector pls = findParent(AbstractPriorityListSelector.class);
-		pls.addElementToSourceBox(element);
-		pls.updateLists(target);
-	}
-
-	@Override
-	public void removeItem(DragableElement element, AjaxRequestTarget target) {
-
+	public boolean removeItem(DragableElement element, AjaxRequestTarget target) {
+		boolean lastElement = false;
 		boolean deleted = false;
 		DragableElement[] elements = getElements();
 		for (int i = 0; i < elements.length; i++) {
@@ -69,11 +73,14 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 				deleted = true;
 				if (isLastItemRemoved(elements)) {
 					subjectId = -1;
+					lastElement = true;
+//					DragAndDropableBox box = element.findParent(DragAndDropableBox.class);
+//					box.add(new SimpleAttributeModifier("style", "backround-color: #ffffff"));
 				}
 			}
 		}
-
 		updateAll(target); /* update component */
+		return lastElement;
 	}
 
 	private boolean isLastItemRemoved(DragableElement[] elements) {

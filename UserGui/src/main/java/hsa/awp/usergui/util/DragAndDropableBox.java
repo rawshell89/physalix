@@ -32,6 +32,7 @@ import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -150,7 +151,10 @@ public class DragAndDropableBox extends Panel {
             AbstractDragAndDrop dsb = element.findParent(AbstractDragAndDrop.class);
 
             if (dsb != null) {
-              dsb.removeItem(element, target);
+              boolean isLastElement = dsb.removeItem(element, target);
+              if(isLastElement){
+            	  add(new SimpleAttributeModifier("style", "background-color: #ffffff"));
+              }
             }
           }
           prioListSel.updateLists(target);

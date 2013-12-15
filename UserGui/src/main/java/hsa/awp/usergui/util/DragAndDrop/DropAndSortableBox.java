@@ -56,11 +56,7 @@ public class DropAndSortableBox extends AbstractDragAndDrop {
 	}
 
 	@Override
-	public void doElseBranch(DragableElement element, AjaxRequestTarget target) {	
-	}
-
-	@Override
-	public void removeItem(DragableElement element, AjaxRequestTarget target) {
+	public boolean removeItem(DragableElement element, AjaxRequestTarget target) {
 
 		boolean deleted = false;
 		DragableElement [] elements = getElements();
@@ -74,7 +70,7 @@ public class DropAndSortableBox extends AbstractDragAndDrop {
 				deleted = true;
 			}
 		}
-
 		updateAll(target); /* update component */
+		return false;
 	}
 }

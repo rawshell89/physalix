@@ -19,44 +19,38 @@
 			<h3><span wicket:id="prioListSelector.heading">Anmeldung: AWP SS11 Phase: Losdurchgang 1</span></h3>
 			<form wicket:id="prioListSelector.form" class="prioListForm"
 				autocomplete="off">
-				<div id="categories">
+				<div style="float: left">
+				<div id="categoriesDropDown">
 					<h3>Kategorie w&auml;hlen</h3>
-					<ul>
-						<li wicket:id="prioListSelector.categories"><a
-							wicket:id="prioListSelector.categoriesLink"><span
-								wicket:id="prioListSelector.categoryName"></span></a></li>
-					</ul>
+					<select wicket:id="prioListSelector.categories"></select>
 				</div>
-				<div id="subjects">
+				<div id="categoriesDropDown">
 				 <div wicket:id="subject.updateContainer">
-					<h3>Verf&uuml;gbare F&auml;cher</h3>
-					<ul>
-						<li wicket:id="prioListSelector.subjects"><a
-							wicket:id="prioListSelector.subjectLink"><span
-								wicket:id="prioListSelector.subjectName"></span></a></li>
-					</ul>
+					<h3>Fach w&auml;hlen</h3>
+					<select wicket:id="prioListSelector.subjects"></select>
 				 </div>
 				</div>
-				<div id="selector">
+				</div>
+				<div id="broadSelector">
 					<h3>Verf&uuml;gbare Veranstaltungen</h3>
 					<div wicket:id="prioListSelector.selectableObjects"></div>
 				</div>
-				<div id="lists">
+				<div style="clear: left"></div>
+				<div id="newLists">
 					<span wicket:id="prioListSelector.messageEmpty"></span>
 					<h3 style="background-color: transparent;"
 						wicket:id="prioListSelector.messageTitle"></h3>
 					<h3 style="background-color: transparent; color: #ff4500;"
 						wicket:id="prioListSelector.messageSubtitle">Diese Listen
 						sind noch nicht gespeichert!</h3>
-					<div wicket:id="prioListSelector.listsList" class="priolist">
+					<div wicket:id="prioListSelector.listsList" id="broadPrioList">
 						<h3 wicket:id="prioListSelector.listName">Wunschliste Kurs 1</h3>
-
-						<div class='prioListItems' wicket:id="prioListSelector.prioList"></div>
+						<div wicket:id="prioListSelector.prioList"></div>
 					</div>
+					<div style="clear: left;"></div>
 					<input class="submit" wicket:id="prioListSelector.submit" type="submit" value=" Speichern "/>
+					<div style ="clear: right;"></div>
                 	<div class="prioListManagement" wicket:id="prioListSelector.managementPanel"></div>
-					<div style="clear: both"></div>
-
 				</div>
 
 			</form>

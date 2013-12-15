@@ -70,6 +70,42 @@ div#selector ul li a:hover {
     color: #000000;
 }
 
+div#broadSelector {
+	float: left;
+	min-height: 200px;
+    width: 350px;
+    border: 1px #000000 solid;
+    margin-bottom: 20px;
+    margin-top: 2px;
+    margin-left: 20px;
+}
+
+div#broadSelector h3 {
+    background-color: #ff5e00;
+}
+
+div#broadSelector ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+div#broadSelector ul li {
+    border-bottom: 1px #d0d0d0 solid;
+}
+
+div#broadSelector ul li a {
+    text-decoration: none;
+    color: #000000;
+    padding: 4px 3px 4px 3px;
+    display: inline;
+}
+
+div#broadSelector ul li a:hover {
+    background-color: transparent;
+    color: #000000;
+}
+
 div.priolist {
     width: 185px;
     margin-right: 20px;
@@ -99,12 +135,51 @@ div.priolist ul li a:hover {
     color: #ff5e00;
 }
 
+div#broadPrioList {
+	float: left;
+	width: 350px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border: 1px #000000 solid;
+}
+
+div#broadPrioList ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+div#broadPrioList ul li a {
+    text-decoration: none;
+    display: block;
+    color: #000000;
+    padding: 2px 3px 2px 3px;
+}
+
+div#broadPrioList ul li a:hover {
+    background-color: #d6d6d6;
+    color: #ff5e00;
+}
+
 div#lists {
     float: right;
     margin-bottom: 20px;
     border-left: 1px #ff5e00 dotted;
     padding-left: 20px;
     width: 180px;
+}
+
+div#newLists {
+    border-top: 1px #ff5e00 dotted;
+}
+
+div#newLists h3 span {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div#newLists input {
+	float: right;
 }
 
 div.item {
@@ -147,6 +222,28 @@ div#categories {
 
 div#categories h3 {
     background-color: #ff5e00;
+}
+
+div#categoriesDropDown {
+	width: 185px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+div#categoriesDropDown h3 {
+	background-color: #ff5e00;
+}
+
+div#categoriesDropDown select {
+	width: 185px;
+	background-color: #000000;
+	text-align: center;
+	margin-right: 20px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	color: #ffffff
 }
 
 div#categories ul {

@@ -30,17 +30,18 @@ import java.util.TreeSet;
 
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.list.Loop;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -65,7 +66,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 	private Form<String> form;
 	private SubjectModel subjectModel;
 	private static Button submitButton;
-	private ListView<Subject> subjectListView;
+	private DropDownChoice<Subject> subjectList;
 	private FeedbackPanel feedbackPanel = new FeedbackPanel("prio.feedback");
 	private DragAndDropableBox eventsContainer;
 	private Map<Long, List<Subject>> subjectCache = new HashMap<Long, List<Subject>>();
@@ -90,8 +91,21 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 				"prioListSelector.selectableObjects");
 		eventsContainer.setOutputMarkupId(true);
 		
-		subjectListView = new ListView<Subject>("prioListSelector.subjects",
-				subjectModel) {
+		subjectList = new DropDownChoice<Subject>("prioListSelector.subjects", new Model<Subject>(),
+				subjectModel, new ChoiceRenderer<Subject>(){
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+					
+					public String getDisplayValue(Subject sub){
+						return sub.getName();
+					}
+			
+		});
+		
+		subjectList.add(new AjaxFormComponentUpdatingBehavior("onchange") {
 
 			/**
 			 * 
@@ -99,46 +113,36 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void populateItem(ListItem<Subject> item) {
-				final Subject sub = item.getModelObject();
-				AjaxFallbackLink<Subject> link = new AjaxFallbackLink<Subject>(
-						"prioListSelector.subjectLink") {
-
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
-
-					@Override
-					public void onClick(AjaxRequestTarget target) {
-						eventsContainer.removeAllElements();
-						eventsContainer.setComponentId(sub.getId());
-						addEventsToContainer(sub.getId());
-						target.addComponent(eventsContainer);
-					}
-
-					private void addEventsToContainer(long id) {
-						if (eventCache.get(id) == null) {
-							List<Event> eventList = controller
-									.findEventsBySubjectId(id);
-							if (eventList != null) {
-								eventCache.put(id, eventList);
-								List<Event> filteredList = filterEventListForSourcebox(eventCache.get(id));
-								eventsContainer.addAllEvents(filteredList);
-							}
-						} else {
-							List<Event> filteredList = filterEventListForSourcebox(eventCache.get(id));
-							eventsContainer.addAllEvents(filteredList);
-						}
-					}
-
-				};
-				link.add(new Label("prioListSelector.subjectName", sub
-						.getName()));
-				item.add(link);
+			protected void onUpdate(AjaxRequestTarget target) {
+				Subject sub = subjectList.getModelObject();
+				eventsContainer.removeAllElements();
+				if(sub != null){
+					eventsContainer.setComponentId(sub.getId());
+					addEventsToContainer(sub.getId());
+				}
+				target.addComponent(eventsContainer);
 			}
-		};
-		updateContainer.add(subjectListView);
+
+			private void addEventsToContainer(long id) {
+				if (eventCache.get(id) == null) {
+					List<Event> eventList = controller
+							.findEventsBySubjectId(id);
+					if (eventList != null) {
+						eventCache.put(id, eventList);
+						List<Event> filteredList = filterEventListForSourcebox(eventCache
+								.get(id));
+						eventsContainer.addAllEvents(filteredList);
+					}
+				} else {
+					List<Event> filteredList = filterEventListForSourcebox(eventCache
+							.get(id));
+					eventsContainer.addAllEvents(filteredList);
+				}
+			}
+
+		});
+		
+		updateContainer.add(subjectList);
 		drawProcedureModel = new LoadableDetachedModel<DrawProcedure>() {
 			/**
 		       *
@@ -196,39 +200,37 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 				return new ArrayList<Category>(categories);
 			}
 		};
-		ListView<Category> categoryList = new ListView<Category>(
-				"prioListSelector.categories", categoryListModel) {
-
+		final DropDownChoice<Category> categoryList = new DropDownChoice<Category>("prioListSelector.categories", new Model<Category>(), categoryListModel, new ChoiceRenderer<Category>() {
+		
 			/**
-					 * 
-					 */
+			 * 
+			 */
 			private static final long serialVersionUID = 1L;
 
-			@Override
-			protected void populateItem(ListItem<Category> item) {
-				final Category cat = item.getModelObject();
-				AjaxFallbackLink<Category> link = new AjaxFallbackLink<Category>(
-						"prioListSelector.categoriesLink") {
-
-					/**
-							 * 
-							 */
-					private static final long serialVersionUID = 1L;
-
-					@Override
-					public void onClick(AjaxRequestTarget target) {
-						subjectModel.setId(cat.getId());
-						target.addComponent(updateContainer);
-						eventsContainer.removeAllElements();
-						target.addComponent(eventsContainer);
-					}
-				};
-				link.add(new Label("prioListSelector.categoryName", cat
-						.getName()));
-				item.add(link);
+			public String getDisplayValue(Category cat){
+				return cat.getName();
 			}
+			
+		});
+		categoryList.add(new AjaxFormComponentUpdatingBehavior("onchange") {
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 8894656604521410486L;
 
-		};
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				Category cat = categoryList.getModelObject();
+				subjectModel.reset();
+				if(cat != null)
+					subjectModel.setId(cat.getId());
+				eventsContainer.removeAllElements();
+				target.addComponent(updateContainer);
+				target.addComponent(eventsContainer);
+			}
+		});
+		
 		dropBoxList = new ArrayList<DragAndSortableBoxWRules>(drawProcedureModel
 				.getObject().getMaximumPriorityLists());
 		
@@ -313,7 +315,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 						drawProcedure.getMaximumPriorityListItems());
 				list.setOutputMarkupId(true);
 				item.add(new Label("prioListSelector.listName",
-						"Wunschliste Kurs "
+						"Wunschliste Fach "
 								+ (item.getIteration() + 1 + controller
 										.findPriorityListsByUserAndProcedure(
 												singleUser.getId(),
@@ -473,6 +475,10 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 
 		public void setId(long id) {
 			this.id = id;
+		}
+		
+		public void reset(){
+			this.id = -1;
 		}
 
 	}

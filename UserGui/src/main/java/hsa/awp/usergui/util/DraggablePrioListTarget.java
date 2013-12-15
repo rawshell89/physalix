@@ -200,9 +200,6 @@ public class DraggablePrioListTarget extends Panel {
           dsb.removeItem(element, target);
         }
 
-        
-
-
         AbstractPriorityListSelector pls = findParent(AbstractPriorityListSelector.class);
         if (pls != null) {
           pls.updateLists(target);

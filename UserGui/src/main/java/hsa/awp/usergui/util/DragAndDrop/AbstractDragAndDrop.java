@@ -1,9 +1,11 @@
 package hsa.awp.usergui.util.DragAndDrop;
 
 import hsa.awp.event.model.Event;
+import hsa.awp.usergui.WelcomePanel;
 import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
 import hsa.awp.usergui.util.DragableElement;
 import hsa.awp.usergui.util.DraggablePrioListTarget;
+import hsa.awp.usergui.util.warningPanel.WarningPanel;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -11,6 +13,7 @@ import java.util.List;
 
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -24,6 +27,22 @@ public abstract class AbstractDragAndDrop extends Panel{
 	private static final long serialVersionUID = 1L;
 
 	private DragableElement[] elements;
+	
+	private boolean isActive = true;
+	private ModalWindow confirmDialog = new ModalWindow("confirmDialog");
+
+	private void initAndAddDialog(){
+		confirmDialog.setTitle("Hinweis");
+		confirmDialog.setContent(new WelcomePanel(confirmDialog.getContentId()));
+		confirmDialog.setInitialHeight(75);
+		confirmDialog.setInitialWidth(350);
+		add(confirmDialog);
+	}
+	
+	public void changeDialogContentAndShow(AjaxRequestTarget target, String message) {
+		confirmDialog.setContent(new WarningPanel(confirmDialog.getContentId(), message));
+		confirmDialog.show(target);
+	}
 
 	/**
 	 * Targets representing each slot of the priolist.
@@ -39,10 +58,13 @@ public abstract class AbstractDragAndDrop extends Panel{
 	 * MarkupBox which contains all elements, in order to support ajax updating.
 	 */
 	private MarkupContainer markupBox;
+	
 
 	public AbstractDragAndDrop(String id, int maxItems) {
 
 		this(id, null, maxItems, true);
+		initAndAddDialog();
+		
 	}
 
 	/**
@@ -60,9 +82,9 @@ public abstract class AbstractDragAndDrop extends Panel{
 	 */
 	public AbstractDragAndDrop(String id, List<Event> events, int maxItems,
 			boolean isActive) {
-
 		super(id);
-
+		this.isActive = isActive;
+		initAndAddDialog();
 		markupBox = new WebMarkupContainer("DropAndSortableBox.box");
 		markupBox.setOutputMarkupId(true);
 
@@ -121,17 +143,26 @@ public abstract class AbstractDragAndDrop extends Panel{
 		return list;
 	}
 	
+	
 	public void itemDropped(DragableElement element,
 			DraggablePrioListTarget prioList, AjaxRequestTarget target) {
-		if(isAddingAllowed(element, target))
+		if(isActive() && isAddingAllowed(element, target))
 			addItemToElementList(element, prioList, target);
-		else
+		else {
+			if(!isActive())
+				changeDialogContentAndShow(target, "Das Ziehen von Veranstaltungen in bereits gespeicherte Listen ist nicht erlaubt!");
 			doElseBranch(element, target);
+		}
+			
 	}
 	
 	public abstract boolean isAddingAllowed(DragableElement element, AjaxRequestTarget target);
 	
-	public abstract void doElseBranch(DragableElement element, AjaxRequestTarget target);
+	public void doElseBranch(DragableElement element, AjaxRequestTarget target){
+		AbstractPriorityListSelector pls = findParent(AbstractPriorityListSelector.class);
+		pls.addElementToSourceBox(element);
+		pls.updateLists(target);
+	};
 	
 	private void addItemToElementList(DragableElement element,
 			DraggablePrioListTarget prioList, AjaxRequestTarget target) {
@@ -266,10 +297,14 @@ public abstract class AbstractDragAndDrop extends Panel{
 	 * @param target
 	 *            {@link AjaxRequestTarget} for the ajax update
 	 */
-	public abstract void removeItem(DragableElement element, AjaxRequestTarget target); 
+	public abstract boolean removeItem(DragableElement element, AjaxRequestTarget target); 
 	
 	public DragableElement[] getElements(){
 		return elements;
+	}
+	
+	private boolean isActive(){
+		return isActive;
 	}
 	
 }
