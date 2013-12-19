@@ -153,7 +153,7 @@ public class DragAndDropableBox extends Panel {
             if (dsb != null) {
               boolean isLastElement = dsb.removeItem(element, target);
               if(isLastElement){
-            	  add(new SimpleAttributeModifier("style", "background-color: #ffffff"));
+            	  DragAndDropableBox.this.add(new SimpleAttributeModifier("style", "background-color: #ffffff"));
               }
             }
           }

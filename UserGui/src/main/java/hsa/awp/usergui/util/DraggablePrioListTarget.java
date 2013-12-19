@@ -197,7 +197,8 @@ public class DraggablePrioListTarget extends Panel {
         AbstractDragAndDrop dsb = element.findParent(AbstractDragAndDrop.class);
 
         if (dsb != null) {
-          dsb.removeItem(element, target);
+        	if(!dsb.listContainsElement(element))
+        		dsb.removeItem(element, target);
         }
 
         AbstractPriorityListSelector pls = findParent(AbstractPriorityListSelector.class);

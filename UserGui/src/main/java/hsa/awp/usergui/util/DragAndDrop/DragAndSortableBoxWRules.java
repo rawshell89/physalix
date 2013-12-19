@@ -18,19 +18,18 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 	 */
 	private static final long serialVersionUID = 1L;
 	private long subjectId = -1;
-	private String color;
 
 	public DragAndSortableBoxWRules(String id, int maxItems) {
 		super(id, maxItems);
-		color = RandomColor.getRandomHexColor("background-color");
-		add(new SimpleAttributeModifier("style", color));
+		String color = RandomColor.getRandomHexColor("background-color");
+		setColor(color);
 	}
 
 	public DragAndSortableBoxWRules(String id, List<Event> events,
 			int maxItems, boolean isActive) {
 		super(id, events, maxItems, isActive);
-		color = RandomColor.getRandomHexColor("background-color");
-		add(new SimpleAttributeModifier("style", color));
+		String color = RandomColor.getRandomHexColor("background-color");
+		setColor(color);
 	}
 
 	@Override
@@ -47,7 +46,8 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 						target)) {
 					subjectId = elementSubjectId;
 					DragAndDropableBox box = element.findParent(DragAndDropableBox.class);
-					box.add(new SimpleAttributeModifier("style", color));
+					if(box != null)
+						box.add(new SimpleAttributeModifier("style", getColor()));
 					return true;
 				}
 				changeDialogContentAndShow(target, "Es ist nur eine Liste pro Fach erlaubt. Bitte überprüfen Sie ihre Eingaben!");

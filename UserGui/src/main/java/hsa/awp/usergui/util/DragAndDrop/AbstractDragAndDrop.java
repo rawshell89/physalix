@@ -3,6 +3,7 @@ package hsa.awp.usergui.util.DragAndDrop;
 import hsa.awp.event.model.Event;
 import hsa.awp.usergui.WelcomePanel;
 import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
+import hsa.awp.usergui.util.DragAndDropableBox;
 import hsa.awp.usergui.util.DragableElement;
 import hsa.awp.usergui.util.DraggablePrioListTarget;
 import hsa.awp.usergui.util.warningPanel.WarningPanel;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -30,6 +32,7 @@ public abstract class AbstractDragAndDrop extends Panel{
 	
 	private boolean isActive = true;
 	private ModalWindow confirmDialog = new ModalWindow("confirmDialog");
+	private String color = "background-color: #ffffff";
 
 	private void initAndAddDialog(){
 		confirmDialog.setTitle("Hinweis");
@@ -64,7 +67,6 @@ public abstract class AbstractDragAndDrop extends Panel{
 
 		this(id, null, maxItems, true);
 		initAndAddDialog();
-		
 	}
 
 	/**
@@ -146,21 +148,21 @@ public abstract class AbstractDragAndDrop extends Panel{
 	
 	public void itemDropped(DragableElement element,
 			DraggablePrioListTarget prioList, AjaxRequestTarget target) {
-		if(isActive() && isAddingAllowed(element, target))
+		if(isActive() && !listContainsElement(element) && isAddingAllowed(element, target))
 			addItemToElementList(element, prioList, target);
 		else {
 			if(!isActive())
 				changeDialogContentAndShow(target, "Das Ziehen von Veranstaltungen in bereits gespeicherte Listen ist nicht erlaubt!");
 			doElseBranch(element, target);
-		}
-			
+		}		
 	}
 	
 	public abstract boolean isAddingAllowed(DragableElement element, AjaxRequestTarget target);
 	
 	public void doElseBranch(DragableElement element, AjaxRequestTarget target){
 		AbstractPriorityListSelector pls = findParent(AbstractPriorityListSelector.class);
-		pls.addElementToSourceBox(element);
+		if(element.findParent(AbstractDragAndDrop.class) == null)
+			pls.addElementToSourceBox(element);
 		pls.updateLists(target);
 	};
 	
@@ -170,11 +172,15 @@ public abstract class AbstractDragAndDrop extends Panel{
 			int index = draggablePrioListTargets.indexOf(prioList);
 			if (elements[index] == null) { /* dropped on empty slot */
 				if (index == 0) {
-					elements[index] = element; /*
-												 * dropped in empty slot &&
-												 * dropped in first slot. Just
-												 * add element
-												 */
+					elements[index] = element; 
+					DragAndDropableBox box = element.findParent(DragAndDropableBox.class);
+					if(box == null){
+						AbstractPriorityListSelector pls = findParent(AbstractPriorityListSelector.class);
+						if(pls != null){
+							pls.getSourceBox().add(new SimpleAttributeModifier("style", color));
+							pls.updateLists(target);
+						}
+					}
 				} else if (elements[index - 1] != null) { /*
 														 * dropped in empty slot
 														 * && previous slot is
@@ -305,6 +311,26 @@ public abstract class AbstractDragAndDrop extends Panel{
 	
 	private boolean isActive(){
 		return isActive;
+	}
+	
+	public boolean listContainsElement(DragableElement element){
+		for (int i = 0; i < elements.length; i++) {
+			if(elements[i] != null){
+				if(elements[i].getEvent() == element.getEvent()){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void setColor(String color){
+		this.color = color;
+		add(new SimpleAttributeModifier("style", color));
+	}
+	
+	public String getColor(){
+		return color;
 	}
 	
 }
