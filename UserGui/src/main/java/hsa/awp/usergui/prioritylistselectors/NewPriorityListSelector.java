@@ -13,6 +13,7 @@ import hsa.awp.usergui.controller.IUserGuiController;
 import hsa.awp.usergui.registrationmanagement.DrawRegistrationManagementPanel;
 import hsa.awp.usergui.util.DragAndDropableBox;
 import hsa.awp.usergui.util.DragableElement;
+import hsa.awp.usergui.util.RandomColor;
 import hsa.awp.usergui.util.DragAndDrop.AbstractDragAndDrop;
 import hsa.awp.usergui.util.DragAndDrop.DragAndSortableBoxWRules;
 
@@ -31,6 +32,7 @@ import java.util.TreeSet;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -73,6 +75,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 	private Map<Long, List<Event>> eventCache = new HashMap<Long, List<Event>>();
 	private MarkupContainer box;
 	private MarkupContainer updateContainer;
+	private String defaultBckColor = "background-color: #ffffff";
 
 	public NewPriorityListSelector(String id, final long procId) {
 		super(id);
@@ -120,6 +123,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 					eventsContainer.setComponentId(sub.getId());
 					addEventsToContainer(sub.getId());
 				}
+				checkListsForEventAndChangeColor();
 				target.addComponent(eventsContainer);
 			}
 
@@ -137,6 +141,22 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 					List<Event> filteredList = filterEventListForSourcebox(eventCache
 							.get(id));
 					eventsContainer.addAllEvents(filteredList);
+				}
+			}
+			
+			private void checkListsForEventAndChangeColor() {
+				List<Event> events = eventsContainer.getEventList();
+				if (events.size() > 0) {
+					long subId = events.get(0).getSubject().getId();
+					for (DragAndSortableBoxWRules box : dropBoxList) {
+						if (box.getSubjectId() == subId) {
+							eventsContainer.add(new SimpleAttributeModifier(
+									"style", box.getColor()));
+							return;
+						}
+					}
+					eventsContainer.add(new SimpleAttributeModifier(
+							"style", defaultBckColor));
 				}
 			}
 
@@ -305,15 +325,18 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 		             *
 		             */
 			private static final long serialVersionUID = 1L;
+			private final List<String> colors = RandomColor.getRandomHexColors(getIterations());
+			private int index = 0;
 
 			@Override
 			protected void populateItem(LoopItem item) {
-
+				String color = colors.get(index++);
 				DrawProcedure drawProcedure = drawProcedureModel.getObject();
 				DragAndSortableBoxWRules list = new DragAndSortableBoxWRules(
 						"prioListSelector.prioList",
 						drawProcedure.getMaximumPriorityListItems());
 				list.setOutputMarkupId(true);
+				list.setColor(color);
 				item.add(new Label("prioListSelector.listName",
 						"Wunschliste Fach "
 								+ (item.getIteration() + 1 + controller

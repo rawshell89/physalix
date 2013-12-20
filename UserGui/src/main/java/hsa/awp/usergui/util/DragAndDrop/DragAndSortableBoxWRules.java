@@ -4,7 +4,6 @@ import hsa.awp.event.model.Event;
 import hsa.awp.usergui.prioritylistselectors.NewPriorityListSelector;
 import hsa.awp.usergui.util.DragAndDropableBox;
 import hsa.awp.usergui.util.DragableElement;
-import hsa.awp.usergui.util.RandomColor;
 
 import java.util.List;
 
@@ -21,15 +20,11 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 
 	public DragAndSortableBoxWRules(String id, int maxItems) {
 		super(id, maxItems);
-		String color = RandomColor.getRandomHexColor("background-color");
-		setColor(color);
 	}
 
 	public DragAndSortableBoxWRules(String id, List<Event> events,
 			int maxItems, boolean isActive) {
 		super(id, events, maxItems, isActive);
-		String color = RandomColor.getRandomHexColor("background-color");
-		setColor(color);
 	}
 
 	@Override
@@ -119,6 +114,10 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 			}
 		}
 		return true;
+	}
+	
+	public long getSubjectId(){
+		return subjectId;
 	}
 
 }

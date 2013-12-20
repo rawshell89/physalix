@@ -325,8 +325,8 @@ public abstract class AbstractDragAndDrop extends Panel{
 	}
 	
 	public void setColor(String color){
-		this.color = color;
-		add(new SimpleAttributeModifier("style", color));
+		this.color = "background-color: #" + color;
+		add(new SimpleAttributeModifier("style", this.color));
 	}
 	
 	public String getColor(){
