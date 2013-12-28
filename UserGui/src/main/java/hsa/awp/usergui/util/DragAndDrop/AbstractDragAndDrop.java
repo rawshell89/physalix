@@ -1,7 +1,6 @@
 package hsa.awp.usergui.util.DragAndDrop;
 
 import hsa.awp.event.model.Event;
-import hsa.awp.usergui.WelcomePanel;
 import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
 import hsa.awp.usergui.util.DragAndDropableBox;
 import hsa.awp.usergui.util.DragableElement;
@@ -17,9 +16,11 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 
 public abstract class AbstractDragAndDrop extends Panel{
 	
@@ -33,10 +34,12 @@ public abstract class AbstractDragAndDrop extends Panel{
 	private boolean isActive = true;
 	private ModalWindow confirmDialog = new ModalWindow("confirmDialog");
 	private String color = "background-color: #ffffff";
+	private Label title;
+	private IModel<String> titleModel;
 
 	private void initAndAddDialog(){
 		confirmDialog.setTitle("Hinweis");
-		confirmDialog.setContent(new WelcomePanel(confirmDialog.getContentId()));
+		confirmDialog.setContent(new WarningPanel(confirmDialog.getContentId(), ""));
 		confirmDialog.setInitialHeight(75);
 		confirmDialog.setInitialWidth(350);
 		add(confirmDialog);
@@ -89,7 +92,31 @@ public abstract class AbstractDragAndDrop extends Panel{
 		initAndAddDialog();
 		markupBox = new WebMarkupContainer("DropAndSortableBox.box");
 		markupBox.setOutputMarkupId(true);
+		titleModel = new IModel<String>() {
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			private String title = "Wunschliste";
 
+			@Override
+			public void detach() {
+				title = null;
+			}
+
+			@Override
+			public String getObject() {
+				return title;
+			}
+
+			@Override
+			public void setObject(String object) {
+				title = object;
+			}
+		};
+		title = new Label("DropAndSortableBox.title", titleModel);
+		title.setOutputMarkupId(true);
 		elements = new DragableElement[maxItems];
 
 		if (events != null) {
@@ -130,6 +157,7 @@ public abstract class AbstractDragAndDrop extends Panel{
 
 		markupBox.add(itemContainers);
 		add(markupBox);
+		add(title);
 	}
 	
 	public List<Event> getEventList() {
@@ -252,7 +280,7 @@ public abstract class AbstractDragAndDrop extends Panel{
 			list.update(target);
 			target.addComponent(list);
 		}
-
+		target.addComponent(title);
 		target.addComponent(markupBox);
 	}
 
@@ -331,6 +359,10 @@ public abstract class AbstractDragAndDrop extends Panel{
 	
 	public String getColor(){
 		return color;
+	}
+	
+	public void setTitle(String title){
+		titleModel.setObject("Wunschliste " + title);
 	}
 	
 }

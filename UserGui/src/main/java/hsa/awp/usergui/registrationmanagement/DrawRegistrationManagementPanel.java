@@ -28,6 +28,8 @@ import hsa.awp.event.model.Event;
 import hsa.awp.usergui.controller.IUserGuiController;
 import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
 import hsa.awp.usergui.util.JavascriptEventConfirmation;
+import hsa.awp.usergui.util.DragAndDrop.AbstractDragAndDrop;
+import hsa.awp.usergui.util.DragAndDrop.DragAndSortableBoxWRules;
 import hsa.awp.usergui.util.DragAndDrop.DropAndSortableBox;
 
 import java.util.LinkedList;
@@ -67,7 +69,7 @@ public class DrawRegistrationManagementPanel extends Panel {
   /**
    * List of all priolistBoxes.
    */
-  private List<DropAndSortableBox> dropBoxList;
+  private List<AbstractDragAndDrop> dropBoxList;
 
   private MarkupContainer box;
 
@@ -82,7 +84,7 @@ public class DrawRegistrationManagementPanel extends Panel {
       campaign = priorityList.getProcedure().getCampaign();
     }
 
-    dropBoxList = new LinkedList<DropAndSortableBox>();
+    dropBoxList = new LinkedList<AbstractDragAndDrop>();
 
     box = new WebMarkupContainer("DrawRegistrationManagemantPanel.box");
     box.setOutputMarkupId(true);
@@ -106,20 +108,26 @@ public class DrawRegistrationManagementPanel extends Panel {
     */
     Loop prioListLoop = new Loop("DrawRegistrationManagemantPanel.listsList", iterations) {
       private static final long serialVersionUID = 1L;
+      
+      private AbstractDragAndDrop createList(String id, List<Event> events, int maxItems, boolean isActive){
+    	  if(campaign.getNewPrio() == 0){
+    		  return new DropAndSortableBox(id, events, maxItems, isActive);
+    	  }
+    	  return new DragAndSortableBoxWRules(id, events, maxItems, isActive);
+      }
 
       @Override
       protected void populateItem(final LoopItem item) {
-
         List<PriorityList> prioListList = priolistModel.getObject();
-        DropAndSortableBox list = new DropAndSortableBox("DrawRegistrationManagemantPanel.prioList",
+        AbstractDragAndDrop list = createList("DrawRegistrationManagemantPanel.prioList",
             getEventListFromPrioList(prioListList.get(item.getIteration())), prioListList
             .get(item.getIteration()).getProcedure().getMaximumPriorityListItems(), false);
         list.setOutputMarkupId(true);
 
         list.add(new AttributeAppender("class", new Model<String>("deactive"), " "));
-        item
-            .add(new Label("DrawRegistrationManagemantPanel.listName", "Wunschliste Kurs "
-                + (item.getIteration() + 1)));
+//        item
+//            .add(new Label("DrawRegistrationManagemantPanel.listName", "Wunschliste Kurs "
+//                + (item.getIteration() + 1)));
         dropBoxList.add(list);
         item.add(list);
 

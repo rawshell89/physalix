@@ -325,11 +325,18 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 		             *
 		             */
 			private static final long serialVersionUID = 1L;
-			private final List<String> colors = RandomColor.getRandomHexColors(getIterations());
+			private List<String> colors = RandomColor.getRandomHexColors(getIterations());
 			private int index = 0;
+			
+			private void retryInit(){
+				colors = RandomColor.getRandomHexColors(getIterations());
+				index = 0;
+			}
 
 			@Override
 			protected void populateItem(LoopItem item) {
+				if(index >= colors.size())
+					retryInit();
 				String color = colors.get(index++);
 				DrawProcedure drawProcedure = drawProcedureModel.getObject();
 				DragAndSortableBoxWRules list = new DragAndSortableBoxWRules(
@@ -337,12 +344,12 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 						drawProcedure.getMaximumPriorityListItems());
 				list.setOutputMarkupId(true);
 				list.setColor(color);
-				item.add(new Label("prioListSelector.listName",
-						"Wunschliste Fach "
-								+ (item.getIteration() + 1 + controller
-										.findPriorityListsByUserAndProcedure(
-												singleUser.getId(),
-												drawProcedure).size())));
+//				item.add(new Label("prioListSelector.listName",
+//						"Wunschliste Fach "
+//								+ (item.getIteration() + 1 + controller
+//										.findPriorityListsByUserAndProcedure(
+//												singleUser.getId(),
+//												drawProcedure).size())));
 				dropBoxList.add(list);
 				item.add(list);
 			}

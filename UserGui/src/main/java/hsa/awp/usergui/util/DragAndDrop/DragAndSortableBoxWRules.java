@@ -25,6 +25,10 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 	public DragAndSortableBoxWRules(String id, List<Event> events,
 			int maxItems, boolean isActive) {
 		super(id, events, maxItems, isActive);
+		if(events.size() > 0){
+			String title = events.get(0).getSubject().getName();
+			setTitle(title);
+		}
 	}
 
 	@Override
@@ -43,6 +47,7 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 					DragAndDropableBox box = element.findParent(DragAndDropableBox.class);
 					if(box != null)
 						box.add(new SimpleAttributeModifier("style", getColor()));
+					setTitle(element.getEvent().getSubject().getName());
 					return true;
 				}
 				changeDialogContentAndShow(target, "Es ist nur eine Liste pro Fach erlaubt. Bitte überprüfen Sie ihre Eingaben!");
@@ -68,6 +73,7 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 				deleted = true;
 				if (isLastItemRemoved(elements)) {
 					subjectId = -1;
+					setTitle("");
 					lastElement = true;
 				}
 			}
