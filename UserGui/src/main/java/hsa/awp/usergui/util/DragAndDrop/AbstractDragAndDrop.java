@@ -102,7 +102,7 @@ public abstract class AbstractDragAndDrop extends Panel{
 
 			@Override
 			public void detach() {
-				title = null;
+				//title = null;
 			}
 
 			@Override

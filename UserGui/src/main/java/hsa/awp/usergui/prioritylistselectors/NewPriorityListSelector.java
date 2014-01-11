@@ -374,7 +374,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 		};
 		
 		DrawRegistrationManagementPanel drawRegistrationManagementPanel = new DrawRegistrationManagementPanel(
-		        "prioListSelector.managementPanel", prioListsModel);
+		        "prioListSelector.managementPanel", prioListsModel, "class=broadPrioList");
 
 		form.add(drawRegistrationManagementPanel);
 		form.add(priolists);

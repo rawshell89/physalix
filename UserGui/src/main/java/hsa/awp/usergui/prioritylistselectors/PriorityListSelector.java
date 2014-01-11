@@ -370,12 +370,12 @@ public class PriorityListSelector extends AbstractPriorityListSelector {
 						"prioListSelector.prioList",
 						drawProcedure.getMaximumPriorityListItems());
 				list.setOutputMarkupId(true);
-				item.add(new Label("prioListSelector.listName",
-						"Wunschliste Kurs "
-								+ (item.getIteration() + 1 + controller
-										.findPriorityListsByUserAndProcedure(
-												singleUser.getId(),
-												drawProcedure).size())));
+//				item.add(new Label("prioListSelector.listName",
+//						"Wunschliste Kurs "
+//								+ (item.getIteration() + 1 + controller
+//										.findPriorityListsByUserAndProcedure(
+//												singleUser.getId(),
+//												drawProcedure).size())));
 				dropBoxList.add(list);
 				item.add(list);
 			}
