@@ -175,11 +175,11 @@ public class DrawRegistrationManagementPanel extends Panel {
 	            }
 	          };
 	          item.add(deleteLink);
-	          deleteLink.add(new JavascriptEventConfirmation("onclick", "Sind Sie sicher?"));
+	          deleteLink.add(new JavascriptEventConfirmation("onclick", "Sind Sie sicher?/Are you sure?"));
 	        }
 	      };
 
-	      box.add(new Label("DrawRegistrationManagemantPanel.titel", "Gespeicherte Wunschlisten"));
+	      box.add(new Label("DrawRegistrationManagemantPanel.titel", "Gespeicherte Wunschlisten/Saved preference lists"));
 	      box.add(prioListLoop);
 	      add(box);
   }

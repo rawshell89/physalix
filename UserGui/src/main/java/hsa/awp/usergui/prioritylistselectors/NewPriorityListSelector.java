@@ -52,12 +52,12 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 	 * 
 	 */
 	private Label messageEmpty = new Label("prioListSelector.messageEmpty",
-			"Die maximale Anzahl der erlaubten Wunschlisten ist erreicht.");
+			"Die maximale Anzahl der erlaubten Wunschlisten ist erreicht/<br>Limit of allowed preference list reached.");
 	private Label messageTitle = new Label("prioListSelector.messageTitle",
-			"Neue Wunschlisten");
+			"Neue Wunschlisten/New preference lists");
 	private Label messageSubtitle = new Label(
 			"prioListSelector.messageSubtitle",
-			"Diese Listen sind noch nicht gespeichert!");
+			"Listen sind nicht gespeichert/Lists are not saved!");
 	private static final long serialVersionUID = 1L;
 	private IModel<List<Category>> categoryListModel;
 	private List<DragAndSortableBoxWRules> dropBoxList;
@@ -69,6 +69,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 	private SubjectModel subjectModel;
 	private static Button submitButton;
 	private DropDownChoice<Subject> subjectList;
+	private DropDownChoice<Category> categoryList;
 	private FeedbackPanel feedbackPanel = new FeedbackPanel("prio.feedback");
 	private DragAndDropableBox eventsContainer;
 	private Map<Long, List<Subject>> subjectCache = new HashMap<Long, List<Subject>>();
@@ -79,6 +80,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 
 	public NewPriorityListSelector(String id, final long procId) {
 		super(id);
+		messageEmpty.setEscapeModelStrings(false);
 		this.setOutputMarkupId(true);
 		box = new WebMarkupContainer("prioListSelector.box");
 		updateContainer = new WebMarkupContainer("subject.updateContainer");
@@ -127,22 +129,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 				target.addComponent(eventsContainer);
 			}
 
-			private void addEventsToContainer(long id) {
-				if (eventCache.get(id) == null) {
-					List<Event> eventList = controller
-							.findEventsBySubjectId(id);
-					if (eventList != null) {
-						eventCache.put(id, eventList);
-						List<Event> filteredList = filterEventListForSourcebox(eventCache
-								.get(id));
-						eventsContainer.addAllEvents(filteredList);
-					}
-				} else {
-					List<Event> filteredList = filterEventListForSourcebox(eventCache
-							.get(id));
-					eventsContainer.addAllEvents(filteredList);
-				}
-			}
+			
 			
 			private void checkListsForEventAndChangeColor() {
 				List<Event> events = eventsContainer.getEventList();
@@ -220,7 +207,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 				return new ArrayList<Category>(categories);
 			}
 		};
-		final DropDownChoice<Category> categoryList = new DropDownChoice<Category>("prioListSelector.categories", new Model<Category>(), categoryListModel, new ChoiceRenderer<Category>() {
+		categoryList = new DropDownChoice<Category>("prioListSelector.categories", new Model<Category>(), categoryListModel, new ChoiceRenderer<Category>() {
 		
 			/**
 			 * 
@@ -449,12 +436,17 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 	 *            source box.
 	 */
 	public void update(AjaxRequestTarget target, PriorityList list) {
-
-		moveElementsBackToSource();
 		eventsContainer.removeAllElements();
-
+		eventCache.clear();
+		moveElementsBackToSource();
+		Subject s = subjectList.getModelObject();
+		if(s != null){
+			eventsContainer.setComponentId(s.getId());
+			addEventsToContainer(s.getId());
+		}
 		categoryListModel.detach();
-
+		target.addComponent(eventsContainer);
+		target.addComponent(updateContainer);
 		target.addComponent(form);
 	}
 
@@ -533,5 +525,22 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 			}
 		}
 		return ids;
+	}
+	
+	private void addEventsToContainer(long id) {
+		if (eventCache.get(id) == null) {
+			List<Event> eventList = controller
+					.findEventsBySubjectId(id);
+			if (eventList != null) {
+				eventCache.put(id, eventList);
+				List<Event> filteredList = filterEventListForSourcebox(eventCache
+						.get(id));
+				eventsContainer.addAllEvents(filteredList);
+			}
+		} else {
+			List<Event> filteredList = filterEventListForSourcebox(eventCache
+					.get(id));
+			eventsContainer.addAllEvents(filteredList);
+		}
 	}
 }

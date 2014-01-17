@@ -73,7 +73,7 @@ div#selector ul li a:hover {
 div#broadSelector {
 	float: left;
 	min-height: 200px;
-    width: 350px;
+    width: 375px;
     border: 1px #000000 solid;
     margin-bottom: 20px;
     margin-top: 2px;
@@ -226,7 +226,7 @@ div#categories h3 {
 }
 
 div#categoriesDropDown {
-	width: 350px;
+	width: 375px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
@@ -239,7 +239,7 @@ div#categoriesDropDown select {
 	width: 250px;
 	background-color: #000000;
 	text-align: center;
-	margin-left: 50px;
+	margin-left: 60px;
 	margin-top: 2px;
 	margin-bottom: 2px;
 	color: #ffffff

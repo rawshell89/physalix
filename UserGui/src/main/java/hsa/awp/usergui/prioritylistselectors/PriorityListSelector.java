@@ -75,15 +75,13 @@ public class PriorityListSelector extends AbstractPriorityListSelector {
 	 */
 	private static final long serialVersionUID = 4902775122982841093L;
 
-	private static Label messageEmpty = new Label(
-			"prioListSelector.messageEmpty",
-			"Die maximale Anzahl der erlaubten Wunschlisten ist erreicht.");
-
-	private static Label messageTitle = new Label(
-			"prioListSelector.messageTitle", "Neue Wunschlisten");
+	private static Label messageEmpty = new Label("prioListSelector.messageEmpty",
+			"Die maximale Anzahl der erlaubten Wunschlisten ist erreicht/<br>Limit of allowed preference list reached");
+	private static Label messageTitle = new Label("prioListSelector.messageTitle",
+			"Neue Wunschlisten/New preference lists");
 	private static Label messageSubtitle = new Label(
 			"prioListSelector.messageSubtitle",
-			"Diese Listen sind noch nicht gespeichert!");
+			"Listen sind nicht gespeichert/Lists are not saved!");
 
 	private static Button submitButton;
 
@@ -129,7 +127,7 @@ public class PriorityListSelector extends AbstractPriorityListSelector {
 	public PriorityListSelector(String id, final DrawProcedure drawProc) {
 
 		super(id);
-
+		messageEmpty.setEscapeModelStrings(false);
 		singleUser = controller.getUserById(SecurityContextHolder.getContext()
 				.getAuthentication().getName());
 

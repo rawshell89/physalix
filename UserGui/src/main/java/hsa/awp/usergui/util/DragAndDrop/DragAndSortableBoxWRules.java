@@ -50,11 +50,11 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 					setTitle(element.getEvent().getSubject().getName());
 					return true;
 				}
-				changeDialogContentAndShow(target, "Es ist nur eine Liste pro Fach erlaubt. Bitte überprüfen Sie ihre Eingaben!");
+				changeDialogContentAndShow(target, "Es ist nur eine Liste pro Fach erlaubt <br><br> Only one course preference list per subject allowed", false);
 				return false;
 			}
 		}
-		changeDialogContentAndShow(target, "Es ist nur ein Fach pro Liste erlaubt.");
+		changeDialogContentAndShow(target, "Es ist nur ein Fach pro Liste erlaubt <br><br> Only one subject per course preference list allowed", false);
 		return false;
 	}
 

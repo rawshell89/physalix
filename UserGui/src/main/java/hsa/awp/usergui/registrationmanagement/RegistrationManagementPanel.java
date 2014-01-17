@@ -32,9 +32,9 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class RegistrationManagementPanel extends Panel {
-  private static final String KEINE_ANMELDUNGEN = "Keine Buchungen verf\u00fcgbar.";
+  private static final String KEINE_ANMELDUNGEN = "Keine Buchungen verf\u00fcgbar./No enrollments available.";
 
-  private static final String ANMELDUNGEN = "Ihre Buchungen";
+  private static final String ANMELDUNGEN = "Ihre Buchungen/Your enrollments";
 
   /**
    * unique serialization id.

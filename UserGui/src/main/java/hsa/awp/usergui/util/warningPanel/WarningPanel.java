@@ -14,5 +14,10 @@ public class WarningPanel extends Panel {
 		super(id);
 		add(new Label("message", message));
 	}
+	
+	public WarningPanel(String id, String message, boolean escapeModelString) {
+		super(id);
+		add(new Label("message", message).setEscapeModelStrings(escapeModelString));
+	}
 
 }

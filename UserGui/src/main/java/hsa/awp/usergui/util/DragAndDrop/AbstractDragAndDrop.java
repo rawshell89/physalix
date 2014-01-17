@@ -45,8 +45,8 @@ public abstract class AbstractDragAndDrop extends Panel{
 		add(confirmDialog);
 	}
 	
-	public void changeDialogContentAndShow(AjaxRequestTarget target, String message) {
-		confirmDialog.setContent(new WarningPanel(confirmDialog.getContentId(), message));
+	public void changeDialogContentAndShow(AjaxRequestTarget target, String message, boolean escapeModelString) {
+		confirmDialog.setContent(new WarningPanel(confirmDialog.getContentId(), message, escapeModelString));
 		confirmDialog.show(target);
 	}
 
@@ -180,7 +180,8 @@ public abstract class AbstractDragAndDrop extends Panel{
 			addItemToElementList(element, prioList, target);
 		else {
 			if(!isActive())
-				changeDialogContentAndShow(target, "Das Ziehen von Veranstaltungen in bereits gespeicherte Listen ist nicht erlaubt!");
+				changeDialogContentAndShow(target, "Das Ziehen von Veranstaltungen in bereits gespeicherte Listen ist nicht erlaubt!"
+						+ "<br><br> Drawing of courses into saved lists is not allowed!", false);
 			doElseBranch(element, target);
 		}		
 	}
