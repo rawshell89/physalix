@@ -342,17 +342,8 @@ public abstract class AbstractDragAndDrop extends Panel{
 		return isActive;
 	}
 	
-	public boolean listContainsElement(DragableElement element){
-		for (int i = 0; i < elements.length; i++) {
-			if(elements[i] != null){
-				if(elements[i].getEvent() == element.getEvent()){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
+	public abstract boolean listContainsElement(DragableElement element);
+
 	public void setColor(String color){
 		this.color = "background-color: #" + color;
 		add(new SimpleAttributeModifier("style", this.color));

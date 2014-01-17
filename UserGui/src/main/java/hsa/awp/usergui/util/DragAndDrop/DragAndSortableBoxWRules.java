@@ -126,4 +126,16 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 		return subjectId;
 	}
 
+	@Override
+	public boolean listContainsElement(DragableElement element) {
+		DragableElement [] elements = getElements();
+		for (int i = 0; i < elements.length; i++) {
+			if(elements[i] != null){
+				if(elements[i].getEvent() == element.getEvent()){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

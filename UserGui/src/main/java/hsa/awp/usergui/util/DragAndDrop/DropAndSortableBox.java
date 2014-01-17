@@ -54,6 +54,11 @@ public class DropAndSortableBox extends AbstractDragAndDrop {
 	public boolean isAddingAllowed(DragableElement element, AjaxRequestTarget target) {
 		return true;
 	}
+	
+	@Override
+	public boolean listContainsElement(DragableElement element){
+		return false;
+	}
 
 	@Override
 	public boolean removeItem(DragableElement element, AjaxRequestTarget target) {
