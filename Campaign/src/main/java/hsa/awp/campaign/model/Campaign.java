@@ -59,16 +59,6 @@ public class Campaign extends AbstractMandatorableDomainObject<Long> {
   @Column(nullable = false)
   private Calendar endShow;
   
-  @Column(nullable = false)
-  private int newPrio = 0;
-
-  public int getNewPrio() {
-	return newPrio;
-}
-
-public void setNewPrio(int newPrio) {
-	this.newPrio = newPrio;
-}
 
 /**
    * List containing the corresponding Events.

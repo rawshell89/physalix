@@ -37,19 +37,6 @@ public abstract class AbstractDragAndDrop extends Panel{
 	private Label title;
 	private IModel<String> titleModel;
 
-	private void initAndAddDialog(){
-		confirmDialog.setTitle("Hinweis");
-		confirmDialog.setContent(new WarningPanel(confirmDialog.getContentId(), ""));
-		confirmDialog.setInitialHeight(75);
-		confirmDialog.setInitialWidth(350);
-		add(confirmDialog);
-	}
-	
-	public void changeDialogContentAndShow(AjaxRequestTarget target, String message, boolean escapeModelString) {
-		confirmDialog.setContent(new WarningPanel(confirmDialog.getContentId(), message, escapeModelString));
-		confirmDialog.show(target);
-	}
-
 	/**
 	 * Targets representing each slot of the priolist.
 	 */
@@ -323,6 +310,20 @@ public abstract class AbstractDragAndDrop extends Panel{
 
 		System.out.println(" ]");
 	}
+	
+	private void initAndAddDialog(){
+		confirmDialog.setTitle("Hinweis");
+		confirmDialog.setContent(new WarningPanel(confirmDialog.getContentId(), ""));
+		confirmDialog.setInitialHeight(75);
+		confirmDialog.setInitialWidth(350);
+		add(confirmDialog);
+	}
+	
+	public void changeDialogContentAndShow(AjaxRequestTarget target, String message, boolean escapeModelString) {
+		confirmDialog.setContent(new WarningPanel(confirmDialog.getContentId(), message, escapeModelString));
+		confirmDialog.show(target);
+	}
+
 
 	/**
 	 * handles process when an element is moved out of this container.

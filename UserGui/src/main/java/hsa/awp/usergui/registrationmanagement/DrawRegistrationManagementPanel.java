@@ -122,7 +122,7 @@ public class DrawRegistrationManagementPanel extends Panel {
 	        private static final long serialVersionUID = 1L;
 	        
 	        private AbstractDragAndDrop createList(String id, List<Event> events, int maxItems, boolean isActive){
-	      	  if(campaign.getNewPrio() == 0){
+	      	  if(campaign.findCurrentProcedure().getRuleBased() == 0){
 	      		  return new DropAndSortableBox(id, events, maxItems, isActive);
 	      	  }
 	      	  return new DragAndSortableBoxWRules(id, events, maxItems, isActive);

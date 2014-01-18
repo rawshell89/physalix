@@ -640,5 +640,5 @@ public interface IAdminGuiController extends IGuiController {
   Campaign createCampaign(String name, String email, Calendar endShow,
 		Calendar startShow, LinkedList<Long> linkedList,
 		List<Procedure> procedures, Session session, Set<Long> studyCourseIds,
-		String detailText, int flag);
+		String detailText);
 }

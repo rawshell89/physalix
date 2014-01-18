@@ -149,7 +149,7 @@ public class AlterCampaignPanel extends AbstractCampaign {
   }
 
   @Override
-  protected void workResult(String name, String email, List<Event> events, List<Procedure> proceduresInput, Calendar startShow, Calendar endShow, List<StudyCourse> studyCourses, String detailText, int flag) {
+  protected void workResult(String name, String email, List<Event> events, List<Procedure> proceduresInput, Calendar startShow, Calendar endShow, List<StudyCourse> studyCourses, String detailText) {
 
     List<Procedure> procedures = new LinkedList<Procedure>(proceduresInput);
     HashSet<Long> eventIds = new HashSet<Long>();

@@ -1246,13 +1246,12 @@ private List<Mandator> getMandatorsFromUser(SingleUser user) {
 public Campaign createCampaign(String name, String email, Calendar endShow,
 		Calendar startShow, LinkedList<Long> linkedList,
 		List<Procedure> procedures, Session session, Set<Long> studyCourseIds,
-		String detailText, int flag) {
+		String detailText) {
 	Campaign campaign = null;
     try {
       campaign = Campaign.getInstance(getActiveMandator(session));
       campaign.setEndShow(endShow);
       campaign.setStartShow(startShow);
-      campaign.setNewPrio(flag);
       campaign.setEventIds(new HashSet<Long>(linkedList));
       campaign.setName(name);
       campaign.setCorrespondentEMail(email);

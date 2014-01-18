@@ -135,10 +135,10 @@ public class CampaignPreviewPanel extends Panel {
         } 
         else if (camp.findCurrentProcedure() instanceof DrawProcedure
             && !controller.isAlreadyDrawn((DrawProcedure) currentProcedure)) {
-        	if(camp.getNewPrio() == 0)
+        	if(camp.findCurrentProcedure().getRuleBased() == 0)
         		setResponsePage(new OnePanelPage(new PriorityListSelector("p1", (DrawProcedure) camp
         				.findCurrentProcedure())));
-        	else if(camp.getNewPrio() == 1)
+        	else if(camp.findCurrentProcedure().getRuleBased() == 1)
         		setResponsePage(new OnePanelPage(new NewPriorityListSelector("p1", camp
         				.findCurrentProcedure().getId())));
         }
