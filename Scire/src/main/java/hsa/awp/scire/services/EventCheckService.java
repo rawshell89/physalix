@@ -113,6 +113,7 @@ public EventCheckService() {
     */
     int maxParticipants = e.getMaxParticipants();
     long participantCount = -1;
+    //try to prevent LazyInitializationException when e.g. session has been closed in the meanwhile
     try{
     	participantCount = e.getConfirmedRegistrations().size();	
     }catch(LazyInitializationException ex){

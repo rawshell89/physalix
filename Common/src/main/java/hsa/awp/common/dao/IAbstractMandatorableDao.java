@@ -28,9 +28,7 @@ import java.util.List;
 public interface IAbstractMandatorableDao<T extends AbstractMandatorableDomainObject<K>, K> extends IAbstractDao<T, K> {
   long countByMandator(Long mandatorId);
 
-  @SuppressWarnings("unchecked")
   List<T> findByMandator(Long mandatorId);
 
-  @SuppressWarnings("unchecked")
   List<T> findByMandator(int firstResult, int maxResults, Long mandatorId);
 }
