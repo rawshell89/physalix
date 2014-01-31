@@ -98,24 +98,24 @@ public class BasePage extends WebPage {
     addStudyCourseImportLink();
     addMandatorLink();
     addSeperators();
-    addPrioListsLink();
+//    addPrioListsLink();
   }
   
-  private void addPrioListsLink(){
-	  Link<PrioListItemsPanel> prioListLink = new Link<PrioListItemsPanel>("priolists") {
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public void onClick() {
-			setResponsePage(new OnePanelPage(new PrioListItemsPanel(OnePanelPage.getPanelIdOne())));
-		}
-	};
-	add(prioListLink);
-  }
+//  private void addPrioListsLink(){
+//	  Link<PrioListItemsPanel> prioListLink = new Link<PrioListItemsPanel>("priolists") {
+//
+//		/**
+//		 * 
+//		 */
+//		private static final long serialVersionUID = 1L;
+//
+//		@Override
+//		public void onClick() {
+//			setResponsePage(new OnePanelPage(new PrioListItemsPanel(OnePanelPage.getPanelIdOne())));
+//		}
+//	};
+//	add(prioListLink);
+//  }
 
   private void addUserRegistrationLink() {
     Link<RegistrationManagementPanel> registrationManagementPanelLink = new Link<RegistrationManagementPanel>("registrations") {

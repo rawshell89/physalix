@@ -40,7 +40,7 @@ h3.title {
 div#selector {
     float: left;
     min-height: 200px;
-    width: 185px;
+    width: 275px;
     border: 1px #000000 solid;
 }
 
@@ -107,7 +107,7 @@ div#broadSelector ul li a:hover {
 }
 
 div.priolist {
-    width: 185px;
+    width: 275px;
     margin-right: 20px;
     margin-bottom: 10px;
     border: 1px #000000 solid;
@@ -165,7 +165,7 @@ div#lists {
     margin-bottom: 20px;
     border-left: 1px #ff5e00 dotted;
     padding-left: 20px;
-    width: 180px;
+    width: 275px;
 }
 
 div#newLists {
