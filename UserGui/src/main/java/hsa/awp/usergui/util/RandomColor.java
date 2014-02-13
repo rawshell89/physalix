@@ -31,7 +31,7 @@ public class RandomColor {
 				"c3bfdb", "f3cd51", "d3df3d"));
 		List<String> colors = new ArrayList<String>();
 		for (int i = 0; i < numberOfColors; i++) {
-			if (i < 10) {
+			if (i < goodReadableColors.size()) {
 				int index = random.nextInt(goodReadableColors.size());
 				String color = goodReadableColors.get(index);
 				colors.add(color);
