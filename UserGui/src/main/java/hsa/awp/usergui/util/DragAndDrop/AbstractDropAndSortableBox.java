@@ -22,7 +22,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
-public abstract class AbstractDragAndDrop extends Panel{
+public abstract class AbstractDropAndSortableBox extends Panel{
 	
 	/**
 	 * 
@@ -53,7 +53,7 @@ public abstract class AbstractDragAndDrop extends Panel{
 	private MarkupContainer markupBox;
 	
 
-	public AbstractDragAndDrop(String id, int maxItems) {
+	public AbstractDropAndSortableBox(String id, int maxItems) {
 
 		this(id, null, maxItems, true);
 		initAndAddDialog();
@@ -72,7 +72,7 @@ public abstract class AbstractDragAndDrop extends Panel{
 	 * @param isActive
 	 *            true if draggabiliy is given
 	 */
-	public AbstractDragAndDrop(String id, List<Event> events, int maxItems,
+	public AbstractDropAndSortableBox(String id, List<Event> events, int maxItems,
 			boolean isActive) {
 		super(id);
 		this.isActive = isActive;
@@ -122,7 +122,7 @@ public abstract class AbstractDragAndDrop extends Panel{
 
 		for (int i = 0; i < maxItems; i++) {
 			draggablePrioListTargets.add(new DraggablePrioListTarget(
-					"DropAndSortableBox.droptarget", AbstractDragAndDrop.this,
+					"DropAndSortableBox.droptarget", AbstractDropAndSortableBox.this,
 					i, elements[i], isActive));
 		}
 
@@ -177,7 +177,7 @@ public abstract class AbstractDragAndDrop extends Panel{
 	
 	public void doElseBranch(DragableElement element, AjaxRequestTarget target){
 		AbstractPriorityListSelector pls = findParent(AbstractPriorityListSelector.class);
-		if(element.findParent(AbstractDragAndDrop.class) == null)
+		if(element.findParent(AbstractDropAndSortableBox.class) == null)
 			pls.addElementToSourceBox(element);
 		pls.updateLists(target);
 	};

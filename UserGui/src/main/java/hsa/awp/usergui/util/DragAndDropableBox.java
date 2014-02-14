@@ -23,7 +23,7 @@ package hsa.awp.usergui.util;
 
 import hsa.awp.event.model.Event;
 import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
-import hsa.awp.usergui.util.DragAndDrop.AbstractDragAndDrop;
+import hsa.awp.usergui.util.DragAndDrop.AbstractDropAndSortableBox;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -148,7 +148,7 @@ public class DragAndDropableBox extends Panel {
 //            if (ddb != null) {
 //              ddb.removeElementFromList(element, target);
 //            }
-            AbstractDragAndDrop dsb = element.findParent(AbstractDragAndDrop.class);
+            AbstractDropAndSortableBox dsb = element.findParent(AbstractDropAndSortableBox.class);
 
             if (dsb != null) {
               boolean isLastElement = dsb.removeItem(element, target);

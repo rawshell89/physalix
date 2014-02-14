@@ -10,7 +10,7 @@ import java.util.List;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 
-public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
+public class DropAndSortableBoxWRules extends AbstractDropAndSortableBox {
 
 	/**
 	 * 
@@ -18,11 +18,11 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 	private static final long serialVersionUID = 1L;
 	private long subjectId = -1;
 
-	public DragAndSortableBoxWRules(String id, int maxItems) {
+	public DropAndSortableBoxWRules(String id, int maxItems) {
 		super(id, maxItems);
 	}
 
-	public DragAndSortableBoxWRules(String id, List<Event> events,
+	public DropAndSortableBoxWRules(String id, List<Event> events,
 			int maxItems, boolean isActive) {
 		super(id, events, maxItems, isActive);
 		if(events.size() > 0){
@@ -38,7 +38,7 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 		if (subjectId == -1 || subjectId == elementSubjectId) {
 			NewPriorityListSelector selector = findParent(NewPriorityListSelector.class);
 			if (selector != null) {
-				List<DragAndSortableBoxWRules> lists = selector.getLists();
+				List<DropAndSortableBoxWRules> lists = selector.getLists();
 				List<Long> alreadySettedLists = selector
 						.getSubjectIdsFromSavedLists();
 				if (checkListsForItem(alreadySettedLists, lists, element,
@@ -91,14 +91,14 @@ public class DragAndSortableBoxWRules extends AbstractDragAndDrop {
 	}
 
 	private boolean checkListsForItem(List<Long> savedLists,
-			List<DragAndSortableBoxWRules> drags, DragableElement element,
+			List<DropAndSortableBoxWRules> drags, DragableElement element,
 			AjaxRequestTarget target) {
 		long subjectId = element.getEvent().getSubject().getId();
 		for (Long id : savedLists) {
 			if (subjectId == id)
 				return false;
 		}
-		for (DragAndSortableBoxWRules drag : drags) {
+		for (DropAndSortableBoxWRules drag : drags) {
 			if (drag != this) {
 				if (drag.subjectId == subjectId) {
 					DragableElement[] elements = drag.getElements();

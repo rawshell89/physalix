@@ -28,8 +28,8 @@ import hsa.awp.event.model.Event;
 import hsa.awp.usergui.controller.IUserGuiController;
 import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
 import hsa.awp.usergui.util.JavascriptEventConfirmation;
-import hsa.awp.usergui.util.DragAndDrop.AbstractDragAndDrop;
-import hsa.awp.usergui.util.DragAndDrop.DragAndSortableBoxWRules;
+import hsa.awp.usergui.util.DragAndDrop.AbstractDropAndSortableBox;
+import hsa.awp.usergui.util.DragAndDrop.DropAndSortableBoxWRules;
 import hsa.awp.usergui.util.DragAndDrop.DropAndSortableBox;
 
 import java.util.LinkedList;
@@ -70,7 +70,7 @@ public class DrawRegistrationManagementPanel extends Panel {
   /**
    * List of all priolistBoxes.
    */
-  private List<AbstractDragAndDrop> dropBoxList;
+  private List<AbstractDropAndSortableBox> dropBoxList;
 
   private MarkupContainer box;
 
@@ -96,7 +96,7 @@ public class DrawRegistrationManagementPanel extends Panel {
 	        campaign = priorityList.getProcedure().getCampaign();
 	      }
 
-	      dropBoxList = new LinkedList<AbstractDragAndDrop>();
+	      dropBoxList = new LinkedList<AbstractDropAndSortableBox>();
 
 	      box = new WebMarkupContainer("DrawRegistrationManagemantPanel.box");
 	      box.setOutputMarkupId(true);
@@ -121,17 +121,17 @@ public class DrawRegistrationManagementPanel extends Panel {
 	      Loop prioListLoop = new Loop("DrawRegistrationManagemantPanel.listsList", iterations) {
 	        private static final long serialVersionUID = 1L;
 	        
-	        private AbstractDragAndDrop createList(String id, List<Event> events, int maxItems, boolean isActive){
+	        private AbstractDropAndSortableBox createList(String id, List<Event> events, int maxItems, boolean isActive){
 	      	  if(campaign.findCurrentProcedure().getRuleBased() == 0){
 	      		  return new DropAndSortableBox(id, events, maxItems, isActive);
 	      	  }
-	      	  return new DragAndSortableBoxWRules(id, events, maxItems, isActive);
+	      	  return new DropAndSortableBoxWRules(id, events, maxItems, isActive);
 	        }
 
 	        @Override
 	        protected void populateItem(final LoopItem item) {
 	          List<PriorityList> prioListList = priolistModel.getObject();
-	          AbstractDragAndDrop list = createList("DrawRegistrationManagemantPanel.prioList",
+	          AbstractDropAndSortableBox list = createList("DrawRegistrationManagemantPanel.prioList",
 	              getEventListFromPrioList(prioListList.get(item.getIteration())), prioListList
 	              .get(item.getIteration()).getProcedure().getMaximumPriorityListItems(), false);
 	          list.setOutputMarkupId(true);

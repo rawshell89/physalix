@@ -22,7 +22,7 @@
 package hsa.awp.usergui.util;
 
 import hsa.awp.usergui.prioritylistselectors.AbstractPriorityListSelector;
-import hsa.awp.usergui.util.DragAndDrop.AbstractDragAndDrop;
+import hsa.awp.usergui.util.DragAndDrop.AbstractDropAndSortableBox;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -45,7 +45,7 @@ public class DraggablePrioListTarget extends Panel {
 	/**
 	 * reference to partent box.
 	 */
-	private AbstractDragAndDrop box;
+	private AbstractDropAndSortableBox box;
 
 	/**
 	 * draggableTarget which can recieve {@link DragableElement}.
@@ -74,7 +74,7 @@ public class DraggablePrioListTarget extends Panel {
 	 * @param index
 	 *            index of this slot in the priolist.
 	 */
-	public DraggablePrioListTarget(String id, AbstractDragAndDrop box, int index) {
+	public DraggablePrioListTarget(String id, AbstractDropAndSortableBox box, int index) {
 
 		this(id, box, index, null);
 	}
@@ -91,7 +91,7 @@ public class DraggablePrioListTarget extends Panel {
 	 * @param element
 	 *            element to display.
 	 */
-	public DraggablePrioListTarget(String id, AbstractDragAndDrop box,
+	public DraggablePrioListTarget(String id, AbstractDropAndSortableBox box,
 			int index, DragableElement element) {
 
 		this(id, box, index, element, true);
@@ -111,7 +111,7 @@ public class DraggablePrioListTarget extends Panel {
 	 * @param isActive
 	 *            true if draggabiliy is given
 	 */
-	public DraggablePrioListTarget(String id, AbstractDragAndDrop box,
+	public DraggablePrioListTarget(String id, AbstractDropAndSortableBox box,
 			int index, DragableElement element, boolean isActive) {
 
 		super(id);
@@ -221,8 +221,8 @@ public class DraggablePrioListTarget extends Panel {
 				DraggablePrioListTarget.this.box.itemDropped(element,
 						DraggablePrioListTarget.this, target);
 
-				AbstractDragAndDrop dsb = element
-						.findParent(AbstractDragAndDrop.class);
+				AbstractDropAndSortableBox dsb = element
+						.findParent(AbstractDropAndSortableBox.class);
 
 				if (dsb != null) {
 					if (!dsb.listContainsElement(element))

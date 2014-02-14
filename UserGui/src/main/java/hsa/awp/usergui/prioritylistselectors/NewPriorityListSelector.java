@@ -14,8 +14,8 @@ import hsa.awp.usergui.registrationmanagement.DrawRegistrationManagementPanel;
 import hsa.awp.usergui.util.DragAndDropableBox;
 import hsa.awp.usergui.util.DragableElement;
 import hsa.awp.usergui.util.RandomColor;
-import hsa.awp.usergui.util.DragAndDrop.AbstractDragAndDrop;
-import hsa.awp.usergui.util.DragAndDrop.DragAndSortableBoxWRules;
+import hsa.awp.usergui.util.DragAndDrop.AbstractDropAndSortableBox;
+import hsa.awp.usergui.util.DragAndDrop.DropAndSortableBoxWRules;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -60,7 +60,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 			"Listen sind nicht gespeichert/Lists are not saved!");
 	private static final long serialVersionUID = 1L;
 	private IModel<List<Category>> categoryListModel;
-	private List<DragAndSortableBoxWRules> dropBoxList;
+	private List<DropAndSortableBoxWRules> dropBoxList;
 	private SingleUser singleUser;
 	@SpringBean(name = "usergui.controller")
 	private IUserGuiController controller;
@@ -135,7 +135,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 				List<Event> events = eventsContainer.getEventList();
 				if (events.size() > 0) {
 					long subId = events.get(0).getSubject().getId();
-					for (DragAndSortableBoxWRules box : dropBoxList) {
+					for (DropAndSortableBoxWRules box : dropBoxList) {
 						if (box.getSubjectId() == subId) {
 							eventsContainer.add(new SimpleAttributeModifier(
 									"style", box.getColor()));
@@ -238,7 +238,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 			}
 		});
 		
-		dropBoxList = new ArrayList<DragAndSortableBoxWRules>(drawProcedureModel
+		dropBoxList = new ArrayList<DropAndSortableBoxWRules>(drawProcedureModel
 				.getObject().getMaximumPriorityLists());
 		
 		
@@ -253,7 +253,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 
 		        Set<List<Event>> lists = new HashSet<List<Event>>();
 
-		        for (AbstractDragAndDrop box : dropBoxList) {
+		        for (AbstractDropAndSortableBox box : dropBoxList) {
 		          if (box.getEventList().size() > 0) {
 		            lists.add(box.getEventList());
 		          }
@@ -326,7 +326,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 					retryInit();
 				String color = colors.get(index++);
 				DrawProcedure drawProcedure = drawProcedureModel.getObject();
-				DragAndSortableBoxWRules list = new DragAndSortableBoxWRules(
+				DropAndSortableBoxWRules list = new DropAndSortableBoxWRules(
 						"prioListSelector.prioList",
 						drawProcedure.getMaximumPriorityListItems());
 				list.setOutputMarkupId(true);
@@ -397,7 +397,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 		 * check if event is in an uncommited priolist
 		 */
 		if (dropBoxList != null && dropBoxList.size() > 0) {
-			for (DragAndSortableBoxWRules box : dropBoxList) {
+			for (DropAndSortableBoxWRules box : dropBoxList) {
 				eventBlackList.addAll(box.getEventList());
 			}
 		}
@@ -407,7 +407,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 
 	public void moveElementsBackToSource() {
 
-		for (DragAndSortableBoxWRules dropBox : dropBoxList) {
+		for (DropAndSortableBoxWRules dropBox : dropBoxList) {
 			for (Event event : dropBox.getEventList()) {
 				eventsContainer.addElement(new DragableElement(
 						DragAndDropableBox.DRAG_AND_DROPABLE_BOX_ITEM, event));
@@ -510,7 +510,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 		return eventsContainer;
 	}
 	
-	public List<DragAndSortableBoxWRules> getLists(){
+	public List<DropAndSortableBoxWRules> getLists(){
 		return dropBoxList;
 	}
 	

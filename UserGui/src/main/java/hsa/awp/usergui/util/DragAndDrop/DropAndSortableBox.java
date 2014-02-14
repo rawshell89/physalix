@@ -33,7 +33,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
  * 
  * @author basti
  */
-public class DropAndSortableBox extends AbstractDragAndDrop {
+public class DropAndSortableBox extends AbstractDropAndSortableBox {
 	/**
 	 * unique serialization id.
 	 */
