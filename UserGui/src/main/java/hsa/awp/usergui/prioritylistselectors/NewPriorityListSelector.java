@@ -482,7 +482,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 			if (id != -1) {
 				if (subjectCache.get(id) == null) {
 					List<Subject> subs = controller
-							.findAllSubjectsByCategoryId(id);
+							.findAllSubjectsByCategoryId(id, drawProcedureModel.getObject());
 					if (subs != null) {
 						subjectCache.put(id, subs);
 						return subs;

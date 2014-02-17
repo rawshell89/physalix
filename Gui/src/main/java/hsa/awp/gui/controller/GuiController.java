@@ -41,6 +41,7 @@ import hsa.awp.user.model.Student;
 import hsa.awp.user.model.User;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -127,10 +128,18 @@ public class GuiController implements IGuiController {
 	}
 
 	@Override
-	public List<Subject> findAllSubjectsByCategoryId(long id) {
-		List<Subject> list = null;
+	public List<Subject> findAllSubjectsByCategoryId(long id, Procedure proc) {
+		List<Subject> list = new ArrayList<Subject>();
 		try {
-			list = evtFacade.findAllSubjectsByCategoryId(id);
+			Set<Long> subjectIds = new HashSet<Long>();
+			for(Event event : getEventsByCampaign(proc.getCampaign())){
+				subjectIds.add(event.getSubject().getId());
+			}
+			for(Subject sub : evtFacade.findAllSubjectsByCategoryId(id)){
+				if(subjectIds.contains(sub.getId())){
+					list.add(sub);
+				}
+			}
 		} catch (DataAccessException dae) {
 			return null;
 		}
