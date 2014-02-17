@@ -530,7 +530,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 	private void addEventsToContainer(long id) {
 		if (eventCache.get(id) == null) {
 			List<Event> eventList = controller
-					.findEventsBySubjectId(id);
+					.findEventsBySubjectId(id, drawProcedureModel.getObject());
 			if (eventList != null) {
 				eventCache.put(id, eventList);
 				List<Event> filteredList = filterEventListForSourcebox(eventCache

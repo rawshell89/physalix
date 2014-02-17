@@ -21,25 +21,31 @@
 
 package hsa.awp.gui.controller;
 
+import hsa.awp.campaign.facade.CampaignFacade;
 import hsa.awp.campaign.facade.ICampaignFacade;
 import hsa.awp.campaign.model.Campaign;
 import hsa.awp.campaign.model.ConfirmedRegistration;
 import hsa.awp.campaign.model.PriorityList;
+import hsa.awp.campaign.model.Procedure;
 import hsa.awp.common.exception.DataAccessException;
+import hsa.awp.event.facade.EventFacade;
 import hsa.awp.event.facade.IEventFacade;
 import hsa.awp.event.model.Category;
 import hsa.awp.event.model.Event;
 import hsa.awp.event.model.Subject;
 import hsa.awp.rule.facade.IRuleFacade;
 import hsa.awp.rule.facade.RuleFacade;
-import hsa.awp.rule.model.RegistrationRuleSet;
 import hsa.awp.user.facade.IUserFacade;
 import hsa.awp.user.model.SingleUser;
 import hsa.awp.user.model.Student;
 import hsa.awp.user.model.User;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.transaction.annotation.Transactional;
 
 public class GuiController implements IGuiController {
 	/**
@@ -254,10 +260,15 @@ public class GuiController implements IGuiController {
 	}
 	
 	@Override
-	public List<Event> findEventsBySubjectId(long subjectId){
-		List<Event> list = null;
+	public List<Event> findEventsBySubjectId(long subjectId, Procedure proc){
+		List<Event> list = new ArrayList<Event>();
 		try {
-			list = evtFacade.findEventsBySubjectId(subjectId);
+			Set<Long> ids = proc.getCampaign().getEventIds();
+			for(Event e : evtFacade.findEventsBySubjectId(subjectId)){
+				if(ids.contains(e.getId())){
+					list.add(e);
+				}
+			}
 		} catch (DataAccessException dae) {
 			return null;
 		}
