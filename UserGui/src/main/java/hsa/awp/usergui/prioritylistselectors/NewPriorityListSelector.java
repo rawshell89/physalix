@@ -21,11 +21,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -72,8 +70,6 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 	private DropDownChoice<Category> categoryList;
 	private FeedbackPanel feedbackPanel = new FeedbackPanel("prio.feedback");
 	private DragAndDropableBox eventsContainer;
-	private Map<Long, List<Subject>> subjectCache = new HashMap<Long, List<Subject>>();
-	private Map<Long, List<Event>> eventCache = new HashMap<Long, List<Event>>();
 	private MarkupContainer box;
 	private MarkupContainer updateContainer;
 	private String defaultBckColor = "background-color: #ffffff";
@@ -437,7 +433,6 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 	 */
 	public void update(AjaxRequestTarget target, PriorityList list) {
 		eventsContainer.removeAllElements();
-		eventCache.clear();
 		moveElementsBackToSource();
 		Subject s = subjectList.getModelObject();
 		if(s != null){
@@ -480,17 +475,9 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 		@Override
 		protected List<Subject> load() {
 			if (id != -1) {
-				if (subjectCache.get(id) == null) {
-					List<Subject> subs = controller
-							.findAllSubjectsByCategoryId(id, drawProcedureModel.getObject());
-					if (subs != null) {
-						subjectCache.put(id, subs);
-						return subs;
-					}
-					return new ArrayList<Subject>();
-				} else {
-					return subjectCache.get(id);
-				}
+
+				return controller.findAllSubjectsByCategoryId(id,
+						drawProcedureModel.getObject());
 			}
 			return new ArrayList<Subject>();
 		}
@@ -498,8 +485,8 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 		public void setId(long id) {
 			this.id = id;
 		}
-		
-		public void reset(){
+
+		public void reset() {
 			this.id = -1;
 		}
 
@@ -528,19 +515,11 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 	}
 	
 	private void addEventsToContainer(long id) {
-		if (eventCache.get(id) == null) {
 			List<Event> eventList = controller
 					.findEventsBySubjectId(id, drawProcedureModel.getObject());
 			if (eventList != null) {
-				eventCache.put(id, eventList);
-				List<Event> filteredList = filterEventListForSourcebox(eventCache
-						.get(id));
+				List<Event> filteredList = filterEventListForSourcebox(eventList);
 				eventsContainer.addAllEvents(filteredList);
 			}
-		} else {
-			List<Event> filteredList = filterEventListForSourcebox(eventCache
-					.get(id));
-			eventsContainer.addAllEvents(filteredList);
-		}
 	}
 }
