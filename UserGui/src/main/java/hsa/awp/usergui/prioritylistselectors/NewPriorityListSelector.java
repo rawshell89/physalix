@@ -90,7 +90,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 				.getAuthentication().getName());
 		eventsContainer = new DragAndDropableBox(
 				"prioListSelector.selectableObjects");
-		eventsContainer.setOutputMarkupId(true);
+		eventsContainer.setOutputMarkupId(true);	
 		
 		subjectList = new DropDownChoice<Subject>("prioListSelector.subjects", new Model<Subject>(),
 				subjectModel, new ChoiceRenderer<Subject>(){
