@@ -371,7 +371,7 @@ public class NewPriorityListSelector extends AbstractPriorityListSelector {
 		//add(form);
 		
 		 DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		 box.add(new Label("prioListSelector.heading", drawProcedureModel.getObject().getCampaign().getName()
+		 add(new Label("prioListSelector.heading", drawProcedureModel.getObject().getCampaign().getName()
 		        + ": Phase: "
 		        + drawProcedureModel.getObject().getName()
 		        + " vom "
