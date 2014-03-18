@@ -327,10 +327,13 @@ public class DrawProcedureLogic extends AbstractProcedureLogic<DrawProcedure> im
 
           mailPerUser.put(list.getParticipant(), mailContent);
         }
+        
+        //deactivated sending mails to users due to an error occured, 
+        //which starts the sending of mails over and over again
 
-        for (MailContent mailContent : mailPerUser.values()) {
-          sendMail(mailContent);
-        }
+//        for (MailContent mailContent : mailPerUser.values()) {
+//          sendMail(mailContent);
+//        }
 
         logger.info("send registrationLog");
         String drawLogAsXml = xmlDrawLogUtil.transformMailContentsToXml(mailPerUser.values());

@@ -293,7 +293,7 @@ public class ScireController implements IScireController {
       // is over?
       if (proc.getEndDate().compareTo(now) <= 0) {
         logger.debug("finish {}", logic);
-        //logic.afterActive();
+        logic.afterActive();
         runningProcedures.remove(logic);
       } else {
         // notify running
